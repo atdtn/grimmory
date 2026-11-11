@@ -52,6 +52,7 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
     private static final int CONNECTION_TIMEOUT_SECONDS = 15;
     private static final int MAX_RETRIES = 3;
     private static final int MAX_RESULTS = 10;
+    private static final long MAX_RETRY_DELAY_MS = 30_000L;
     private static final Pattern NUMERIC_ID_PATTERN = Pattern.compile("\\d+");
     private static final Pattern ISBN_SEPARATOR_PATTERN = Pattern.compile("[^0-9Xx]");
 
@@ -229,8 +230,8 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
                 .externalUrl(siteUrl(text(data, "url")))
                 .categories(categories)
                 .tags(tags)
-                .publishedDate(parseDate(firstNonBlank(text(data, "publication_date"),
-                        text(data, "date_written_at"))))
+                .publishedDate(parseDate(text(data, "publication_date"),
+                        text(data, "date_written_at")))
                 .language(LanguageNormalizer.normalize(text(data, "language_code")))
                 .publisher(publisherName(data))
                 .litresRating(doubleValue(data.path("rating"), "rated_avg"))
@@ -335,16 +336,18 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
         return path.startsWith("http") ? path : SITE_BASE + (path.startsWith("/") ? path : "/" + path);
     }
 
-    private LocalDate parseDate(String value) {
-        if (value == null) {
-            return null;
+    private LocalDate parseDate(String... values) {
+        for (String value : values) {
+            if (value == null) {
+                continue;
+            }
+            try {
+                return LocalDate.parse(value.length() > 10 ? value.substring(0, 10) : value);
+            } catch (DateTimeParseException e) {
+                log.debug("Unable to parse LitRes date: {}", value);
+            }
         }
-        try {
-            return LocalDate.parse(value.length() > 10 ? value.substring(0, 10) : value);
-        } catch (DateTimeParseException e) {
-            log.debug("Unable to parse LitRes date: {}", value);
-            return null;
-        }
+        return null;
     }
 
     private String stripHtml(String html) {
@@ -373,7 +376,7 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
                 .timeout(Duration.ofSeconds(CONNECTION_TIMEOUT_SECONDS))
                 .header("User-Agent", USER_AGENT)
                 .header("Accept", "application/json")
-                .header("Accept-Language", "ru-RU,ru;q=0.9,en;q=0.5")
+                .header("Accept-Language", "ru-RU,ru;q=0.9")
                 .header("Referer", SITE_BASE + "/")
                 .GET()
                 .build();
@@ -387,19 +390,37 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
                 int status = response.statusCode();
 
                 if (status >= 200 && status < 300) {
+                    JsonNode root;
                     try {
-                        return objectMapper.readTree(response.body());
+                        root = objectMapper.readTree(response.body());
                     } catch (RuntimeException e) {
                         log.error("Failed to parse LitRes JSON response from {}", url, e);
                         return null;
                     }
+
+                    int apiStatus = root.path("status").asInt(200);
+                    if (apiStatus >= 200 && apiStatus < 300) {
+                        return root;
+                    }
+                    if (isRetryable(apiStatus) && attempt < MAX_RETRIES) {
+                        long delay = retryDelayMillis(response, attempt);
+                        log.warn("LitRes API returned status {} (attempt {}/{}), retrying in {} ms",
+                                apiStatus, attempt, MAX_RETRIES, delay);
+                        if (!sleep(delay)) {
+                            return null;
+                        }
+                        continue;
+                    }
+
+                    log.error("LitRes API returned status {} for {}", apiStatus, url);
+                    return null;
                 }
                 if (status == 404) {
                     log.debug("LitRes resource not found: {}", url);
                     return null;
                 }
                 if (isRetryable(status) && attempt < MAX_RETRIES) {
-                    long delay = retryAfterMillis(response).orElse(1000L * attempt);
+                    long delay = retryDelayMillis(response, attempt);
                     log.warn("LitRes request failed with status {} (attempt {}/{}), retrying in {} ms",
                             status, attempt, MAX_RETRIES, delay);
                     if (!sleep(delay)) {
@@ -430,6 +451,11 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
 
     private boolean isRetryable(int status) {
         return status == 403 || status == 429 || status >= 500;
+    }
+
+    private long retryDelayMillis(HttpResponse<String> response, int attempt) {
+        return Math.min(MAX_RETRY_DELAY_MS,
+                retryAfterMillis(response).orElse(1000L * attempt));
     }
 
     private Optional<Long> retryAfterMillis(HttpResponse<String> response) {
@@ -495,7 +521,20 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
 
     private static Double doubleValue(JsonNode node, String field) {
         JsonNode value = node != null ? node.get(field) : null;
-        return value != null && value.isNumber() ? value.asDouble() : null;
+        if (value == null || value.isNull()) {
+            return null;
+        }
+        if (value.isNumber()) {
+            return value.asDouble();
+        }
+        if (value.isTextual()) {
+            try {
+                return Double.parseDouble(value.asText().trim());
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     private static Integer integerValue(JsonNode node, String field) {
@@ -504,8 +543,18 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
 
     private static Integer integerValue(JsonNode node, String field, Integer fallback) {
         JsonNode value = node != null ? node.get(field) : null;
-        if (value != null && value.isNumber()) {
+        if (value == null || value.isNull()) {
+            return fallback;
+        }
+        if (value.isNumber()) {
             return value.asInt();
+        }
+        if (value.isTextual()) {
+            try {
+                return Integer.parseInt(value.asText().trim());
+            } catch (NumberFormatException e) {
+                return fallback;
+            }
         }
         return fallback;
     }

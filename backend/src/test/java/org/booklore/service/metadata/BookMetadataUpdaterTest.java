@@ -859,6 +859,26 @@ class BookMetadataUpdaterTest {
         }
 
         @Test
+        void updatesLitresFields() {
+            BookMetadata newMeta = BookMetadata.builder().title("T")
+                    .litresId("55339991").litresRating(4.6).litresReviewCount(2406)
+                    .litresIdLocked(true).litresRatingLocked(true).litresReviewCountLocked(true)
+                    .build();
+            MetadataUpdateContext context = buildContext(newMeta, MetadataReplaceMode.REPLACE_ALL);
+
+            try (MockedStatic<MetadataChangeDetector> mcd = mockStatic(MetadataChangeDetector.class)) {
+                mockSettingsAndChangeDetector(mcd, true, true);
+                updater.setBookMetadata(context);
+                assertThat(metadataEntity.getLitresId()).isEqualTo("55339991");
+                assertThat(metadataEntity.getLitresRating()).isEqualTo(4.6);
+                assertThat(metadataEntity.getLitresReviewCount()).isEqualTo(2406);
+                assertThat(metadataEntity.getLitresIdLocked()).isTrue();
+                assertThat(metadataEntity.getLitresRatingLocked()).isTrue();
+                assertThat(metadataEntity.getLitresReviewCountLocked()).isTrue();
+            }
+        }
+
+        @Test
         void updatesDoubanFields() {
             BookMetadata newMeta = BookMetadata.builder().title("T")
                     .doubanId("1084336").doubanRating(4.55).doubanReviewCount(320)

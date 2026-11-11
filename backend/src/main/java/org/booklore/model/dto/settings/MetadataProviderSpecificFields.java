@@ -21,9 +21,9 @@ public class MetadataProviderSpecificFields {
     private Boolean comicvineId;
     private Boolean lubimyczytacId;
     private Boolean lubimyczytacRating;
-    private Boolean litresId;
-    private Boolean litresRating;
-    private Boolean litresReviewCount;
+    private Boolean litresId = true;
+    private Boolean litresRating = true;
+    private Boolean litresReviewCount = true;
     private Boolean ranobedbId;
     private Boolean ranobedbRating;
     private Boolean audibleId;

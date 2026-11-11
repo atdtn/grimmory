@@ -41,6 +41,10 @@ Russian titles, translators, Russian genres/tags, series order and ISBNs.
   provider precedent.
 - No UDC/BBK: LitRes' API does not expose them for ebooks. Fields are simply
   left empty.
+- LitRes ID/rating are stored in Grimmory's database and sidecar files, but are
+  not embedded into EPUB/PDF/CBX file metadata. The file writers have no LitRes
+  fields, so the change detector marks these fields as not file-write-relevant
+  to avoid pointless file rewrites.
 - No proxy/anti-captcha infrastructure.
 
 ## Constraints
@@ -94,7 +98,7 @@ Both endpoints return `{"status":200,"payload":{...}}`; errors use
 | publisher | `publisher.name`, fallback `copyrighter.name` |
 | litresId | `id` |
 | litresRating | `rating.rated_avg` |
-| litresReviewCount | `rating.rated_total_count` |
+| litresReviewCount | `rating.rated_total_count`, fallback `reviews_count` |
 | externalUrl | `https://www.litres.ru` + `url` |
 
 ## Parts Decided

@@ -190,6 +190,52 @@ class LitresParserTest {
     }
 
     @Test
+    void fetchDetailedMetadata_retriesApiErrorEnvelopeReturnedWithHttp200() throws Exception {
+        mockSettings(true);
+        HttpResponse<String> apiRateLimit = response(200,
+                "{\"status\":429,\"error\":{\"title\":\"Too many requests\"}}",
+                Map.of("Retry-After", List.of("0")));
+        HttpResponse<String> ok = response(200, detailDuneJson, Map.of());
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenReturn(apiRateLimit, ok);
+
+        BookMetadata result = parser.fetchDetailedMetadata("55339991");
+
+        assertThat(result).isNotNull();
+        verify(httpClient, times(2)).send(any(HttpRequest.class), any());
+    }
+
+    @Test
+    void fetchMetadata_sendsExpectedRequestContract() throws Exception {
+        mockSettings(true);
+        List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    HttpRequest request = invocation.getArgument(0);
+                    requests.add(request);
+                    String url = request.uri().toString();
+                    return url.contains("/search")
+                            ? response(200, searchDuneJson, Map.of())
+                            : response(200, detailDuneJson, Map.of());
+                });
+
+        parser.fetchMetadata(Book.builder().title("Дюна").build(),
+                FetchMetadataRequest.builder().title("Дюна").author("Фрэнк Герберт").build());
+
+        assertThat(requests).isNotEmpty();
+        HttpRequest searchRequest = requests.getFirst();
+        assertThat(searchRequest.uri().getPath()).isEqualTo("/foundation/api/search");
+        assertThat(searchRequest.uri().getRawQuery())
+                .contains("q=%D0%94%D1%8E%D0%BD%D0%B0")
+                .contains("types=text_book")
+                .contains("limit=10");
+        assertThat(searchRequest.headers().firstValue("User-Agent"))
+                .hasValueSatisfying(value -> assertThat(value).contains("Mozilla/5.0"));
+        assertThat(searchRequest.headers().firstValue("Accept-Language")).hasValue("ru-RU,ru;q=0.9");
+        assertThat(searchRequest.headers().firstValue("Referer")).hasValue("https://www.litres.ru/");
+    }
+
+    @Test
     void fetchMetadata_returnsEmptyWhenSearchHasNoResults() throws Exception {
         mockSettings(true);
         mockHttp(Map.of("https://api.litres.ru/foundation/api/search",

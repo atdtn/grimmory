@@ -457,6 +457,9 @@ class MetadataRefreshServiceTest {
                 .descriptionLocked(true)
                 .authorsLocked(true)
                 .coverLocked(true)
+                .litresIdLocked(true)
+                .litresRatingLocked(true)
+                .litresReviewCountLocked(true)
                 .allMetadataLocked(false)
                 .build();
 
@@ -476,6 +479,9 @@ class MetadataRefreshServiceTest {
         assertThat(result.getDescriptionLocked()).isTrue();
         assertThat(result.getAuthorsLocked()).isTrue();
         assertThat(result.getCoverLocked()).isTrue();
+        assertThat(result.getLitresIdLocked()).isTrue();
+        assertThat(result.getLitresRatingLocked()).isTrue();
+        assertThat(result.getLitresReviewCountLocked()).isTrue();
         assertThat(result.getAllMetadataLocked()).isFalse();
     }
 
@@ -840,6 +846,27 @@ class MetadataRefreshServiceTest {
         }
 
         @Test
+        void litresFields() {
+            Map<MetadataProvider, BookMetadata> metadataMap = new HashMap<>();
+            metadataMap.put(MetadataProvider.Litres, BookMetadata.builder()
+                    .litresId("55339991")
+                    .litresRating(4.6)
+                    .litresReviewCount(2406)
+                    .build());
+
+            MetadataRefreshOptions options = MetadataRefreshOptions.builder()
+                    .fieldOptions(new MetadataRefreshOptions.FieldOptions())
+                    .enabledFields(new MetadataRefreshOptions.EnabledFields())
+                    .build();
+
+            BookMetadata result = service.buildFetchMetadata(null, 1L, options, metadataMap);
+
+            assertThat(result.getLitresId()).isEqualTo("55339991");
+            assertThat(result.getLitresRating()).isEqualTo(4.6);
+            assertThat(result.getLitresReviewCount()).isEqualTo(2406);
+        }
+
+        @Test
         void ranobedbFields() {
             Map<MetadataProvider, BookMetadata> metadataMap = new HashMap<>();
             metadataMap.put(MetadataProvider.Ranobedb, BookMetadata.builder()
@@ -909,6 +936,9 @@ class MetadataRefreshServiceTest {
                     .comicvineId("cv1")
                     .lubimyczytacId("lc1")
                     .lubimyczytacRating(3.0)
+                    .litresId("55339991")
+                    .litresRating(4.6)
+                    .litresReviewCount(2406)
                     .ranobedbId("rn1")
                     .ranobedbRating(2.5)
                     .moods(Set.of("Dark"))
@@ -925,6 +955,7 @@ class MetadataRefreshServiceTest {
                             .hardcoverRating(false).hardcoverReviewCount(false).hardcoverId(false)
                             .asin(false).googleId(false).comicvineId(false)
                             .lubimyczytacId(false).lubimyczytacRating(false)
+                            .litresId(false).litresRating(false).litresReviewCount(false)
                             .ranobedbId(false).ranobedbRating(false)
                             .moods(false).tags(false).categories(false).cover(false)
                             .build())
@@ -947,6 +978,9 @@ class MetadataRefreshServiceTest {
             assertThat(result.getComicvineId()).isEqualTo("cv1");
             assertThat(result.getLubimyczytacId()).isEqualTo("lc1");
             assertThat(result.getLubimyczytacRating()).isEqualTo(3.0);
+            assertThat(result.getLitresId()).isEqualTo("55339991");
+            assertThat(result.getLitresRating()).isEqualTo(4.6);
+            assertThat(result.getLitresReviewCount()).isEqualTo(2406);
             assertThat(result.getRanobedbId()).isEqualTo("rn1");
             assertThat(result.getRanobedbRating()).isEqualTo(2.5);
             assertThat(result.getMoods()).containsExactly("Dark");
