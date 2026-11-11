@@ -16,6 +16,7 @@ public class SidecarRatings {
     private SidecarRating goodreads;
     private SidecarRating hardcover;
     private SidecarRating lubimyczytac;
+    private SidecarRating litres;
     private SidecarRating ranobedb;
     private SidecarRating audible;
     private SidecarRating applebooks;

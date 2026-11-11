@@ -188,6 +188,9 @@ export interface BookMetadata {
   doubanReviewCount?: number | null;
   lubimyczytacId?: string;
   lubimyczytacRating?: number | null;
+  litresId?: string;
+  litresRating?: number | null;
+  litresReviewCount?: number | null;
   ranobedbId?: string;
   ranobedbRating?: number | null;
   hardcoverRating?: number | null;
@@ -244,6 +247,9 @@ export interface BookMetadata {
   doubanReviewCountLocked?: boolean;
   lubimyczytacIdLocked?: boolean;
   lubimyczytacRatingLocked?: boolean;
+  litresIdLocked?: boolean;
+  litresRatingLocked?: boolean;
+  litresReviewCountLocked?: boolean;
   ranobedbIdLocked?: boolean;
   ranobedbRatingLocked?: boolean;
   audibleIdLocked?: boolean;
@@ -297,6 +303,9 @@ export interface MetadataClearFlags {
   hardcoverReviewCount?: boolean;
   lubimyczytacId?: boolean;
   lubimyczytacRating?: boolean;
+  litresId?: boolean;
+  litresRating?: boolean;
+  litresReviewCount?: boolean;
   ranobedbId?: boolean;
   ranobedbRating?: boolean;
   audibleId?: boolean;

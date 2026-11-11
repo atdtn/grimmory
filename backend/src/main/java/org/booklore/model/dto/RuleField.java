@@ -75,6 +75,10 @@ public enum RuleField {
     ADDED_ON,
     @JsonProperty("lubimyczytacRating")
     LUBIMYCZYTAC_RATING,
+    @JsonProperty("litresRating")
+    LITRES_RATING,
+    @JsonProperty("litresReviewCount")
+    LITRES_REVIEW_COUNT,
     @JsonProperty("description")
     DESCRIPTION,
     @JsonProperty("narrator")

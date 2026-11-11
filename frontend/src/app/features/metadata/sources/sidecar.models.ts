@@ -23,6 +23,7 @@ interface SidecarRatings {
   goodreads?: SidecarRating;
   hardcover?: SidecarRating;
   lubimyczytac?: SidecarRating;
+  litres?: SidecarRating;
   ranobedb?: SidecarRating;
   audible?: SidecarRating;
   applebooks?: SidecarRating;

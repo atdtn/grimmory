@@ -1,0 +1,113 @@
+{
+  "status": 200,
+  "error": null,
+  "payload": {
+    "data": {
+      "id": 72497368,
+      "title": "Девятый",
+      "subtitle": "",
+      "cover_url": "/pub/c/cover/72497368.jpg",
+      "url": "/book/sergey-lukyanenko/devyatyy-72497368/",
+      "language_code": "ru",
+      "cover_height": 2377,
+      "cover_width": 1500,
+      "date_written_at": "2025-09-15",
+      "publication_date": "2026-01-01",
+      "isbn": "978-5-17-182988-9",
+      "html_annotation": "<p>В этом мире космические истребители сражаются над кольцами Сатурна, а иное человечество отстаивает своё право на жизнь.</p><p>Здесь ангелы знают всё, кроме человеческих мыслей. А мёртвые пилоты воскресают вновь и вновь, но не способны состариться.</p><p>Это книга о доброте и жестокости, прошлом и будущем, вере и неверии, Боге и Вселенной, разуме и глупости.</p><p>В общем, обо всём том, о чём лучше не писать.</p>",
+      "original_html_annotation": "<p>В этом мире космические истребители сражаются над кольцами Сатурна, а иное человечество отстаивает своё право на жизнь.</p><p>Здесь ангелы знают всё, кроме человеческих мыслей. А мёртвые пилоты воскресают вновь и вновь, но не способны состариться.</p><p>Это книга о доброте и жестокости, прошлом и будущем, вере и неверии, Боге и Вселенной, разуме и глупости.</p><p>В общем, обо всём том, о чём лучше не писать.</p>",
+      "persons": [
+        {
+          "id": 44957,
+          "full_name": "Сергей Лукьяненко",
+          "url": "/author/sergey-lukyanenko/",
+          "role": "author"
+        }
+      ],
+      "rating": {
+        "rated_avg": 4.79,
+        "rated_total_count": 3375,
+        "rated_1_count": 41,
+        "rated_2_count": 13,
+        "rated_3_count": 87,
+        "rated_4_count": 334,
+        "rated_5_count": 2900
+      },
+      "reviews_count": 381,
+      "series": [
+        {
+          "id": 874105,
+          "uuid": "cb84de67-87f9-11f0-8ce3-0cc47af30fe4",
+          "name": "Небесное воинство",
+          "url": "/series/nebesnoe-voinstvo-874105/",
+          "arts_count": 2,
+          "top_arts": [],
+          "unique_arts_count": 2,
+          "art_order": 2
+        }
+      ],
+      "genres": [
+        {
+          "id": 5075,
+          "uuid": "ed1644e9-f034-11e5-a511-0cc47a5454c6",
+          "name": "героическая фантастика",
+          "is_root": false,
+          "url": "/genre/geroicheskaya-5075/",
+          "is_main": true
+        },
+        {
+          "id": 5077,
+          "uuid": "ed1647ed-f034-11e5-a511-0cc47a5454c6",
+          "name": "космическая фантастика",
+          "is_root": false,
+          "url": "/genre/kosmicheskaya-5077/",
+          "is_main": false
+        },
+        {
+          "id": 5082,
+          "uuid": "ed164f86-f034-11e5-a511-0cc47a5454c6",
+          "name": "попаданцы",
+          "is_root": false,
+          "url": "/genre/popadancy-5082/",
+          "is_main": false
+        }
+      ],
+      "tags": [
+        {
+          "id": 7085,
+          "uuid": "610f846b-5b5b-11e4-96e2-0025905a06ea",
+          "name": "космос",
+          "is_root": false,
+          "url": "/tags/kosmos/"
+        },
+        {
+          "id": 121844,
+          "uuid": "615f6d40-5b5b-11e4-96e2-0025905a06ea",
+          "name": "русская фантастика",
+          "is_root": false,
+          "url": "/tags/russkaya-fantastika/"
+        }
+      ],
+      "additional_info": {
+        "registered_at": "2025-09-15T10:21:28",
+        "translated_at": null,
+        "current_pages_or_seconds": 280,
+        "expected_pages_or_seconds": null
+      },
+      "publisher": null,
+      "copyrighter": {
+        "id": 9339265,
+        "name": "Издательство АСТ",
+        "url": "publisher/ast/"
+      },
+      "labels": {
+        "is_bestseller": false,
+        "is_litres_exclusive": false,
+        "is_new": false,
+        "is_sales_hit": true,
+        "is_audio_series": false
+      },
+      "art_type": 0
+    }
+  }
+}

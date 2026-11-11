@@ -2691,7 +2691,8 @@
       "lubimyczytac": "",
       "ranobedb": "",
       "audible": "",
-      "appleBooks": ""
+      "appleBooks": "",
+      "litres": "ЛитРес"
     },
     "providerFields": {
       "id": "",
@@ -3566,6 +3567,8 @@
       "comicLocation": "Место действия комикса",
       "comicCreator": "Создатель комикса",
       "lubimyczytacRating": "",
+      "litresRating": "Рейтинг ЛитРес",
+      "litresReviewCount": "Количество оценок ЛитРес",
       "audibleReviewCount": "Количество отзывов Audible",
       "audibleRating": ""
     }

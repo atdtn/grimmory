@@ -31,6 +31,7 @@ export const BOOK_QUERY_FACET_KEYS = [
   'hardcover_rating',
   'ranobedb_rating',
   'lubimyczytac_rating',
+  'litres_rating',
   'audible_rating',
   'comic_character',
   'comic_team',
@@ -64,6 +65,8 @@ export const BOOK_QUERY_SORT_KEYS = [
   'hardcoverReviewCount',
   'ranobedbRating',
   'lubimyczytacRating',
+  'litresRating',
+  'litresReviewCount',
   'audibleRating',
   'audibleReviewCount',
 ] as const;

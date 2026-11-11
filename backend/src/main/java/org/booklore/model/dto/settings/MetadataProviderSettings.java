@@ -15,6 +15,8 @@ public class MetadataProviderSettings {
     private Douban douban;
     @JsonProperty("lubimyczytac")
     private Lubimyczytac lubimyczytac;
+    @JsonProperty("litres")
+    private Litres litres;
     private Audible audible;
     private AppleBooks appleBooks;
 
@@ -67,6 +69,11 @@ public class MetadataProviderSettings {
 
     @Data
     public static class Lubimyczytac {
+        private boolean enabled;
+    }
+
+    @Data
+    public static class Litres {
         private boolean enabled;
     }
 

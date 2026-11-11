@@ -1,0 +1,54 @@
+{
+  "status": 200,
+  "error": null,
+  "payload": {
+    "data": [
+      {
+        "type": "text_book",
+        "instance": {
+          "id": 55339991,
+          "title": "Дюна",
+          "subtitle": "",
+          "cover_url": "/pub/c/cover/55339991.jpg",
+          "url": "/book/frenk-gerbert/duna-55339991/",
+          "language_code": "ru",
+          "cover_height": 2575,
+          "cover_width": 1689,
+          "date_written_at": "1965-01-01",
+          "release_file_id": 137488041,
+          "persons": [
+            {
+              "id": 46215,
+              "full_name": "Фрэнк Герберт",
+              "url": "/author/frenk-gerbert/",
+              "role": "author"
+            },
+            {
+              "id": 45007,
+              "full_name": "Юрий Соколов",
+              "url": "/author/uriy-sokolov/",
+              "role": "translator"
+            }
+          ],
+          "rating": {
+            "rated_avg": 4.6,
+            "rated_total_count": 2406,
+            "rated_1_count": 67,
+            "rated_2_count": 64,
+            "rated_3_count": 105,
+            "rated_4_count": 290,
+            "rated_5_count": 1880
+          },
+          "series": [],
+          "labels": {
+            "is_bestseller": true,
+            "is_litres_exclusive": false,
+            "is_new": false,
+            "is_sales_hit": true,
+            "is_audio_series": false
+          }
+        }
+      }
+    ]
+  }
+}

@@ -90,6 +90,7 @@ public class BookFacetRegistry {
                 rating("hardcover_rating", "Hardcover Rating", BookFilterSpecification::withHardcoverRatings, "hardcoverRating"),
                 rating("ranobedb_rating", "RanobeDB Rating", BookFilterSpecification::withRanobedbRatings, "ranobedbRating"),
                 rating("lubimyczytac_rating", "Lubimyczytac Rating", BookFilterSpecification::withLubimyczytacRatings, "lubimyczytacRating"),
+                rating("litres_rating", "LitRes Rating", BookFilterSpecification::withLitresRatings, "litresRating"),
                 rating("audible_rating", "Audible Rating", BookFilterSpecification::withAudibleRatings, "audibleRating"),
                 rating("applebooks_rating", "Apple Books Rating", BookFilterSpecification::withApplebooksRatings, "applebooksRating"),
                 values("age_rating", "Age Rating", any(BookFilterSpecification::withAgeRatings),

@@ -1,0 +1,174 @@
+{
+  "status": 200,
+  "error": null,
+  "payload": {
+    "data": {
+      "id": 55339991,
+      "title": "Дюна",
+      "subtitle": "",
+      "cover_url": "/pub/c/cover/55339991.jpg",
+      "url": "/book/frenk-gerbert/duna-55339991/",
+      "language_code": "ru",
+      "cover_height": 2575,
+      "cover_width": 1689,
+      "date_written_at": "1965-01-01",
+      "publication_date": "1965-01-01",
+      "isbn": "978-5-17-118933-4",
+      "html_annotation": "<p>Роман «Дюна», первая книга прославленной саги, знакомит читателя с Арракисом – миром суровых пустынь, исполинских песчаных червей, отважных фрименов и таинственной специи. Безграничная фантазия автора создала яркую, почти осязаемую вселенную, в которой есть враждующие Великие Дома, могущественная Космическая Гильдия, загадочный Орден Бинэ Гессерит и неуловимые ассасины.</p><p><b>Перевод Соколова Ю.Р. лег в основу дубляжа фильма.</b></p><p>Какой получилась экранизация «Дюны», и в чем ее отличие от оригинала? Читайте в <a href=\"https://journal.litres.ru/dyuna-kakoj-poluchilas-samaya-dolgozhdannaya-ekranizacziya-2021-goda/\" rel=\"nofollow\">ЛитРес: Журнале</a> </p><p><br/></p><p><i>В формате a4.pdf сохранен издательский макет.</i></p>",
+      "original_html_annotation": "<p>Роман «Дюна», первая книга прославленной саги, знакомит читателя с Арракисом – миром суровых пустынь, исполинских песчаных червей, отважных фрименов и таинственной специи. Безграничная фантазия автора создала яркую, почти осязаемую вселенную, в которой есть враждующие Великие Дома, могущественная Космическая Гильдия, загадочный Орден Бинэ Гессерит и неуловимые ассасины.</p><p><b>Перевод Соколова Ю.Р. лег в основу дубляжа фильма.</b></p><p>Какой получилась экранизация «Дюны», и в чем ее отличие от оригинала? Читайте в <a href=\"https://journal.litres.ru/dyuna-kakoj-poluchilas-samaya-dolgozhdannaya-ekranizacziya-2021-goda/\" rel=\"nofollow\">ЛитРес: Журнале</a> </p><p><br/></p><p><i>В формате a4.pdf сохранен издательский макет.</i></p>",
+      "persons": [
+        {
+          "id": 46215,
+          "full_name": "Фрэнк Герберт",
+          "url": "/author/frenk-gerbert/",
+          "role": "author"
+        },
+        {
+          "id": 45007,
+          "full_name": "Юрий Соколов",
+          "url": "/author/uriy-sokolov/",
+          "role": "translator"
+        }
+      ],
+      "rating": {
+        "rated_avg": 4.6,
+        "rated_total_count": 2406,
+        "rated_1_count": 67,
+        "rated_2_count": 64,
+        "rated_3_count": 105,
+        "rated_4_count": 290,
+        "rated_5_count": 1880
+      },
+      "reviews_count": 263,
+      "series": [
+        {
+          "id": 797,
+          "uuid": "619f4566-5b5b-11e4-96e2-0025905a06ea",
+          "name": "Хроники Дюны",
+          "url": "/series/hroniki-duny-797/",
+          "arts_count": 6,
+          "top_arts": [],
+          "unique_arts_count": 6,
+          "art_order": 1
+        }
+      ],
+      "genres": [
+        {
+          "id": 5077,
+          "uuid": "ed1647ed-f034-11e5-a511-0cc47a5454c6",
+          "name": "космическая фантастика",
+          "is_root": false,
+          "url": "/genre/kosmicheskaya-5077/",
+          "is_main": true
+        },
+        {
+          "id": 5080,
+          "uuid": "ed164d15-f034-11e5-a511-0cc47a5454c6",
+          "name": "зарубежная фантастика",
+          "is_root": false,
+          "url": "/genre/zarubezhnaya-5080/",
+          "is_main": false
+        }
+      ],
+      "tags": [
+        {
+          "id": 8125,
+          "uuid": "610fdc28-5b5b-11e4-96e2-0025905a06ea",
+          "name": "экранизации",
+          "is_root": false,
+          "url": "/tags/ekranizacii-8125/"
+        },
+        {
+          "id": 13065,
+          "uuid": "6112172b-5b5b-11e4-96e2-0025905a06ea",
+          "name": "звездная империя",
+          "is_root": false,
+          "url": "/tags/zvezdnaya-imperiya/"
+        },
+        {
+          "id": 37925,
+          "uuid": "61237e2b-5b5b-11e4-96e2-0025905a06ea",
+          "name": "далёкое будущее",
+          "is_root": false,
+          "url": "/tags/dalekoe-buduschee/"
+        },
+        {
+          "id": 40505,
+          "uuid": "61241be1-5b5b-11e4-96e2-0025905a06ea",
+          "name": "борьба за выживание",
+          "is_root": false,
+          "url": "/tags/borba-za-vyzhivanie/"
+        },
+        {
+          "id": 45475,
+          "uuid": "6125c2a5-5b5b-11e4-96e2-0025905a06ea",
+          "name": "философская фантастика",
+          "is_root": false,
+          "url": "/tags/filosofskaya-fantastika/"
+        },
+        {
+          "id": 72635,
+          "uuid": "6135feb4-5b5b-11e4-96e2-0025905a06ea",
+          "name": "внеземные цивилизации",
+          "is_root": false,
+          "url": "/tags/vnezemnye-civilizacii/"
+        },
+        {
+          "id": 96285,
+          "uuid": "613fb2fa-5b5b-11e4-96e2-0025905a06ea",
+          "name": "политические интриги",
+          "is_root": false,
+          "url": "/tags/politicheskie-intrigi/"
+        },
+        {
+          "id": 100726,
+          "uuid": "61410387-5b5b-11e4-96e2-0025905a06ea",
+          "name": "генетические эксперименты",
+          "is_root": false,
+          "url": "/tags/geneticheskie-eksperimenty/"
+        },
+        {
+          "id": 121835,
+          "uuid": "615f6b09-5b5b-11e4-96e2-0025905a06ea",
+          "name": "космические миры",
+          "is_root": false,
+          "url": "/tags/kosmicheskie-miry/"
+        },
+        {
+          "id": 144657,
+          "uuid": "617ae519-5b5b-11e4-96e2-0025905a06ea",
+          "name": "космоопера",
+          "is_root": false,
+          "url": "/tags/kosmoopera/"
+        },
+        {
+          "id": 174532,
+          "uuid": "610ed888-5b5b-11e4-96e2-0025905a06ea",
+          "name": "сверхспособности",
+          "is_root": false,
+          "url": "/tags/sverhsposobnosti/"
+        }
+      ],
+      "additional_info": {
+        "registered_at": "2020-05-28T17:23:23",
+        "translated_at": "2019-01-01",
+        "current_pages_or_seconds": 694,
+        "expected_pages_or_seconds": null
+      },
+      "publisher": null,
+      "copyrighter": {
+        "id": 9339265,
+        "name": "Издательство АСТ",
+        "url": "publisher/ast/"
+      },
+      "labels": {
+        "is_bestseller": true,
+        "is_litres_exclusive": false,
+        "is_new": false,
+        "is_sales_hit": true,
+        "is_audio_series": false
+      },
+      "art_type": 0
+    }
+  }
+}

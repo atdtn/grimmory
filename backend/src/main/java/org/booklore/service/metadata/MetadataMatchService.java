@@ -67,6 +67,8 @@ public class MetadataMatchService {
         if (isPositive(metadata.getHardcoverReviewCount(), metadata.getHardcoverReviewCountLocked())) score += weights.getHardcoverReviewCount();
         if (isPositive(metadata.getRanobedbRating(), metadata.getRanobedbRatingLocked())) score += weights.getRanobedbRating();
         if (isPositive(metadata.getLubimyczytacRating(), metadata.getLubimyczytacRatingLocked())) score += weights.getLubimyczytacRating();
+        if (isPositive(metadata.getLitresRating(), metadata.getLitresRatingLocked())) score += weights.getLitresRating();
+        if (isPositive(metadata.getLitresReviewCount(), metadata.getLitresReviewCountLocked())) score += weights.getLitresReviewCount();
         if (isPositive(metadata.getAudibleRating(), metadata.getAudibleRatingLocked())) score += weights.getAudibleRating();
         if (isPositive(metadata.getAudibleReviewCount(), metadata.getAudibleReviewCountLocked())) score += weights.getAudibleReviewCount();
         if (isPositive(metadata.getApplebooksRating(), metadata.getApplebooksRatingLocked())) score += weights.getApplebooksRating();

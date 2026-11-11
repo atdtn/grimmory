@@ -42,7 +42,7 @@ public class BookSortRegistry {
                 "title", "subtitle", "seriesName", "seriesNumber", "publisher", "publishedDate",
                 "amazonRating", "amazonReviewCount", "goodreadsRating", "goodreadsReviewCount",
                 "hardcoverRating", "hardcoverReviewCount", "ranobedbRating",
-                "lubimyczytacRating",
+                "lubimyczytacRating", "litresRating", "litresReviewCount",
                 "audibleRating", "audibleReviewCount",
                 "applebooksRating", "applebooksReviewCount",
                 "narrator", "pageCount", "language")) {

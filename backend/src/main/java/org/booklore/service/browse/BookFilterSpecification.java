@@ -500,6 +500,10 @@ public class BookFilterSpecification {
         return buildRatingRangeSpec(rangeIds, "lubimyczytacRating");
     }
 
+    public static Specification<BookEntity> withLitresRatings(List<String> rangeIds) {
+        return buildRatingRangeSpec(rangeIds, "litresRating");
+    }
+
     public static Specification<BookEntity> withRanobedbRatings(List<String> rangeIds) {
         return buildRatingRangeSpec(rangeIds, "ranobedbRating");
     }

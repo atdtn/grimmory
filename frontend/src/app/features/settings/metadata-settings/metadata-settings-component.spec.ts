@@ -101,6 +101,7 @@ function buildMetadataRefreshOptions(): MetadataRefreshOptions {
     'ranobedbId', 'ranobedbRating', 'audibleId', 'audibleRating',
     'audibleReviewCount',
     'applebooksId', 'applebooksRating', 'applebooksReviewCount',
+    'litresId', 'litresRating', 'litresReviewCount',
     'moods', 'tags',
   ] as const;
 

@@ -405,6 +405,9 @@ public class AppSettingService {
         defaultAppleBooks.setEnabled(false);
         defaultAppleBooks.setCountry("US");
 
+        MetadataProviderSettings.Litres defaultLitres = new MetadataProviderSettings.Litres();
+        defaultLitres.setEnabled(false);
+
         defaultMetadataProviderSettings.setOpenLibrary(defaultOpenLibrary);
         defaultMetadataProviderSettings.setAmazon(defaultAmazon);
         defaultMetadataProviderSettings.setGoogle(defaultGoogle);
@@ -414,6 +417,7 @@ public class AppSettingService {
         defaultMetadataProviderSettings.setRanobedb(defaultRanobedb);
         defaultMetadataProviderSettings.setDouban(defaultDouban);
         defaultMetadataProviderSettings.setAppleBooks(defaultAppleBooks);
+        defaultMetadataProviderSettings.setLitres(defaultLitres);
 
         return defaultMetadataProviderSettings;
     }
@@ -451,6 +455,9 @@ public class AppSettingService {
                 .hardcoverBookId(nullProvider)
                 .googleId(nullProvider)
                 .lubimyczytacId(nullProvider)
+                .litresId(nullProvider)
+                .litresRating(nullProvider)
+                .litresReviewCount(nullProvider)
                 .amazonRating(nullProvider)
                 .amazonReviewCount(nullProvider)
                 .goodreadsRating(nullProvider)
@@ -497,6 +504,9 @@ public class AppSettingService {
                 .hardcoverBookId(true)
                 .googleId(true)
                 .lubimyczytacId(true)
+                .litresId(true)
+                .litresRating(true)
+                .litresReviewCount(true)
                 .amazonRating(true)
                 .amazonReviewCount(true)
                 .goodreadsRating(true)
@@ -556,6 +566,8 @@ public class AppSettingService {
                 .doubanReviewCount(2)
                 .ranobedbRating(2)
                 .lubimyczytacRating(2)
+                .litresRating(0)
+                .litresReviewCount(0)
                 .audibleRating(0)
                 .audibleReviewCount(0)
                 .applebooksRating(0)
@@ -661,6 +673,9 @@ public class AppSettingService {
         fields.setComicvineId(true);
         fields.setLubimyczytacId(true);
         fields.setLubimyczytacRating(true);
+        fields.setLitresId(true);
+        fields.setLitresRating(true);
+        fields.setLitresReviewCount(true);
         fields.setRanobedbRating(true);
         fields.setAudibleId(true);
         fields.setAudibleRating(true);

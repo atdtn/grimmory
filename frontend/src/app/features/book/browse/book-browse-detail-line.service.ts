@@ -47,11 +47,13 @@ export class BookBrowseDetailLineService {
       case 'hardcoverRating':
       case 'ranobedbRating':
       case 'lubimyczytacRating':
+      case 'litresRating':
       case 'audibleRating':
         return this.format('rating', metadata?.[key]);
       case 'amazonReviewCount':
       case 'goodreadsReviewCount':
       case 'hardcoverReviewCount':
+      case 'litresReviewCount':
       case 'audibleReviewCount':
         return this.format('number', metadata?.[key]);
       case 'readingProgress':

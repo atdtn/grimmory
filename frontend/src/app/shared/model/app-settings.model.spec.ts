@@ -44,6 +44,8 @@ describe('app-settings.model', () => {
       audibleReviewCount: 1,
       applebooksRating: 1,
       applebooksReviewCount: 1,
+      litresRating: 1,
+      litresReviewCount: 1,
       coverImage: 6
     };
 

@@ -75,6 +75,12 @@ const providers = [
     hasOptions: true,
     book: {ids: ['applebooksId'], rating: 'applebooksRating', reviewCount: 'applebooksReviewCount'},
   },
+  {
+    id: 'Litres',
+    settingsKey: 'litres',
+    labelKey: 'metadata.providers.litres',
+    book: {ids: ['litresId'], rating: 'litresRating', reviewCount: 'litresReviewCount'},
+  },
 ] as const;
 
 export type MetadataProviderId = typeof providers[number]['id'];

@@ -1,0 +1,48 @@
+{
+  "status": 200,
+  "error": null,
+  "payload": {
+    "data": [
+      {
+        "type": "text_book",
+        "instance": {
+          "id": 72497368,
+          "title": "Девятый",
+          "subtitle": "",
+          "cover_url": "/pub/c/cover/72497368.jpg",
+          "url": "/book/sergey-lukyanenko/devyatyy-72497368/",
+          "language_code": "ru",
+          "cover_height": 2377,
+          "cover_width": 1500,
+          "date_written_at": "2025-09-15",
+          "release_file_id": 142804129,
+          "persons": [
+            {
+              "id": 44957,
+              "full_name": "Сергей Лукьяненко",
+              "url": "/author/sergey-lukyanenko/",
+              "role": "author"
+            }
+          ],
+          "rating": {
+            "rated_avg": 4.79,
+            "rated_total_count": 3375,
+            "rated_1_count": 41,
+            "rated_2_count": 13,
+            "rated_3_count": 87,
+            "rated_4_count": 334,
+            "rated_5_count": 2900
+          },
+          "series": [],
+          "labels": {
+            "is_bestseller": false,
+            "is_litres_exclusive": false,
+            "is_new": false,
+            "is_sales_hit": true,
+            "is_audio_series": false
+          }
+        }
+      }
+    ]
+  }
+}

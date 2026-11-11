@@ -20,6 +20,7 @@ public class BookParserConfig {
             DoubanBookParser doubanBookParser,
             RanobeDbParser ranobedbParser,
             LubimyCzytacParser lubimyczytacParser,
+            LitresParser litresParser,
             AudibleParser audibleParser,
             AppleBooksParser appleBooksParser,
             OpenLibraryParser openLibraryParser
@@ -33,6 +34,7 @@ public class BookParserConfig {
                 Map.entry(MetadataProvider.Comicvine, comicvineBookParser),
                 Map.entry(MetadataProvider.Douban, doubanBookParser),
                 Map.entry(MetadataProvider.Lubimyczytac, lubimyczytacParser),
+                Map.entry(MetadataProvider.Litres, litresParser),
                 Map.entry(MetadataProvider.Ranobedb, ranobedbParser),
                 Map.entry(MetadataProvider.Audible, audibleParser),
                 Map.entry(MetadataProvider.AppleBooks, appleBooksParser)

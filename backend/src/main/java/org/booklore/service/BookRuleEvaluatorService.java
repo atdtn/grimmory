@@ -270,13 +270,13 @@ public class BookRuleEvaluatorService {
             case "title", "subtitle", "description", "publisher", "language", "seriesName",
                  "isbn13", "isbn10", "asin", "contentRating", "narrator",
                  "goodreadsId", "hardcoverId", "googleId", "audibleId", "applebooksId", "doubanId",
-                 "lubimyczytacId", "ranobedbId", "comicvineId", "openlibraryId" ->
+                 "lubimyczytacId", "litresId", "ranobedbId", "comicvineId", "openlibraryId" ->
                     stringPresence(cb, root.get("metadata").get(metadataField));
 
             // Numeric/date/boolean fields on BookMetadataEntity
             case "pageCount", "seriesNumber", "seriesTotal", "ageRating", "publishedDate", "abridged",
                  "amazonRating", "goodreadsRating", "hardcoverRating", "ranobedbRating",
-                 "lubimyczytacRating", "audibleRating",
+                 "lubimyczytacRating", "litresRating", "litresReviewCount", "audibleRating",
                  "applebooksRating", "applebooksReviewCount",
                  "doubanRating", "doubanReviewCount",
                  "amazonReviewCount", "goodreadsReviewCount", "hardcoverReviewCount", "audibleReviewCount" ->
@@ -797,6 +797,8 @@ public class BookRuleEvaluatorService {
             case CONTENT_RATING -> root.get("metadata").get("contentRating");
             case ADDED_ON -> root.get("addedOn");
             case LUBIMYCZYTAC_RATING -> root.get("metadata").get("lubimyczytacRating");
+            case LITRES_RATING -> root.get("metadata").get("litresRating");
+            case LITRES_REVIEW_COUNT -> root.get("metadata").get("litresReviewCount");
             case DESCRIPTION -> root.get("metadata").get("description");
             case NARRATOR -> root.get("metadata").get("narrator");
             case AUDIBLE_RATING -> root.get("metadata").get("audibleRating");

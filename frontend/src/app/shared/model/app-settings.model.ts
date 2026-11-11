@@ -52,6 +52,7 @@ export interface MetadataProviderSettings {
   comicvine: Comicvine;
   douban: Douban;
   lubimyczytac: Lubimyczytac;
+  litres: Litres;
   audible: Audible;
   appleBooks: AppleBooks;
 }
@@ -96,6 +97,10 @@ export interface Douban {
 }
 
 export interface Lubimyczytac {
+  enabled: boolean;
+}
+
+export interface Litres {
   enabled: boolean;
 }
 

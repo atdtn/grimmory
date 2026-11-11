@@ -107,6 +107,7 @@ public class SidecarMetadataMapper {
                     .hardcoverBookId(ids.getHardcoverBookId())
                     .comicvineId(ids.getComicvineId())
                     .lubimyczytacId(ids.getLubimyczytacId())
+                    .litresId(ids.getLitresId())
                     .ranobedbId(ids.getRanobedbId())
                     .applebooksId(ids.getApplebooksId())
                     .doubanId(ids.getDoubanId())
@@ -129,6 +130,10 @@ public class SidecarMetadataMapper {
             }
             if (r.getLubimyczytac() != null) {
                 builder.lubimyczytacRating(r.getLubimyczytac().getAverage());
+            }
+            if (r.getLitres() != null) {
+                builder.litresRating(r.getLitres().getAverage())
+                        .litresReviewCount(r.getLitres().getCount());
             }
             if (r.getRanobedb() != null) {
                 builder.ranobedbRating(r.getRanobedb().getAverage());
@@ -205,6 +210,7 @@ public class SidecarMetadataMapper {
                 .hardcoverBookId(entity.getHardcoverBookId())
                 .comicvineId(entity.getComicvineId())
                 .lubimyczytacId(entity.getLubimyczytacId())
+                .litresId(entity.getLitresId())
                 .ranobedbId(entity.getRanobedbId())
                 .audibleId(entity.getAudibleId())
                 .applebooksId(entity.getApplebooksId())
@@ -219,6 +225,7 @@ public class SidecarMetadataMapper {
                 .goodreads(buildRating(entity.getGoodreadsRating(), entity.getGoodreadsReviewCount()))
                 .hardcover(buildRating(entity.getHardcoverRating(), entity.getHardcoverReviewCount()))
                 .lubimyczytac(buildRating(entity.getLubimyczytacRating(), null))
+                .litres(buildRating(entity.getLitresRating(), entity.getLitresReviewCount()))
                 .ranobedb(buildRating(entity.getRanobedbRating(), null))
                 .audible(buildRating(entity.getAudibleRating(), entity.getAudibleReviewCount()))
                 .applebooks(buildRating(entity.getApplebooksRating(), entity.getApplebooksReviewCount()))

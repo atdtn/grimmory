@@ -9,6 +9,7 @@ public enum MetadataProvider {
     Comicvine,
     Douban,
     Lubimyczytac,
+    Litres,
     Ranobedb,
     Audible,
     AppleBooks

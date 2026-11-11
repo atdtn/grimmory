@@ -356,6 +356,9 @@ public class MetadataRefreshService {
             addProviderToSet(fieldOptions.getHardcoverId(), uniqueProviders);
             addProviderToSet(fieldOptions.getGoogleId(), uniqueProviders);
             addProviderToSet(fieldOptions.getLubimyczytacId(), uniqueProviders);
+            addProviderToSet(fieldOptions.getLitresId(), uniqueProviders);
+            addProviderToSet(fieldOptions.getLitresRating(), uniqueProviders);
+            addProviderToSet(fieldOptions.getLitresReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonRating(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getGoodreadsRating(), uniqueProviders);
@@ -650,6 +653,30 @@ public class MetadataRefreshService {
             metadata.setLubimyczytacRating(existingMetadata.getLubimyczytacRating());
         }
 
+        if (enabledFields.isLitresId()) {
+            if (metadataMap.containsKey(Litres)) {
+                metadata.setLitresId(metadataMap.get(Litres).getLitresId());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setLitresId(existingMetadata.getLitresId());
+        }
+
+        if (enabledFields.isLitresRating()) {
+            if (metadataMap.containsKey(Litres)) {
+                metadata.setLitresRating(metadataMap.get(Litres).getLitresRating());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setLitresRating(existingMetadata.getLitresRating());
+        }
+
+        if (enabledFields.isLitresReviewCount()) {
+            if (metadataMap.containsKey(Litres)) {
+                metadata.setLitresReviewCount(metadataMap.get(Litres).getLitresReviewCount());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setLitresReviewCount(existingMetadata.getLitresReviewCount());
+        }
+
         if (enabledFields.isRanobedbId()) {
             if (metadataMap.containsKey(Ranobedb)) {
                 metadata.setRanobedbId(metadataMap.get(Ranobedb).getRanobedbId());
@@ -800,6 +827,9 @@ public class MetadataRefreshService {
             metadata.setGoogleIdLocked(existingMetadata.getGoogleIdLocked());
             metadata.setLubimyczytacIdLocked(existingMetadata.getLubimyczytacIdLocked());
             metadata.setLubimyczytacRatingLocked(existingMetadata.getLubimyczytacRatingLocked());
+            metadata.setLitresIdLocked(existingMetadata.getLitresIdLocked());
+            metadata.setLitresRatingLocked(existingMetadata.getLitresRatingLocked());
+            metadata.setLitresReviewCountLocked(existingMetadata.getLitresReviewCountLocked());
             metadata.setRanobedbIdLocked(existingMetadata.getRanobedbIdLocked());
             metadata.setRanobedbRatingLocked(existingMetadata.getRanobedbRatingLocked());
             metadata.setAudibleIdLocked(existingMetadata.getAudibleIdLocked());

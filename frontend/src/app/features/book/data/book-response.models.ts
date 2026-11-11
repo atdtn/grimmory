@@ -132,6 +132,8 @@ interface BookMetadataFields {
   hardcoverReviewCount?: number;
   ranobedbRating?: number;
   lubimyczytacRating?: number;
+  litresRating?: number;
+  litresReviewCount?: number;
   audibleRating?: number;
   audibleReviewCount?: number;
   coverUpdatedOn?: string;
@@ -242,6 +244,9 @@ export interface BookDetailMetadata extends BookMetadataFields {
   doubanId?: string;
   googleId?: string;
   lubimyczytacId?: string;
+  litresId?: string;
+  litresRating?: number;
+  litresReviewCount?: number;
   ranobedbId?: string;
   audibleId?: string;
   openlibraryId?: string;
@@ -288,6 +293,9 @@ export interface BookDetailMetadata extends BookMetadataFields {
   doubanReviewCountLocked?: boolean;
   lubimyczytacIdLocked?: boolean;
   lubimyczytacRatingLocked?: boolean;
+  litresIdLocked?: boolean;
+  litresRatingLocked?: boolean;
+  litresReviewCountLocked?: boolean;
   ranobedbIdLocked?: boolean;
   ranobedbRatingLocked?: boolean;
   openlibraryIdLocked?: boolean;

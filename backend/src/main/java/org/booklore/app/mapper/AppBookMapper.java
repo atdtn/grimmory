@@ -59,6 +59,8 @@ public interface AppBookMapper {
     @Mapping(target = "hardcoverReviewCount", source = "book.metadata.hardcoverReviewCount")
     @Mapping(target = "ranobedbRating", source = "book.metadata.ranobedbRating")
     @Mapping(target = "lubimyczytacRating", source = "book.metadata.lubimyczytacRating")
+    @Mapping(target = "litresRating", source = "book.metadata.litresRating")
+    @Mapping(target = "litresReviewCount", source = "book.metadata.litresReviewCount")
     @Mapping(target = "audibleRating", source = "book.metadata.audibleRating")
     @Mapping(target = "audibleReviewCount", source = "book.metadata.audibleReviewCount")
     @Mapping(target = "allMetadataLocked", source = "book.metadata", qualifiedByName = "mapAllMetadataLocked")

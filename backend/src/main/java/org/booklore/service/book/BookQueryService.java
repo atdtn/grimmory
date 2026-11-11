@@ -239,6 +239,9 @@ public class BookQueryService {
             m.setDoubanReviewCountLocked(null);
             m.setLubimyczytacIdLocked(null);
             m.setLubimyczytacRatingLocked(null);
+            m.setLitresIdLocked(null);
+            m.setLitresRatingLocked(null);
+            m.setLitresReviewCountLocked(null);
             m.setRanobedbIdLocked(null);
             m.setRanobedbRatingLocked(null);
             m.setAudibleIdLocked(null);
@@ -269,6 +272,7 @@ public class BookQueryService {
             m.setHardcoverBookId(null);
             m.setGoogleId(null);
             m.setLubimyczytacId(null);
+            m.setLitresId(null);
             m.setRanobedbId(null);
             m.setAudibleId(null);
             m.setDoubanId(null);

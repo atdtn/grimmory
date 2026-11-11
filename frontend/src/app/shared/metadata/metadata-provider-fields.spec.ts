@@ -19,6 +19,7 @@ describe('provider fields', () => {
       'ranobedbId', 'ranobedbRating',
       'audibleId', 'audibleRating', 'audibleReviewCount',
       'applebooksId', 'applebooksRating', 'applebooksReviewCount',
+      'litresId', 'litresRating', 'litresReviewCount',
     ]);
   });
 

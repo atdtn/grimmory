@@ -61,6 +61,9 @@ public class MetadataRefreshOptions {
         private FieldProvider hardcoverBookId;
         private FieldProvider googleId;
         private FieldProvider lubimyczytacId;
+        private FieldProvider litresId;
+        private FieldProvider litresRating;
+        private FieldProvider litresReviewCount;
         private FieldProvider amazonRating;
         private FieldProvider amazonReviewCount;
         private FieldProvider goodreadsRating;
@@ -151,6 +154,12 @@ public class MetadataRefreshOptions {
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean lubimyczytacId = true;
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean litresId = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean litresRating = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean litresReviewCount = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean amazonRating = true;
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean amazonReviewCount = true;
@@ -219,6 +228,9 @@ public class MetadataRefreshOptions {
             this.hardcoverBookId = true;
             this.googleId = true;
             this.lubimyczytacId = true;
+            this.litresId = true;
+            this.litresRating = true;
+            this.litresReviewCount = true;
             this.amazonRating = true;
             this.amazonReviewCount = true;
             this.goodreadsRating = true;

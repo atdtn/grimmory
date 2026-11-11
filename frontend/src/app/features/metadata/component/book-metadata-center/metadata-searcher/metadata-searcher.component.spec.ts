@@ -62,6 +62,7 @@ describe('MetadataSearcherComponent', () => {
       comicvine: {enabled: false, apiKey: ''},
       douban: {enabled: false},
       lubimyczytac: {enabled: false},
+      litres: {enabled: false},
       audible: {enabled: false, domain: 'com'},
       appleBooks: {enabled: false, country: ''},
     },

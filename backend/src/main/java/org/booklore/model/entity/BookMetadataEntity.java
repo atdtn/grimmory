@@ -123,6 +123,15 @@ public class BookMetadataEntity {
     @Column(name = "lubimyczytac_rating")
     private Double lubimyczytacRating;
 
+    @Column(name = "litres_id", length = 100)
+    private String litresId;
+
+    @Column(name = "litres_rating")
+    private Double litresRating;
+
+    @Column(name = "litres_review_count")
+    private Integer litresReviewCount;
+
     @Column(name = "ranobedb_id", length = 100)
     private String ranobedbId;
 
@@ -288,6 +297,18 @@ public class BookMetadataEntity {
     @Builder.Default
     private Boolean lubimyczytacRatingLocked = Boolean.FALSE;
 
+    @Column(name = "litres_id_locked")
+    @Builder.Default
+    private Boolean litresIdLocked = Boolean.FALSE;
+
+    @Column(name = "litres_rating_locked")
+    @Builder.Default
+    private Boolean litresRatingLocked = Boolean.FALSE;
+
+    @Column(name = "litres_review_count_locked")
+    @Builder.Default
+    private Boolean litresReviewCountLocked = Boolean.FALSE;
+
     @Column(name = "ranobedb_id_locked")
     @Builder.Default
     private Boolean ranobedbIdLocked = Boolean.FALSE;
@@ -400,6 +421,7 @@ public class BookMetadataEntity {
         this.googleId = trimOrNull(this.googleId);
         this.comicvineId = trimOrNull(this.comicvineId);
         this.lubimyczytacId = trimOrNull(this.lubimyczytacId);
+        this.litresId = trimOrNull(this.litresId);
         this.ranobedbId = trimOrNull(this.ranobedbId);
         this.audibleId = trimOrNull(this.audibleId);
         this.applebooksId = trimOrNull(this.applebooksId);
@@ -503,6 +525,9 @@ public class BookMetadataEntity {
         this.hardcoverBookIdLocked = lock;
         this.googleIdLocked = lock;
         this.lubimyczytacIdLocked = lock;
+        this.litresIdLocked = lock;
+        this.litresRatingLocked = lock;
+        this.litresReviewCountLocked = lock;
         this.ranobedbIdLocked = lock;
         this.ranobedbRatingLocked = lock;
         this.audibleIdLocked = lock;
@@ -558,6 +583,9 @@ public class BookMetadataEntity {
                 && Boolean.TRUE.equals(this.hardcoverBookIdLocked)
                 && Boolean.TRUE.equals(this.googleIdLocked)
                 && Boolean.TRUE.equals(this.lubimyczytacIdLocked)
+                && Boolean.TRUE.equals(this.litresIdLocked)
+                && Boolean.TRUE.equals(this.litresRatingLocked)
+                && Boolean.TRUE.equals(this.litresReviewCountLocked)
                 && Boolean.TRUE.equals(this.ranobedbIdLocked)
                 && Boolean.TRUE.equals(this.ranobedbRatingLocked)
                 && Boolean.TRUE.equals(this.audibleIdLocked)

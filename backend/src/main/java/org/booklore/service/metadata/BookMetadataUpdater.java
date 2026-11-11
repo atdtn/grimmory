@@ -212,6 +212,9 @@ public class BookMetadataUpdater {
         handleFieldUpdate(e.getHardcoverReviewCountLocked(), clear.isHardcoverReviewCount(), m.getHardcoverReviewCount(), e::setHardcoverReviewCount, e::getHardcoverReviewCount, replaceMode);
         handleFieldUpdate(e.getLubimyczytacIdLocked(), clear.isLubimyczytacId(), m.getLubimyczytacId(), v -> e.setLubimyczytacId(nullIfBlank(v)), () -> e.getLubimyczytacId(), replaceMode);
         handleFieldUpdate(e.getLubimyczytacRatingLocked(), clear.isLubimyczytacRating(), m.getLubimyczytacRating(), v -> e.setLubimyczytacRating(v), () -> e.getLubimyczytacRating(), replaceMode);
+        handleFieldUpdate(e.getLitresIdLocked(), clear.isLitresId(), m.getLitresId(), v -> e.setLitresId(nullIfBlank(v)), e::getLitresId, replaceMode);
+        handleFieldUpdate(e.getLitresRatingLocked(), clear.isLitresRating(), m.getLitresRating(), e::setLitresRating, e::getLitresRating, replaceMode);
+        handleFieldUpdate(e.getLitresReviewCountLocked(), clear.isLitresReviewCount(), m.getLitresReviewCount(), e::setLitresReviewCount, e::getLitresReviewCount, replaceMode);
         handleFieldUpdate(e.getRanobedbIdLocked(), clear.isRanobedbId(), m.getRanobedbId(), v -> e.setRanobedbId(nullIfBlank(v)), e::getRanobedbId, replaceMode);
         handleFieldUpdate(e.getRanobedbRatingLocked(), clear.isRanobedbRating(), m.getRanobedbRating(), e::setRanobedbRating, e::getRanobedbRating, replaceMode);
         handleFieldUpdate(e.getAudibleIdLocked(), clear.isAudibleId(), m.getAudibleId(), v -> e.setAudibleId(nullIfBlank(v)), e::getAudibleId, replaceMode);
@@ -727,6 +730,9 @@ public class BookMetadataUpdater {
                 Pair.of(m.getHardcoverBookIdLocked(), e::setHardcoverBookIdLocked),
                 Pair.of(m.getLubimyczytacIdLocked(), e::setLubimyczytacIdLocked),
                 Pair.of(m.getLubimyczytacRatingLocked(), e::setLubimyczytacRatingLocked),
+                Pair.of(m.getLitresIdLocked(), e::setLitresIdLocked),
+                Pair.of(m.getLitresRatingLocked(), e::setLitresRatingLocked),
+                Pair.of(m.getLitresReviewCountLocked(), e::setLitresReviewCountLocked),
                 Pair.of(m.getGoogleIdLocked(), e::setGoogleIdLocked),
                 Pair.of(m.getPageCountLocked(), e::setPageCountLocked),
                 Pair.of(m.getLanguageLocked(), e::setLanguageLocked),

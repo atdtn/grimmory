@@ -588,6 +588,7 @@ public class AppBookService {
         List<AppFilterOptions.CountedOption> goodreadsRatings = queryRatingBuckets("m.goodreadsRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
         List<AppFilterOptions.CountedOption> hardcoverRatings = queryRatingBuckets("m.hardcoverRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
         List<AppFilterOptions.CountedOption> lubimyczytacRatings = queryRatingBuckets("m.lubimyczytacRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
+        List<AppFilterOptions.CountedOption> litresRatings = queryRatingBuckets("m.litresRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
         List<AppFilterOptions.CountedOption> ranobedbRatings = queryRatingBuckets("m.ranobedbRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
         List<AppFilterOptions.CountedOption> audibleRatings = queryRatingBuckets("m.audibleRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
 
@@ -669,6 +670,7 @@ public class AppBookService {
                 .goodreadsRatings(goodreadsRatings)
                 .hardcoverRatings(hardcoverRatings)
                 .lubimyczytacRatings(lubimyczytacRatings)
+                .litresRatings(litresRatings)
                 .ranobedbRatings(ranobedbRatings)
                 .audibleRatings(audibleRatings)
                 .pageCounts(pageCounts)
@@ -706,6 +708,7 @@ public class AppBookService {
                 .goodreadsRatings(Collections.emptyList())
                 .hardcoverRatings(Collections.emptyList())
                 .lubimyczytacRatings(Collections.emptyList())
+                .litresRatings(Collections.emptyList())
                 .ranobedbRatings(Collections.emptyList())
                 .audibleRatings(Collections.emptyList())
                 .pageCounts(Collections.emptyList())
@@ -973,6 +976,13 @@ public class AppBookService {
             List<String> cleaned = BookListRequest.cleanValues(req.lubimyczytacRating());
             if (!cleaned.isEmpty()) {
                 specs.add(AppBookSpecification.withLubimyczytacRatings(cleaned, req.effectiveFilterMode()));
+            }
+        }
+
+        if (req.litresRating() != null && !req.litresRating().isEmpty()) {
+            List<String> cleaned = BookListRequest.cleanValues(req.litresRating());
+            if (!cleaned.isEmpty()) {
+                specs.add(AppBookSpecification.withLitresRatings(cleaned, req.effectiveFilterMode()));
             }
         }
 

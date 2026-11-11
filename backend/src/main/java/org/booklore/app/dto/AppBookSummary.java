@@ -58,6 +58,8 @@ public class AppBookSummary {
     private Integer hardcoverReviewCount;
     private Double ranobedbRating;
     private Double lubimyczytacRating;
+    private Double litresRating;
+    private Integer litresReviewCount;
     private Double audibleRating;
     private Integer audibleReviewCount;
     private Boolean allMetadataLocked;
