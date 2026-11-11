@@ -1092,6 +1092,11 @@ public class AppBookService {
             case "hardcoverrating" -> "metadata.hardcoverRating";
             case "hardcoverreviewcount" -> "metadata.hardcoverReviewCount";
             case "ranobedbrating" -> "metadata.ranobedbRating";
+            case "lubimyczytacrating" -> "metadata.lubimyczytacRating";
+            case "litresrating" -> "metadata.litresRating";
+            case "litresreviewcount" -> "metadata.litresReviewCount";
+            case "fantasyworldsrating" -> "metadata.fantasyWorldsRating";
+            case "fantasyworldsreviewcount" -> "metadata.fantasyWorldsReviewCount";
             case "narrator" -> "metadata.narrator";
             case "lastreadtime" -> "userBookProgress.lastReadTime";
             case "readstatus" -> "userBookProgress.readStatus";

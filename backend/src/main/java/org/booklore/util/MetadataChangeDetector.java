@@ -234,10 +234,6 @@ public class MetadataChangeDetector {
                     BookMetadata::getLitresReviewCountLocked, BookMetadataEntity::getLitresReviewCountLocked,
                     MetadataClearFlags::isLitresReviewCount, false),
             // Fantasy Worlds values are stored in the database and sidecar only.
-            new FieldDescriptor<>("fantasyWorldsId",
-                    BookMetadata::getFantasyWorldsId, BookMetadataEntity::getFantasyWorldsId,
-                    BookMetadata::getFantasyWorldsIdLocked, BookMetadataEntity::getFantasyWorldsIdLocked,
-                    MetadataClearFlags::isFantasyWorldsId, false),
             new FieldDescriptor<>("fantasyWorldsRating",
                     BookMetadata::getFantasyWorldsRating, BookMetadataEntity::getFantasyWorldsRating,
                     BookMetadata::getFantasyWorldsRatingLocked, BookMetadataEntity::getFantasyWorldsRatingLocked,

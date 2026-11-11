@@ -54,7 +54,7 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
     private static final String USER_AGENT =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                     + "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
-    private static final int CONNECTION_TIMEOUT_SECONDS = 15;
+    private static final int REQUEST_TIMEOUT_SECONDS = 15;
     private static final int MAX_RETRIES = 3;
     private static final int MAX_RESULTS = 10;
     private static final long DEFAULT_CRAWL_DELAY_MS = 10_000L;
@@ -269,7 +269,10 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
     private BookMetadata parseDetails(Document doc, String id) {
         String title = text(doc.selectFirst("[itemprop=name]"));
         if (title == null) {
-            title = text(doc.selectFirst("meta[property=og:title]"));
+            String ogTitle = text(doc.selectFirst("meta[property=og:title]"));
+            title = ogTitle != null && ogTitle.contains(" - ")
+                    ? trimToNull(ogTitle.substring(ogTitle.lastIndexOf(" - ") + 3))
+                    : ogTitle;
         }
         if (title == null) {
             return null;
@@ -292,9 +295,10 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
 
         String pageText = doc.text();
         Matcher seriesMatcher = SERIES_NUMBER_PATTERN.matcher(pageText);
-        Float seriesNumber = seriesMatcher.find()
-                ? parseFloat(seriesMatcher.group(1))
-                : null;
+        Float seriesNumber = seriesMatcher.find() ? parseFloat(seriesMatcher.group(1)) : null;
+        if (seriesNumber != null && seriesNumber <= 0) {
+            seriesNumber = null;
+        }
 
         Set<String> tags = new LinkedHashSet<>();
         for (Element tag : doc.select("a[href^=/lib/tag]")) {
@@ -407,14 +411,13 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
         Integer count = parseInt(matcher.group(2));
         // The site uses a 10-point scale; Grimmory displays provider ratings on
         // a 5-point scale, like the existing LubimyCzytac provider.
-        return new Ratio(rating != null ? rating / 2.0 : null, count);
+        return new Ratio(normalizeRating(rating), normalizeCount(count));
     }
 
     private Ratio parseDetailRating(Document doc) {
         String rating = text(doc.selectFirst("meta[itemprop=ratingValue]"));
         String count = text(doc.selectFirst("meta[itemprop=ratingCount]"));
-        Double parsedRating = parseDouble(rating);
-        return new Ratio(parsedRating != null ? parsedRating / 2.0 : null, parseInt(count));
+        return new Ratio(normalizeRating(parseDouble(rating)), normalizeCount(parseInt(count)));
     }
 
     private String extractLabeledValue(String pageText, String label) {
@@ -482,10 +485,10 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
         return executeRequest(url, "text/html");
     }
 
-    private String executeRequest(String url, String accept) {
+    private synchronized String executeRequest(String url, String accept) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                .timeout(Duration.ofSeconds(CONNECTION_TIMEOUT_SECONDS))
+                .timeout(Duration.ofSeconds(REQUEST_TIMEOUT_SECONDS))
                 .header("User-Agent", USER_AGENT)
                 .header("Accept", accept)
                 .header("Accept-Language", "ru-RU,ru;q=0.9")
@@ -495,11 +498,18 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
 
         for (int attempt = 1; attempt <= MAX_RETRIES; attempt++) {
             try {
-                respectCrawlDelay();
-                HttpResponse<String> response = httpClient.send(
-                        request,
-                        HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8)
-                );
+                if (!waitForCrawlDelay()) {
+                    return null;
+                }
+                HttpResponse<String> response;
+                try {
+                    response = httpClient.send(
+                            request,
+                            HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8)
+                    );
+                } finally {
+                    markRequestFinished();
+                }
                 int status = response.statusCode();
                 if (status >= 200 && status < 300) {
                     return response.body();
@@ -539,18 +549,22 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
         return null;
     }
 
-    private synchronized void respectCrawlDelay() {
+    private boolean waitForCrawlDelay() {
         if (crawlDelayMs <= 0) {
-            return;
+            return true;
         }
         long now = System.currentTimeMillis();
-        if (now < nextRequestAt) {
-            if (!sleep(nextRequestAt - now)) {
-                return;
-            }
-            now = System.currentTimeMillis();
+        return now >= nextRequestAt || sleep(nextRequestAt - now);
+    }
+
+    /**
+     * Starts the Crawl-delay window when the request completes, so the pause is
+     * measured response-to-next-request rather than request-to-request.
+     */
+    private void markRequestFinished() {
+        if (crawlDelayMs > 0) {
+            nextRequestAt = System.currentTimeMillis() + crawlDelayMs;
         }
-        nextRequestAt = now + crawlDelayMs;
     }
 
     private long retryDelayMillis(HttpResponse<String> response, int attempt) {
@@ -687,6 +701,14 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
         }
         String trimmed = value.trim();
         return trimmed.isEmpty() ? null : trimmed;
+    }
+
+    private static Double normalizeRating(Double rawRating) {
+        return rawRating != null && rawRating > 0 ? rawRating / 2.0 : null;
+    }
+
+    private static Integer normalizeCount(Integer count) {
+        return count != null && count > 0 ? count : null;
     }
 
     private record Ratio(Double rating, Integer count) {

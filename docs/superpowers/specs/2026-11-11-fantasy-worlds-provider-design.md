@@ -43,8 +43,16 @@ books, following the LitRes provider architecture.
   They are not embedded into EPUB/PDF/CBX files.
 - **Opt-in.** The provider is disabled by default.
 
-## Non-goals
+## Non-goals and known limitations
 
 - No Cloudflare/proxy handling (not needed for this site).
 - No automated crawl of the whole catalogue.
 - No human-readable genre mapping until the site exposes a genre lookup.
+- The crawl-delay is enforced response-to-next-request and serializes all
+  requests from one parser instance. Library-wide metadata refreshes therefore
+  spend at least ten seconds per book in the existing per-book transaction;
+  this is inherited from the current refresh architecture and should be
+  addressed separately if large refreshes become common.
+- Detail pages do not expose a genre id, so `categories` is populated from the
+  search JSON and `tags` from the detail page; a detail-only fetch has no
+  categories.

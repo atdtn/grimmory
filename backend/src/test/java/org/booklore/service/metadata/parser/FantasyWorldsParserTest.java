@@ -125,6 +125,56 @@ class FantasyWorldsParserTest {
         assertThat(result.getFantasyWorldsRating()).isEqualTo(4.6);
         assertThat(result.getFantasyWorldsReviewCount()).isEqualTo(60);
         assertThat(result.getCategories()).containsExactly("genre:25");
+        assertThat(results.get(1).getIsbn13()).isEqualTo("9785171371036");
+    }
+
+    @Test
+    void fetchMetadata_filtersIrrelevantResultsAndSendsQuery() throws Exception {
+        mockSettings(true);
+        List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();
+        String json = """
+                {"books":[
+                  {"id":"1","title":"Совсем другая книга","author_name":"Другой","author_surname":"Автор",
+                   "about":"","genre":"1","book_ext":"jpg","ratio":"5/1","lang_code":"ru"},
+                  {"id":"2","title":"Мастер и Маргарита","author_name":"Михаил","author_surname":"Булгаков",
+                   "about":"","genre":"1","book_ext":"jpg","ratio":"9.6/58","lang_code":"ru"}
+                ],"authors":[],"keywords":[]}
+                """;
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    requests.add(invocation.getArgument(0));
+                    return response(200, json, Map.of());
+                });
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Мастер и Маргарита").build(),
+                FetchMetadataRequest.builder().title("Мастер и Маргарита").build());
+
+        assertThat(results).hasSize(1);
+        assertThat(results.getFirst().getTitle()).isEqualTo("Мастер и Маргарита");
+        assertThat(requests.getFirst().uri().getRawQuery())
+                .contains("q=%D0%9C%D0%B0%D1%81%D1%82%D0%B5%D1%80");
+    }
+
+    @Test
+    void fetchMetadata_normalizesIsbn13FromCommaSeparatedValue() throws Exception {
+        mockSettings(true);
+        String json = """
+                {"books":[
+                  {"id":"10","title":"Книга","author_name":"Иван","author_surname":"Петров",
+                   "about":"","year":"2020","ISBN":" 978-5-17-137103-6, 5-88358-044-0",
+                   "genre":"1","book_ext":"jpg","ratio":"8/4","lang_code":"ru"}
+                ],"authors":[],"keywords":[]}
+                """;
+        mockHttp(Map.of("https://fantasy-worlds.org/search.json", json));
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Книга").build(),
+                FetchMetadataRequest.builder().title("Книга").build());
+
+        assertThat(results).hasSize(1);
+        assertThat(results.getFirst().getIsbn13()).isEqualTo("9785171371036");
+        assertThat(results.getFirst().getIsbn10()).isNull();
     }
 
     @Test
@@ -197,6 +247,21 @@ class FantasyWorldsParserTest {
 
         assertThat(result).isNotNull();
         verify(httpClient, times(2)).send(any(HttpRequest.class), any());
+    }
+
+    @Test
+    void respectsCrawlDelayBetweenRequests() throws Exception {
+        FantasyWorldsParser delayedParser =
+                new FantasyWorldsParser(new ObjectMapper(), appSettingService, httpClient, 100L);
+        mockSettings(true);
+        mockHttp(Map.of("https://fantasy-worlds.org/lib/id3543/", detailMasterHtml));
+
+        long startedAt = System.nanoTime();
+        delayedParser.fetchDetailedMetadata("3543");
+        delayedParser.fetchDetailedMetadata("3543");
+        long elapsedMs = (System.nanoTime() - startedAt) / 1_000_000L;
+
+        assertThat(elapsedMs).isGreaterThanOrEqualTo(90L);
     }
 
     @Test
