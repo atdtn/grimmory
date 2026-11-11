@@ -1,5 +1,7 @@
 package org.booklore.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum MetadataProvider {
     OpenLibrary,
     Amazon,
@@ -10,6 +12,8 @@ public enum MetadataProvider {
     Douban,
     Lubimyczytac,
     Litres,
+    @JsonProperty("FantasyWorlds")
+    FANTASY_WORLDS,
     Ranobedb,
     Audible,
     AppleBooks

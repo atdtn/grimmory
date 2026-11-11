@@ -285,6 +285,19 @@ const FIELDS = [
       defaultWidth: 132, kind: 'number', value: book => book.metadata?.litresReviewCount},
   },
   {
+    labelKey: 'book.fields.fantasyWorldsRating',
+    facet: {key: 'fantasy_worlds_rating', banded: true, stars: 5},
+    sort: {key: 'fantasyWorldsRating', group: 'more', defaultDirection: 'desc', kind: 'numeric'},
+    column: {key: 'fantasyWorldsRating', group: 'ratings', defaultVisible: false,
+      defaultWidth: 124, kind: 'rating', value: book => book.metadata?.fantasyWorldsRating},
+  },
+  {
+    labelKey: 'book.fields.fantasyWorldsReviewCount',
+    sort: {key: 'fantasyWorldsReviewCount', group: 'more', defaultDirection: 'desc', kind: 'numeric'},
+    column: {key: 'fantasyWorldsReviewCount', group: 'ratings', defaultVisible: false,
+      defaultWidth: 132, kind: 'number', value: book => book.metadata?.fantasyWorldsReviewCount},
+  },
+  {
     labelKey: 'book.fields.audibleRating',
     facet: {key: 'audible_rating', banded: true, stars: 5},
     sort: {key: 'audibleRating', group: 'more', defaultDirection: 'desc', kind: 'numeric'},
@@ -433,6 +446,8 @@ const COLUMN_ORDER = [
   'lubimyczytacRating',
   'litresRating',
   'litresReviewCount',
+  'fantasyWorldsRating',
+  'fantasyWorldsReviewCount',
   'audibleRating',
   'audibleReviewCount',
 ] as const satisfies readonly BookColumnKey[];

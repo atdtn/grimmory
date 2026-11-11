@@ -359,6 +359,9 @@ public class MetadataRefreshService {
             addProviderToSet(fieldOptions.getLitresId(), uniqueProviders);
             addProviderToSet(fieldOptions.getLitresRating(), uniqueProviders);
             addProviderToSet(fieldOptions.getLitresReviewCount(), uniqueProviders);
+            addProviderToSet(fieldOptions.getFantasyWorldsId(), uniqueProviders);
+            addProviderToSet(fieldOptions.getFantasyWorldsRating(), uniqueProviders);
+            addProviderToSet(fieldOptions.getFantasyWorldsReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonRating(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getGoodreadsRating(), uniqueProviders);
@@ -677,6 +680,30 @@ public class MetadataRefreshService {
             metadata.setLitresReviewCount(existingMetadata.getLitresReviewCount());
         }
 
+        if (enabledFields.isFantasyWorldsId()) {
+            if (metadataMap.containsKey(FANTASY_WORLDS)) {
+                metadata.setFantasyWorldsId(metadataMap.get(FANTASY_WORLDS).getFantasyWorldsId());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setFantasyWorldsId(existingMetadata.getFantasyWorldsId());
+        }
+
+        if (enabledFields.isFantasyWorldsRating()) {
+            if (metadataMap.containsKey(FANTASY_WORLDS)) {
+                metadata.setFantasyWorldsRating(metadataMap.get(FANTASY_WORLDS).getFantasyWorldsRating());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setFantasyWorldsRating(existingMetadata.getFantasyWorldsRating());
+        }
+
+        if (enabledFields.isFantasyWorldsReviewCount()) {
+            if (metadataMap.containsKey(FANTASY_WORLDS)) {
+                metadata.setFantasyWorldsReviewCount(metadataMap.get(FANTASY_WORLDS).getFantasyWorldsReviewCount());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setFantasyWorldsReviewCount(existingMetadata.getFantasyWorldsReviewCount());
+        }
+
         if (enabledFields.isRanobedbId()) {
             if (metadataMap.containsKey(Ranobedb)) {
                 metadata.setRanobedbId(metadataMap.get(Ranobedb).getRanobedbId());
@@ -830,6 +857,9 @@ public class MetadataRefreshService {
             metadata.setLitresIdLocked(existingMetadata.getLitresIdLocked());
             metadata.setLitresRatingLocked(existingMetadata.getLitresRatingLocked());
             metadata.setLitresReviewCountLocked(existingMetadata.getLitresReviewCountLocked());
+            metadata.setFantasyWorldsIdLocked(existingMetadata.getFantasyWorldsIdLocked());
+            metadata.setFantasyWorldsRatingLocked(existingMetadata.getFantasyWorldsRatingLocked());
+            metadata.setFantasyWorldsReviewCountLocked(existingMetadata.getFantasyWorldsReviewCountLocked());
             metadata.setRanobedbIdLocked(existingMetadata.getRanobedbIdLocked());
             metadata.setRanobedbRatingLocked(existingMetadata.getRanobedbRatingLocked());
             metadata.setAudibleIdLocked(existingMetadata.getAudibleIdLocked());

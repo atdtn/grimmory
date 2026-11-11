@@ -132,6 +132,15 @@ public class BookMetadataEntity {
     @Column(name = "litres_review_count")
     private Integer litresReviewCount;
 
+    @Column(name = "fantasy_worlds_id", length = 100)
+    private String fantasyWorldsId;
+
+    @Column(name = "fantasy_worlds_rating")
+    private Double fantasyWorldsRating;
+
+    @Column(name = "fantasy_worlds_review_count")
+    private Integer fantasyWorldsReviewCount;
+
     @Column(name = "ranobedb_id", length = 100)
     private String ranobedbId;
 
@@ -309,6 +318,18 @@ public class BookMetadataEntity {
     @Builder.Default
     private Boolean litresReviewCountLocked = Boolean.FALSE;
 
+    @Column(name = "fantasy_worlds_id_locked")
+    @Builder.Default
+    private Boolean fantasyWorldsIdLocked = Boolean.FALSE;
+
+    @Column(name = "fantasy_worlds_rating_locked")
+    @Builder.Default
+    private Boolean fantasyWorldsRatingLocked = Boolean.FALSE;
+
+    @Column(name = "fantasy_worlds_review_count_locked")
+    @Builder.Default
+    private Boolean fantasyWorldsReviewCountLocked = Boolean.FALSE;
+
     @Column(name = "ranobedb_id_locked")
     @Builder.Default
     private Boolean ranobedbIdLocked = Boolean.FALSE;
@@ -422,6 +443,7 @@ public class BookMetadataEntity {
         this.comicvineId = trimOrNull(this.comicvineId);
         this.lubimyczytacId = trimOrNull(this.lubimyczytacId);
         this.litresId = trimOrNull(this.litresId);
+        this.fantasyWorldsId = trimOrNull(this.fantasyWorldsId);
         this.ranobedbId = trimOrNull(this.ranobedbId);
         this.audibleId = trimOrNull(this.audibleId);
         this.applebooksId = trimOrNull(this.applebooksId);
@@ -528,6 +550,9 @@ public class BookMetadataEntity {
         this.litresIdLocked = lock;
         this.litresRatingLocked = lock;
         this.litresReviewCountLocked = lock;
+        this.fantasyWorldsIdLocked = lock;
+        this.fantasyWorldsRatingLocked = lock;
+        this.fantasyWorldsReviewCountLocked = lock;
         this.ranobedbIdLocked = lock;
         this.ranobedbRatingLocked = lock;
         this.audibleIdLocked = lock;
@@ -586,6 +611,9 @@ public class BookMetadataEntity {
                 && Boolean.TRUE.equals(this.litresIdLocked)
                 && Boolean.TRUE.equals(this.litresRatingLocked)
                 && Boolean.TRUE.equals(this.litresReviewCountLocked)
+                && Boolean.TRUE.equals(this.fantasyWorldsIdLocked)
+                && Boolean.TRUE.equals(this.fantasyWorldsRatingLocked)
+                && Boolean.TRUE.equals(this.fantasyWorldsReviewCountLocked)
                 && Boolean.TRUE.equals(this.ranobedbIdLocked)
                 && Boolean.TRUE.equals(this.ranobedbRatingLocked)
                 && Boolean.TRUE.equals(this.audibleIdLocked)

@@ -32,6 +32,7 @@ export const BOOK_QUERY_FACET_KEYS = [
   'ranobedb_rating',
   'lubimyczytac_rating',
   'litres_rating',
+  'fantasy_worlds_rating',
   'audible_rating',
   'comic_character',
   'comic_team',
@@ -67,6 +68,8 @@ export const BOOK_QUERY_SORT_KEYS = [
   'lubimyczytacRating',
   'litresRating',
   'litresReviewCount',
+  'fantasyWorldsRating',
+  'fantasyWorldsReviewCount',
   'audibleRating',
   'audibleReviewCount',
 ] as const;

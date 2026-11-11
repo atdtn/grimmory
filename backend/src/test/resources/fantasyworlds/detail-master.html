@@ -1,0 +1,1137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html prefix="og: http://ogp.me/ns# books: http://ogp.me/ns/books#" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Михаил Булгаков - Мастер и Маргарита | 908 Кб</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="ru" />
+    <meta name="keywords" content="скачать книгу бесплатно, скачать, Михаил Булгаков, Мастер и Маргарита" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="«Михаил Булгаков - Мастер и Маргарита». Роман «Мастер и Маргарита» – визитная карточка Михаила Афанасьевича Булгакова. Более десяти лет Булгаков работал над книгой, которая стала его романом-судьбой, романом-завещанием.  В «Мастере и Маргарите» есть все: веселое озорство и щемящая печаль, романтическая любовь и колдовское наваждение, магическая тайна и безрассудная игра с нечистой силой." />
+    <meta name="revisit-after" content="1 days" />
+
+    <meta property="og:site_name" content="Fantasy Worlds" />
+    <meta property="og:type" content="books.book" />
+    <meta property="og:title" content="Михаил Булгаков - Мастер и Маргарита" />
+    <meta property="og:description" content="Роман «Мастер и Маргарита» – визитная карточка Михаила Афанасьевича Булгакова. Более десяти лет Булгаков работал над книгой, которая стала его романом-судьбой, романом-завещанием.  В «Мастере и Маргарите» есть все: веселое озорство и щемящая печаль, романтическая любовь и колдовское наваждение, магическая тайна и безрассудная игра с нечистой силой.">
+    <meta property="og:image" content="http://fantasy-worlds.org/img/preview/35/3543.jpg" />
+    <meta property="og:url" content="" />
+    <meta property="books:author" content="http://fantasy-worlds.org/author/id747/" />        <meta property="books:rating:value" content="9.6" />
+    <meta property="books:rating:scale" content="10" />
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://f-w.in/rss/" /> <!-- RSS лента -->
+    <link rel="stylesheet" href="/share/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="/share/css/jquery-ui.css" type="text/css" />
+    <link rel="stylesheet" href="/share/css/nisl.css" type="text/css" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Fantasy-Worlds" /> <!-- Поиск в омнибоксе -->
+
+    <script type="text/javascript" src="/share/js/lib.js"></script>
+    <script src="/share/js/jquery.js"></script>
+    <script src='/share/js/jquery-ui.custom.js'></script>
+    <script src='/share/js/toast.js'></script>
+    <script src='/share/js/nisl.js'></script>
+    <script src="/share/js/keyboardLayout.js"></script>
+    <script src="/share/js/ajax-poll.js" type="text/javascript" charset="utf-8"></script>
+    <script type='text/javascript' src='https://deltarockme.com/services/?id=141655'></script>
+    <script>
+
+    suc = "";
+    err = "";
+
+    function showSuccessToast() {
+        $().toastmessage('showSuccessToast', suc);
+    }
+
+    function showWarningToast() {
+        $().toastmessage('showWarningToast', err);
+    }
+
+
+        $(document).ready(function(){
+
+            $().toastmessage({stayTime: 5000});
+            if(suc != '') showSuccessToast();
+            if(err != '') showWarningToast();
+
+                
+            $.ajax({
+                url: "//api.fantasy-worlds.org/tags_cloud",
+                                dataType: 'json',
+                                async: true,
+                                success: function(data){
+                                    var tags = '';
+                                    if(data && "items" in data){
+                                        $.each(data.items,
+                                            function(i, d){
+                                                tags += ' <a style="text-decoration: none; font-size: ' + (11 + (d[2] < 500 ? Math.round(d[2]/75) : Math.round(d[2]/1000) + 7) ) + 'px" title="' + d[2] + '  книг" href="/lib/tag' + d[0] + '/">' + d[1].trim() + '</id> ';
+                                            });
+                                    }
+                                    $('#tags-container').html(tags);
+                                }});
+
+                
+                $('span._nb-select-button').on("autocompleteselected", function(){
+                  var book_id = $(this).attr('id').split("_")[2];
+                  var new_val = $(this).find("select").val();
+                  if(new_val == "fb2") new_val = "";
+
+                  $("#download_book_" + book_id).attr("href", "/lib/id" + book_id + "/download/" + new_val )
+                });
+
+            /*$("#description").osimoeditor({
+                width:'650px',
+                styles:{
+                    'margin':'5px auto'
+                }
+            });*/
+        });
+    </script>
+    <!-- Отличные стили для шапки и позиционирования юзербара -->
+    <style type="text/css">
+        .headerBg {background:url('/i/header2.jpg') no-repeat center top; min-height:1085px;}
+        .header {height:315px; text-align:center;} /* Шапка */
+        .userbar {width:345px; text-align:left; position:relative; margin:0px auto; top:-123px; left:292px; color:#000; font-size:11px;}
+        .userbar a {color:#000}
+    </style>
+</head>
+
+<body>
+
+<div class="footerBg">
+    <div class="headerBg">
+    <!-- Шапка-->
+        <div class="header">
+            <a href="/" id="logo"></a>
+            <div class="userbar">
+                <div style="float:left; width:72px;"><img src="/avatars/default.jpg" width=72 height=72 alt="Аватарка" /></div>
+                <div style="float:left; width:136px; text-align:center; padding-top:13px">Вы не авторизовались<br /><a href='/login/'><img src='/i/login.png' border='0' width='104' height='37' /></a></div>
+                <div style="float:left; width:136px; text-align:center;"><div style='padding-top:20px;'><a href='/register/'><b>Зарегистрироваться</b><br />на нашем портале</a></div></div>
+            </div><!-- // .userbar -->
+        </div> <!-- // .header -->
+    <!-- Центральный блок-->
+        <div class="center">
+        <!-- Левый блок -->
+            <div class="leftBlock">
+                <br /><br /><br /><br />
+            <!-- Меню -->
+                <ul>
+                    <!--li><g:plusone size="medium"></g:plusone></li-->                    <li><a href=/>Главная</a></li>
+                    <li><a href="/news/">Новости</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/forum/">Форум</a></li>
+                    <li><a href="/lib/">Библиотека</a></li>
+                    <li><a href="/comments/">Комментарии</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/photo">Обои</a></li>
+                    <li><a href="/gb/">Гостевая книга</a></li>
+                    <li><a href="/mail/">Обратная связь</a></li>
+                </ul><br />
+                <ul>
+                    <li><a href="http://forum.fantasy-worlds.net/publ/10">Врата миров</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/publ/11">Бестиарий</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/publ/9">Интервью</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/publ/8">Рецензии</a> <span class="leftBlockSmall">на книги</span></li>
+                </ul><br />
+
+                <noindex>
+
+            <!-- Кнопка -->
+            <div style="padding-left: 0px; margin-left: 0px;" class="text"><p class="contentTitle" style="padding-left: 0px; font-size: 19px; margin-left: 0px;">Поддержать bitcoin-ом:</p>
+            <p><a href="bitcoin:16gW7zamGuK4WXiUQk5s542wu1YwyWFLh6" style="font-size:10px;">16gW7zamGuK4WXiUQk5s542wu1YwyWFLh6</a></p></div>
+            <br />
+
+    <div>
+    <span class="contentTitle">Облако тегов</span>
+    <br/>
+    <div id="tags-container" style="
+    padding-top: 25px;
+    width: 197px;
+"></div>
+</div>
+    
+<br/>
+
+            <!-- Информер -->
+                <div>
+                    <div style='margin-left: 10px;'><a title='Official Fantasy-Worlds Twitter'  target='_blank' href='//twitter.com/fantasy_worlds'><img src='/i/alienbird_128.png'></a></div>
+                    <div style="margin-left: 10px;text-align: center;padding-top: 20px;padding-right: 70px;"><a title="Fantasy-Worlds Telegram bot" target="_blank" href="https://telegram.me/Fantasy_Worlds_Bot"><img src="/i/t_logo.png" style="width: 50px;"></a></div>
+
+                    <!--span class="contentTitle">Статистика</span-->
+                    <!--a style = "text-decoration: none;" href="#"><div class="text">Сейчас на сайте</div></a><br /-->
+                    <div class="informer">
+                        <!--Сейчас всего на сайте: <b>{ALL_ONLINE}</b><br />Гостей: <b>{GUEST_ONLINE}</b><br />Пользователей: <b>{USER_ONLINE}</b><br /--><br /><br />
+<br/>
+
+                    </div>
+                </div>
+            </div> <!-- // .leftBlock -->
+        <!-- Контент -->
+            <div class="rightBlock">
+                <div style="
+                    margin-bottom: 5px;
+                    background-color: #654109;
+                    color: white;
+                    padding: 10px;
+                    opacity: 50%;
+                    border-radius: 10px;
+                ">📖 Встречайте обновлённую читалку! Постраничный режим, глубокая настройка под себя и чтение без интернета. Попробуйте и <a href="mailto:library@fantasy-worlds.org" style="color: white;">напишите нам</a> — что понравилось, что улучшить.</div>
+                
+
+                <script type="text/javascript" src="/share/js/typewatch.js"></script>
+<script>
+$(document).ready(function(){
+  $('.search_autocomplete .close').click(function(){
+    $('.search_autocomplete').hide();
+  });
+
+  $(document).keyup(function(e) {
+    if (e.keyCode == 27) $('.search_autocomplete').hide();   // esc
+  });
+
+  $('input[name=q]').typeWatch({
+      callback: function(){
+        var new_val = $('input[name=q]').val();
+        if(new_val.length > 2){
+          $.ajax({
+            dataType: "json",
+            url: "/search.json?q=" + new_val,
+            success: function(data){
+
+              $('.search_autocomplete').show();
+              $('.search_autocomplete table').empty();
+
+              if(data['authors'].length > 0){
+                $.each(data['authors'], function(i, book){
+                  if(i < 5)
+                    $('.search_autocomplete table').append('<tr><td class="searchtype">' + ((i == 0) ? "авторы" : "" ) + '</td><td colspan="2"><h3><a href="/author/id' + book['id'] + '/">' + book['name'] + ' ' + book['surname'] + '</a></h3></td></tr>')
+                });
+              }
+
+              if(data['books'].length > 0){
+                $.each(data['books'], function(i, book){
+                  if(i < 5)
+                    $('.search_autocomplete table').append('<tr><td class="searchtype">' + ((i == 0) ? "книги" : "" ) + '</td><td><img width="50px" src="/img/preview/' + Math.floor(book['id'] / 100) + '/' + book['id'] + '.' + book['book_ext'] + '"></td><td><h3><a href="/lib/id' + book['id'] + '/">' + book['author_name'] + ' ' + book['author_surname'] + ' — ' + book['title'] + '</a></h3></td></tr>')
+                });
+              }
+
+              if(data['keywords'].length > 0){
+                $.each(data['keywords'], function(i, book){
+                  if(i < 5)
+                    $('.search_autocomplete table').append('<tr><td class="searchtype">' + ((i == 0) ? "теги" : "" ) + '</td><td colspan="2"><h3><a href="/lib/tag' + book['id'] + '/">' + book['name'] + '</a></h3></td></tr>')
+                });
+              }
+
+              if(data['keywords'].length == 0 && data['books'].length == 0 && data['authors'].length == 0){
+                $('.search_autocomplete').hide();
+                $('.search_autocomplete table').empty();
+              }
+            }
+          });
+        }else{
+          $('.search_autocomplete').hide();
+        }
+      },
+      wait: 750,
+      captureLength: 2
+  });
+});
+</script>
+<div style="width: 100%;" class="nb-suggest _init" data-nb="suggest" data-countMax="10" data-type="username"
+data-size="" data-source="/search.json" data-highlight="" data-class-suggest="nb-island _nb-fly-island _nb-suggest-container _nb--suggest">
+  <form data-nb="arrow" action="/search/" method="get" class="nb-arrow _init">
+    <span class="_nb-arrow-tail"></span>
+    <button class="nb-button _nb-normal-button _init _nb-search-arrow-button"
+    data-nb="button" type="submit">
+        <span class="_nb-button-content">Найти!</span>
+    </button>
+    <div class="_nb-search-arrow-content">
+        <label class="nb-input _nb-complex-input _nb-search-arrow-input _init" autocomplete="off"
+        value="" name="text" data-nb="input">
+                              <span class="_nb-input-content">
+                              <input type="text" placeholder="Поиск книги..." name="q" value="" class="_nb-input-controller" value="" autocomplete="off" name="text" />
+                <span class="_nb-input-view"> </span>
+            </span>
+        </label>
+    </div>
+          <div class="search_autocomplete">
+              <span class="close">×</span>
+              <table></table>
+          </div>
+</form>
+</div>
+<div style="margin-top: 15px;">
+
+	<div itemscope="itemscope" itemtype="http://schema.org/Book">
+<meta itemprop="bookFormat" content="EBook/fb2"/>
+<meta itemprop="inLanguage" content="ru" />
+<table width="100%" border='0px'>
+	<tr>
+		<td>
+			<div class="news_title" style="margin: 0;">
+				<h1 style="margin: 0;">Михаил Булгаков — Мастер и Маргарита</h1>			</div>
+		</td>
+			</tr>
+</table>
+
+<table class="news_body" style="padding-left: 0;">
+	<tr>
+		<td style="vertical-align: top;">
+			<table>
+			<tr><td>
+				<a target="_blank" href="/img/full/35/3543.jpg">
+					<img src="/img/preview/35/3543.jpg" align="left" alt="Мастер и Маргарита" itemprop="image" />
+				</a>
+							</td>
+			</tr>
+						</table>
+		</td>
+		<td style="vertical-align: top;">
+	<span style="display:table;">
+		<br/>
+		<p><b>Автор:</b> <a itemprop="author" href="/author/id747/">Михаил Булгаков</a>
+		<br/>
+		<b>Название:</b> <span itemprop="name">Мастер и Маргарита</span>
+																						<br/><b>Теги:</b>
+						<a href='/lib/tag59/'>становление героя</a>
+								<a href='/lib/tag151/'>христианство</a>
+								<a href='/lib/tag538/'>жизнь после смерти</a>
+								<a href='/lib/tag539/'>договор с нечистой силой</a>
+								<a href='/lib/tag632/'>бессмертие</a>
+								<a href='/lib/tag867/'>философское</a>
+								<a href='/lib/tag1314/'>Религиозное</a>
+								<a href='/lib/tag1355/'>Мессия</a>
+						</p>
+		<p><b>Аннотация на книгу «Мастер и Маргарита»:</b>
+		<br/>
+		<span itemprop='description'>Роман «Мастер и Маргарита» – визитная карточка Михаила Афанасьевича Булгакова. Более десяти лет Булгаков работал над книгой, которая стала его романом-судьбой, романом-завещанием.  В «Мастере и Маргарите» есть все: веселое озорство и щемящая печаль, романтическая любовь и колдовское наваждение, магическая тайна и безрассудная игра с нечистой силой.</span></p>
+		<p>
+						
+			
+			
+				<a class=" nb-button _nb-normal-button _init nb-group-start" data-nb="button" id="download_book_3543" href="/lib/id3543/download/">
+					<span class="_nb-button-content">
+						<span class="_nb-button-text">Скачать</span>
+					</span>
+				</a><span data-nb-direction="bottom" data-nb="select" tabindex="0" class="nb-button _nb-normal-button nb-select _init _nb-select-button nb-group-end" id="select_type_3543">
+					<span class="_nb-button-content">
+						<span class="_nb-button-after">
+							<span class="_nb-select-arrow"></span>
+						</span>
+						<span class="_nb-button-text">fb2.zip, 908 Кб</span>
+					</span>
+					<select class="_nb-select-fallback">
+						<option label="fb2.zip, 908 Кб" value="fb2" data-icon="" selected="">fb2.zip, 908 Кб</option>
+													<option label="epub" value="epub" data-icon="">epub, 1069 Кб</option>
+																			<option label="mobi" value="mobi" data-icon="">mobi, 1450 Кб</option>
+																			<option label="txt" value="txt" data-icon="">txt, 1334 Кб</option>
+											</select>
+					<span class=" nb-select-dropdown _nb-pseudo-select-dropdown"></span>
+				</span>
+
+				
+				<a class=" nb-button _nb-normal-button _init" data-nb="button" id="read_book_3543" href="https://reader.fantasy-worlds.org/book/3543/read.html" target="_blank">
+					<span class="_nb-button-content">
+						<span class="_nb-button-text">Читать книгу онлайн</span>
+					</span>
+				</a> <a href="/lib/id3543/read/" target="_blank" style="font-size: 12px; color: #999; vertical-align: middle;">по-старому</a>
+
+					 </p>
+
+	 		 	<div style="clear: both;">
+											<br/><b>Премии:</b><br/>
+				
+									1999: <b>
+											Премия SFinks
+					</b> //
+											Книга года
+					<br/>
+											
+									2009: <b>
+											Серебряная стрела
+					</b> //
+											Лучшая книга эпохи
+					<br/>
+							
+											<br/><b>Номинации:</b><br/>
+				
+									2000: <b>
+											Премия SFinks
+					</b> //
+											Книга года
+					<br/>
+									</div><br />
+		
+		
+					<b>Аудиокниги:</b></br>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:3739CEA26773AE67DD19E26437CDA281F918AD6B&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:3739CEA26773AE67DD19E26437CDA281F918AD6B&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">М.А. Булгаков Мастер и Маргарита ( Черкасов, Жаров, Демидова и др, 112 кбит/с) [Читает: Профессиональные актеры и исполнители. 1967г.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:08A13AF839608599AC7822547DFA29A5069937A5&amp;tr=http%3A%2F%2Fbt3.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:08A13AF839608599AC7822547DFA29A5069937A5&amp;tr=http%3A%2F%2Fbt3.t-ru.org%2Fann%3Fmagnet">М.А.Булгаков - &quot;Мастер и Маргарита&quot; АУДИОСПЕКТАКЛЬ  [Читает: Более 100 Актеров и Актрис. 1967г. Длительность: 13ч:01м]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:5533318F7B329E2686BB4873718368F6ECC9F1FD&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:5533318F7B329E2686BB4873718368F6ECC9F1FD&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet">М.Булгаков - М.Булгаков &quot;Мастер и Маргарита&quot;  [Читает: Ефремов Олег. 1967г.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:02C00227343B0E86722D0ECD1B2FFCB2FFDCE316&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:02C00227343B0E86722D0ECD1B2FFCB2FFDCE316&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Михаил Булгаков - Мастер и Маргарита  [Читает: Ефремов Олег. 1967г. 32kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:3C1EFC79AF7184F2E5A2E23470033098B96ACDF4&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:3C1EFC79AF7184F2E5A2E23470033098B96ACDF4&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита  [Читает: очень много актеров. 1967г.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:31162D4B1A25C9B337FCDDF066A96834B7A65218&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:31162D4B1A25C9B337FCDDF066A96834B7A65218&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита  [Читает: Клюквин Александр, Суханов Максим, Мороз Дарья. 1967г. 160kbps. Длительность: 16ч. 53м.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:531EF8B11BDAE32F32BAD93B4E6987FA5945B565&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:531EF8B11BDAE32F32BAD93B4E6987FA5945B565&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита  [Читает: Мороз Дарья, Суханов Максим, Клюквин Александр. 1967г. 96kbps. Длительность: 16 час 53 мин]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:EA7C9B2E3AA8371561F1FCF59839B0D30B53DB50&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:EA7C9B2E3AA8371561F1FCF59839B0D30B53DB50&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита  [Читает: Оргин Дмитрий. 1967г. 128kbps. Длительность: 17:29:45]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:8ADCC370C02C542BBE37724438527FB407070519&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:8ADCC370C02C542BBE37724438527FB407070519&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">М. А. Булгаков - Мастер и Маргарита  [Читает: Зозулин Виктор. 1967г. 128kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:F7FE6F13B83145B9F6CACC547E43DE711A313B35&amp;tr=http%3A%2F%2Fbt3.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:F7FE6F13B83145B9F6CACC547E43DE711A313B35&amp;tr=http%3A%2F%2Fbt3.t-ru.org%2Fann%3Fmagnet">Михал Булгаков - Мастер и Маргарита  [Читает: Смехов Вениамин. 1967г. 192kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:C79E7DA6830538A0D5B397D38D836FB41C204235&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:C79E7DA6830538A0D5B397D38D836FB41C204235&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита  [Читает: Серова Кира. 1967г. 80kbps. Длительность: 16:39:31]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:4F58C789EEABB4F3C352F2B63F8922CF0ADAD99D&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:4F58C789EEABB4F3C352F2B63F8922CF0ADAD99D&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">М.A. Булгаков. Мастер и Маргарита  [Читает: Смехов Вениамин. 1967г. Длительность: 7 hours 9 minutes 32 seconds]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:69F68A046EFEE49EB8D1D2F9BF70E160330E80FC&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:69F68A046EFEE49EB8D1D2F9BF70E160330E80FC&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">М.А. Булгаков - Мастер и Маргарита (MC Rip, самая полная версия)  [Читает: Черкасов Николай, Гарин Эраст, Смехов Вениамин, Ярмольник Леонид. 1967г. 192kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:5233BEABE1DA977F5069DAF2C32BF49BD1ECD3DE&amp;tr=http%3A%2F%2Fbt3.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:5233BEABE1DA977F5069DAF2C32BF49BD1ECD3DE&amp;tr=http%3A%2F%2Fbt3.t-ru.org%2Fann%3Fmagnet">Булгаков М.А. - Мастер и Маргарита  [Читает: Ургант Андрей. 1967г. 80kbps. Длительность: Азазелло и Коровьев, подхватив его под руки, доставляют в квартиру № 50, а от поцелуя нагой ведьмы Геллы Варенуха лишается чувств. Вечером на сцене театра Варьете начинается представление с участием великого мага Воланда и его свиты, Фагот выстрелом из пистолета вызывает в театре денежный дождь, и весь зал ловит падающие червонцы. Затем на сцене открывается «дамский магазин», где любая женщина из числа сидящих в зале может бесплатно одеться с ног до головы. Тут же в магазин выстраивается очередь, однако по окончании представления червонцы превращаются в бумажки, а все, приобретенное в «дамском магазине», исчезает без следа, заставив доверчивых женщин метаться по улицам в одном белье. После спектакля Римский задерживается у себя в кабинете, и к нему является превращенный поцелуем Геллы в вампира Варенуха. Увидев, что тот не отбрасывает тень, смертельно напуганный, мгновенно поседевший Римский на такси мчится на вокзал и курьерским поездом уезжает в Ленинград. Тем временем Иван Бездомный, познакомившись с Мастером, рассказывает ему о том, как он встретился со странным иностранцем, погубившим Берлиоза; Мастер объясняет Ивану, что встретился он на Патриарших с сатаной, и рассказывает Ивану о себе. Мастером его называла его возлюбленная Маргарита. Будучи историком по образованию, он работал в одном из музеев, как вдруг неожиданно выиграл огромную сумму - сто тысяч рублей. Он оставил работу в музее, снял две комнаты в маленьком домике в одном из арбатских переулков и начал писать роман о Понтии Пилате. Роман уже был почти закончен, когда он случайно встретил на улице Маргариту, и любовь поразила их обоих мгновенно. Маргарита была замужем за достойным человеком, жила с ним в особняке на Арбате, но не любила его. Каждый день она приходила к Мастеру, роман близился к концу, и они были счастливы. Наконец роман был дописан, и Мастер отнес его в журнал, но напечатать его там отказались, однако в газетах появилось несколько разгромных статей о романе, подписанных критиками Ариманом, Латунским и Лавровичем. И тут Мастер почувствовал, что заболевает. Однажды ночью он бросил роман в печь, но прибежавшая встревоженная Маргарита выхватила из огня последнюю пачку листов. Она ушла, унося рукопись с собой, чтобы достойно проститься с мужем и утром вернуться к возлюбленному навсегда, однако через четверть часа после её ухода к нему в окно постучали. Рассказывая Ивану свою историю, в этом месте он понижает голос до шепота, - и вот через несколько месяцев, зимней ночью, придя к себе домой, он обнаружил свои комнаты занятыми и отправился в новую загородную клинику, где и живет уже четвертый месяц, без имени и фамилии, просто - больной из комнаты № 118. В это утро Маргарита просыпается с ощущением, что-то должно произойти. Утирая слезы, она перебирает листы обгоревшей рукописи, разглядывает фотографию мастера, а после отправляется на прогулку в Александровский сад. Здесь к ней подсаживается Азазелло и передает ей приглашение Воланда - ей отводится роль королевы на ежегодном балу у сатаны. Вечером того же дня Маргарита, раздевшись донага, натирает тело кремом, который дал ей Азазелло, становится невидимой и вылетает в окно. Пролетая мимо писательского дома, Маргарита устраивает разгром в квартире критика Латунского, по её мнению погубившего мастера. Затем Маргариту встречает Азазелло и приводит её в квартиру № 50, где она знакомится с Воландом и остальными членами его свиты. В полночь начинается весенний бал полнолуния - великий бал у сатаны, на который приглашены доносчики, палачи, растлители, убийцы - преступники всех времен и народов; мужчины являются во фраках, женщины - обнаженными. В течение нескольких часов нагая Маргарита приветствует гостей, подставляя руку и колено для поцелуя. Наконец бал закончен, и Воланд спрашивает у Маргариты, что она хочет в награду за то, что была у него хозяйкой бала. И Маргарита просит немедленно вернуть ей Мастера. Тут же появляется Мастер в больничном одеянии, и Маргарита, посовещавшись с ним, просит Воланда вернуть их в маленький домик на Арбате, где они были счастливы. Тем временем одно московское учреждение начинает интересоваться странными событиями, происходящими в городе, и все они выстраиваются в логически ясное целое: и таинственный иностранец Ивана Бездомного, и сеанс черной магии в Варьете, и доллары Никанора Ивановича, и исчезновение Римского и Лиходеева. Становится ясно, что все это работа одной и той же шайки, возглавляемой таинственным магом, и все следы этой шайки ведут в квартиру № 50.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:3D60ED220887AA5E951F7F48EC0352A19530A5F7&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:3D60ED220887AA5E951F7F48EC0352A19530A5F7&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">М. Булгаков - Мастер и Маргарита  [Читает: Теренков Александр. 1967г.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:B4A4FA0AC60F8550341C01088311FFF127024EB1&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:B4A4FA0AC60F8550341C01088311FFF127024EB1&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Михаил Булгаков - Мастер и Маргарита  [Читает: Хорлин Александр. 1967г.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:1513B0574DE645392FD01F8338778313A3EDAD81&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:1513B0574DE645392FD01F8338778313A3EDAD81&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet">Михаил Афанасьевич Булгаков - Мастер и Маргарита  [Читает: Литвинов Иван. 1967г. 160kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:CDCC70AB0B7F8BAEB1AA55C3BD5144CB7019795A&amp;tr=http%3A%2F%2Fbt3.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:CDCC70AB0B7F8BAEB1AA55C3BD5144CB7019795A&amp;tr=http%3A%2F%2Fbt3.t-ru.org%2Fann%3Fmagnet">Михаил Булгаков - Мастер и Маргарита [Читает: Клюквин Александр, Суханов Максим, Мороз Дарья. 1967г. 48kbps. Длительность: 16ч. 53м.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:24ACF7B536C9BD9E705FBA5D1E3C0F4E49C7C58E&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:24ACF7B536C9BD9E705FBA5D1E3C0F4E49C7C58E&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet">Михаил Булгаков - Две ранние редакции Мастера и Маргариты  [Читает: Григорьев Юрий. 1967г. 64kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:3E1F7D13B804FC909211EC59DB80D08622670989&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:3E1F7D13B804FC909211EC59DB80D08622670989&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита (Театр на Таганке)  [Читает: Щербаков Дальвин, Шацкая Нина, Смехов Вениамин. 1967г. Длительность: 03:00:31]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:EAD7352B4101EE1F1304922921CA696B66624F50&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:EAD7352B4101EE1F1304922921CA696B66624F50&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита  [Читает: Самойлов Владимир. 1967г. 96kbps. Длительность: 19:36:36 16:36:35]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:25A05555E092588C54F8DA387031C4DD318CB3B1&amp;tr=http%3A%2F%2Fbt4.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:25A05555E092588C54F8DA387031C4DD318CB3B1&amp;tr=http%3A%2F%2Fbt4.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита. Читаем роман  [Читает: Захарова София,  Акатова Дарья,  Алдонин Сергей,  Аронин Сергей, Арсентьев Александр,  Баслык Дарья,  Белошницкий Матвей,  Блинов Игорь,  Богданов Константин,  Бровкин Александр,  Буланов Николай,  Бухтияров Кирилл,  Быстрицкий Григорий,  Венедиктова Екатерина, Веселкин Алексей, Волкова Екатерина,  Воропанов Алексей,  Гончаров Егор,  Горюшкин Андрей,  Гудина Екатерина,  Демидов Владимир,  Дергачев Иван,  Дмитриев Александр,  Елесеев Константин,  Ермошкин Денис,  Ешкин Артем,  Жижикин Максим,  Зеленская Екатерина,  Зорин Александр,  Извольская Василиса,  Исаичкина Янина,  Казнов Тимур, Картаев Павел,  Кирюхин Иван,  Киселева Мария,  Климова Екатерина,  Клочкова Екатерина,  Корнеева Екатерина,  Коростышевская Оксана,  Костюкова Светлана,  Кравец Максим, Кудряшов Сергей,  Кузьмина Василиса,  Курносов Андрей,  Лукина Ирина,  Любимцев Владимир,  Максимова Екатерина,  Малыхин Александр,  Матерн Алиса,  Матросов Александр,  Маценова Варвара,  Медведев Ярослав,  Мигович Светлана,  Мирэль Эльмира,  Михайлов Андрей, Мясников Алексей,  Нестеров Илья,  Нестерова Милена,  Николаев Денис,  Николайчук Вадим,  Новичков Константин,  Овчаренко Юлия,  Орагвелидзе Тимур,  Орцуев Изнаур,  Панькова Владлена,  Петрова Ирина,  Погарский Денис, Поляков Юрий,  Поляков Роман,  Попов Даниил,  Преображенская Алиса,  Пясковская Елизавета,  Рахманов Алексей,  Репина Дарья,  Родин Семен,  Ружейников Игорь,  Сальников Егор,  Санько Олег,  Сафронова Анна,  Серегин Василий,  Ситников Вадим,  Соломина Елена,  Солуянова Наталья,  Стаховский Евгений,  Стенгий Евгения,  Стиллавин Сергей,  Таскина Кристина, Теплов Игорь,  Тимофеев Владислав,  Токмачева Мария,  Точенова-Нисан Екатерина, Урсуляк Александра,  Фалько Алексей,  Федотова Екатерина,  Филипцева Анна,  Хабина Александра,  Хитров Филипп,  Холостова Кристина,  Худяков Андрей,  Цискарашвили Мераб,  Чунарева Юлия, Серова Кира. 1967г. 128kbps. Длительность: 15:28:49]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:D29787782B3816F5E1EC9E5F1D9065830321D149&amp;tr=http%3A%2F%2Fbt4.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:D29787782B3816F5E1EC9E5F1D9065830321D149&amp;tr=http%3A%2F%2Fbt4.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита  (ремастеринг записи 2016 года) [ 1967г. 112kbps. Длительность: 18:21:22&lt;]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:748AF903CA4C8171B584807B976BC72EAF79BFE9&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:748AF903CA4C8171B584807B976BC72EAF79BFE9&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита  [Читает: Никитин Валерий, Ракута Людмила. 1967г. 160kbps. Длительность: 16:05:48]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:73FA3978C2BB75191DAED1CEA6AAA286E45F6083&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:73FA3978C2BB75191DAED1CEA6AAA286E45F6083&amp;tr=http%3A%2F%2Fbt2.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита  [Читает: Стабуров Роман. 1967г. 160kbps. Длительность: 16:54:56]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:C3BC094CEEAAB1E2E3D19917E2A4890A3295976D&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:C3BC094CEEAAB1E2E3D19917E2A4890A3295976D&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил Афанасьевич - Мастер и Маргарита  [Читает: Левашев Владимир. 1967г. 128kbps. Длительность: 19:19:20]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:07ED87C04B76DF29A6445E9007197FCEB7885A4A&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:07ED87C04B76DF29A6445E9007197FCEB7885A4A&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита [Читает: Ирина Ерисанова. 256kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:98B943BDFBC19ADC8801FC3304A3FA7FB96DF716&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:98B943BDFBC19ADC8801FC3304A3FA7FB96DF716&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита [Читает: Театр на Таганке.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:19CC3B9D51029768E58CD7A5882790CFD94EF074&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:19CC3B9D51029768E58CD7A5882790CFD94EF074&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита (Аудиоспектакль) [ 128kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:974117CE767AB93852B951C9BA5D0AFF9A87C17B&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:974117CE767AB93852B951C9BA5D0AFF9A87C17B&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита [Читает: Леонид Ярмольник. 320kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:4359E71DC0E13F6EC72351A332DB51245F0BCDF7&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:4359E71DC0E13F6EC72351A332DB51245F0BCDF7&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита (Аудиоспектакль) [Читает: Разные. 320kbps.]</a></p>
+							<p style="margin: 3px 0px;"><a href="magnet:?xt=urn:btih:FC223F640D7C19147BC32CE22A46D1C1E8B625B3&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet"><img style="margin: 0; border: 0;" src="/i/magnet.png" /></a> <a href="magnet:?xt=urn:btih:FC223F640D7C19147BC32CE22A46D1C1E8B625B3&amp;tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet">Булгаков Михаил - Мастер и Маргарита [Читает: Олег Ефремов. 320kbps.]</a></p>
+						<!--p><a style="text-decoration: none; float: right; border-bottom: 1px dashed black; margin-bottom: 12px;" target="_blank" href="https://book-audio.com/fantlab/9164">Слушать онлайн "Мастер и Маргарита" на сайте book-audio.com</a></p-->
+			<br/>
+				
+			</span>
+</td></tr>
+</table>
+
+<br clear="all" />
+
+
+<div  class="news_footer">
+	<span style="float:left">
+		Добавлено: 05.11.2008 14:05
+	 | <div style="display: inline;" id="poll_mark1_3543">Рейтинг:
+<meta itemprop="ratingCount" content="58"/>
+<meta itemprop="ratingValue" content="9.6"/>
+<meta itemprop="bestRating" content="10"/>
+<meta itemprop="worstRating" content="0"/>
+		9.6/58
+			<script type="text/javascript">
+	$( document ).ready(function(){
+		fantlab_id = 9164;
+		$.getJSON('https://api.fantlab.ru/work' + fantlab_id + '.json', function(data){
+			fantlab_ratio = data.rating;
+			fantlab_ratio_text = " | Рейтинг <a target='_blank' href='//fantlab.ru/work9164'>fantlab</a>: ";
+			if(fantlab_ratio){
+				fantlab_ratio_text += fantlab_ratio.rating + "/" + fantlab_ratio.voters;
+			}else{
+				fantlab_ratio_text += "0/0";
+			}
+			$('#fantlab-ratio-' + fantlab_id).html(fantlab_ratio_text);
+		})
+	});
+	</script>
+		<span style='padding: 0;' id='fantlab-ratio-9164'></span>
+		</div> | Добавил: <a href="/users/id13425">virme1</a></span> <span style="float:right">
+			<a href="#" onclick="fb2info(3543);">fb2-info</a>
+		</span>
+</div>
+</div>
+	<br />
+
+    
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id101697/">Czechby</a>
+					</span>
+					<span class="comm_date">
+												22.12.2019 10:19 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='https://lh3.googleusercontent.com/a-/AAuE7mDuePsGl-coHs7ULQVrEQQb6SEic0t1PQYBn1wi'>
+										Читал два раза, в школе и потом перечитывал. Буду еще в третий раз читать когда-нибудь. сильная книга.
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_191064">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="191064"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id68167/">Frolo</a>
+					</span>
+					<span class="comm_date">
+												22.12.2017 11:11 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'>
+										кому нравится советская сатира...
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_130347">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="130347"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id51968/">DenColt</a>
+					</span>
+					<span class="comm_date">
+												01.08.2017 20:19 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='https://pp.userapi.com/c626531/v626531419/40268/2krvj_Q8-M8.jpg'>
+										А вот мой отрицательный комментарий удалили. Не честно как-то.
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_121157">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="121157"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id27502/">TEXP</a>
+					</span>
+					<span class="comm_date">
+												20.11.2013 12:29 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='http://cs625117.vk.me/v625117155/15ecc/lAZAq55RJ3A.jpg'>
+										Ох. Не давно сериал посмотрел. Впечатлило. Теперь книгу надо одолеть.
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_47743">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="47743"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id24524/">Данька Воронина</a>
+					</span>
+					<span class="comm_date">
+												01.04.2010 21:47 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/245/24524.jpg'>
+										Слов просто нет...Лучшее из всех возможных и невозможных тоже! Великолепно!)) <img rel="usm" src="http://forum.fantasy-worlds.org/smile/BRAVO.gif" border="0" align="absmiddle" alt="BRAVO">
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_19138">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="19138"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id24570/">Natalia</a>
+					</span>
+					<span class="comm_date">
+												21.03.2010 19:41 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/245/24570.gif'>
+										Бессмертное произведение, актуальное во все времена. перечитывая каждый раз открываешь новые грани.
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_18833">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="18833"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id2324/">Анастасия</a>
+					</span>
+					<span class="comm_date">
+												21.03.2010 01:31 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/23/2324.jpg'>
+										C большой натяжкой - магический реализм.
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_18817">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="18817"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id22791/">Ola5539</a>
+					</span>
+					<span class="comm_date">
+												20.03.2010 22:07 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/227/22791.jpg'>
+										вот это сюрприз! <img rel="usm" src="http://forum.fantasy-worlds.org/smile/thankU.gif" border="0" align="absmiddle" alt="thankU"> <br /> это просто бальзам на моё покалеченное сердце макулатурной ЮФ...
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_18812">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="18812"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id24079/">ashtarta</a>
+					</span>
+					<span class="comm_date">
+												17.03.2010 23:14 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/240/24079.jpg'>
+										Мой любимый писатель)
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_18725">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="18725"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id1590/">Александр</a>
+					</span>
+					<span class="comm_date">
+												18.03.2010 01:42 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/15/1590.jpeg'>
+										Шедевр!!! <br /> А кто-нибудь знает, к какому жанру ее можно отнести?
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_18290">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="18290"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id18165/">Christina</a>
+					</span>
+					<span class="comm_date">
+												17.12.2009 20:53 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/181/18165.jpg'>
+										Лучшее, что мне когда-либо доводилось читать!!!!
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_16519">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="16519"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id19608/">Анастасия</a>
+					</span>
+					<span class="comm_date">
+												19.05.2009 02:24 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/196/19608.jpg'>
+										читала несколько раз.в 17,20 и 25 лет и каждый раз по-другому открывается смысл.
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_11388">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="11388"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id19507/">Илья Акимов</a>
+					</span>
+					<span class="comm_date">
+												13.05.2009 18:54 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/195/19507.jpg'>
+										Лучшее что читал из классики! (впрочем &quot;Герой нашего времени &quot; для меня, не менее интересно!) Рад что выложили! Спасибо!
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_11224">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="11224"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											катя
+					</span>
+					<span class="comm_date">
+												20.11.2009 21:29 <img width='18px' height='12px' src="/flags/Russia.png">					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' src='//www.gravatar.com/avatar/319bd076f0f675ea13af8f4345fcdacf?s=32&d=monsterid&r=PG'>
+										Chenzana, согласна. В этот же возрастной ряд можно смело добавить 30 и 35
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_11129">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="11129"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id12600/">Сергей</a>
+					</span>
+					<span class="comm_date">
+												11.04.2009 21:32 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/126/12600.gif'>
+										kse Полностью согласен! Булгаков-гений.
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_10124">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="10124"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id15978/">ксения</a>
+					</span>
+					<span class="comm_date">
+												10.04.2009 23:21 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/159/15978.jpg'>
+										Никогда не думала, что МиМ можно назвать наивным( даже слегка, даже искушённому). Это великолепная книга как по языку и стилю автора, так и по замыслу сюжета!
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_10087">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="10087"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id7220/">Александр</a>
+					</span>
+					<span class="comm_date">
+												10.04.2009 22:31 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/72/7220.jpg'>
+										Я просто безумно рад, что здесь начали появляться ценители бессмертных мировой литературы!
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_10082">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="10082"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id4034/">Poison Angel</a>
+					</span>
+					<span class="comm_date">
+												15.12.2008 07:26 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/40/4034.jpg'>
+										Я тоже не ожидал найти, но рад, что эта книга тут есть. Читал больше 10 раз, и как-нибудь перечитаю еще. <img src="http://s1.ucoz.net/sm/1/biggrin.gif" border="0" align="absmiddle" alt="biggrin">
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_7888">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="7888"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id12277/">Анастасия</a>
+					</span>
+					<span class="comm_date">
+												10.11.2008 00:37 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/122/12277.jpg'>
+										Одна из моих любимых книг! Шедевр!
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_7172">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="7172"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id11377/">Роман</a>
+					</span>
+					<span class="comm_date">
+												05.11.2008 18:49 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/113/11377.jpg'>
+										Спасибо! Обложка супер!!! Обожаю МиМ!!!
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_6553">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="6553"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											<a href="/users/id11239/">Георгий</a>
+					</span>
+					<span class="comm_date">
+												05.11.2008 15:33 					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' height='32px' src='/avatars/112/11239.png'>
+										Вот уж кого я не ожидал здесь увидеть, так это Булгакова!
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_6549">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="6549"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+	
+
+			
+<br />
+
+	<form action="/lib/id3543/" name="comment_form" method="post">
+		<table cellpadding="0" cellspacing="0">
+			<tbody>
+				<tr>
+					<td style="padding: 9px 10px 0px 0px; vertical-align: top; width: 80px;"><label>Логин:</label></td>
+					<td style="padding-top: 5px;"><input type="text" name="login" value="" ></td>
+					</tr>
+				<tr>
+					<td style="padding: 9px 10px 0px 0px; vertical-align: top; width: 80px;"><label>E-mail:</label></td>
+					<td style="padding-top: 5px;"><input type="text" name="email" value=""></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td style="padding-top: 5px;"><textarea name="comment" style="width: 310px; height: 120px;"></textarea></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td style="padding-top: 5px;"><input type="submit" value="Отправить" name="comment_button"></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	</div>
+            </div> <!-- // .rightBlock -->
+        </div><br clear="all" /> <!-- // .center -->
+        <div class="footer">
+            <table border=0 width='100%'>
+<tr><td><div style='text-align: right;'>
+</td><td>            <a href="//twitter.com/fantasy_worlds" class="twitter-follow-button">Follow @fantasy_worlds</a>
+<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script></div>            </td>
+            </tr>
+<tr><td>© Не все права принадлежат <b>«Fantasy Worlds»</b></td><td></td></tr>
+            </table>
+        </div> <!-- // .footer -->
+    </div> <!-- // .headerBg -->
+</div><!-- // .footerBg -->
+
+
+<script type='text/javascript' data-cfasync='false'>
+  let e850384cee_cnt = 0;
+  let e850384cee_interval = setInterval(function(){
+    if (typeof e850384cee_country !== 'undefined') {
+      clearInterval(e850384cee_interval);
+      (function(){
+        var ud;
+        try { ud = localStorage.getItem('e850384cee_uid'); } catch (e) { }
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.charset = 'utf-8';
+        script.async = 'true';
+        script.src = 'https://' + e850384cee_domain + '/' + e850384cee_path + '/' + e850384cee_file + '.js?23605&v=3&u=' + ud + '&a=' + Math.random();
+        document.body.appendChild(script);
+      })();
+    } else {
+      e850384cee_cnt += 1;
+      if (e850384cee_cnt >= 60) {
+        clearInterval(e850384cee_interval);
+      }
+    }
+  }, 500);
+</script>
+
+
+</body>
+</html>

@@ -270,13 +270,14 @@ public class BookRuleEvaluatorService {
             case "title", "subtitle", "description", "publisher", "language", "seriesName",
                  "isbn13", "isbn10", "asin", "contentRating", "narrator",
                  "goodreadsId", "hardcoverId", "googleId", "audibleId", "applebooksId", "doubanId",
-                 "lubimyczytacId", "litresId", "ranobedbId", "comicvineId", "openlibraryId" ->
+                 "lubimyczytacId", "litresId", "fantasyWorldsId", "ranobedbId", "comicvineId", "openlibraryId" ->
                     stringPresence(cb, root.get("metadata").get(metadataField));
 
             // Numeric/date/boolean fields on BookMetadataEntity
             case "pageCount", "seriesNumber", "seriesTotal", "ageRating", "publishedDate", "abridged",
                  "amazonRating", "goodreadsRating", "hardcoverRating", "ranobedbRating",
-                 "lubimyczytacRating", "litresRating", "litresReviewCount", "audibleRating",
+                 "lubimyczytacRating", "litresRating", "litresReviewCount",
+                 "fantasyWorldsRating", "fantasyWorldsReviewCount", "audibleRating",
                  "applebooksRating", "applebooksReviewCount",
                  "doubanRating", "doubanReviewCount",
                  "amazonReviewCount", "goodreadsReviewCount", "hardcoverReviewCount", "audibleReviewCount" ->
@@ -799,6 +800,8 @@ public class BookRuleEvaluatorService {
             case LUBIMYCZYTAC_RATING -> root.get("metadata").get("lubimyczytacRating");
             case LITRES_RATING -> root.get("metadata").get("litresRating");
             case LITRES_REVIEW_COUNT -> root.get("metadata").get("litresReviewCount");
+            case FANTASY_WORLDS_RATING -> root.get("metadata").get("fantasyWorldsRating");
+            case FANTASY_WORLDS_REVIEW_COUNT -> root.get("metadata").get("fantasyWorldsReviewCount");
             case DESCRIPTION -> root.get("metadata").get("description");
             case NARRATOR -> root.get("metadata").get("narrator");
             case AUDIBLE_RATING -> root.get("metadata").get("audibleRating");
@@ -962,6 +965,7 @@ public class BookRuleEvaluatorService {
             RuleField.GOODREADS_RATING, RuleField.GOODREADS_REVIEW_COUNT,
             RuleField.HARDCOVER_RATING, RuleField.HARDCOVER_REVIEW_COUNT,
             RuleField.LUBIMYCZYTAC_RATING, RuleField.LITRES_RATING, RuleField.LITRES_REVIEW_COUNT,
+            RuleField.FANTASY_WORLDS_RATING, RuleField.FANTASY_WORLDS_REVIEW_COUNT,
             RuleField.RANOBEDB_RATING,
             RuleField.AUDIBLE_RATING, RuleField.AUDIBLE_REVIEW_COUNT,
             RuleField.APPLEBOOKS_RATING, RuleField.APPLEBOOKS_REVIEW_COUNT,

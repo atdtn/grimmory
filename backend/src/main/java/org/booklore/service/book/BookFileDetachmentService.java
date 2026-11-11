@@ -153,6 +153,8 @@ public class BookFileDetachmentService {
         copy.setLubimyczytacRating(source.getLubimyczytacRating());
         copy.setLitresRating(source.getLitresRating());
         copy.setLitresReviewCount(source.getLitresReviewCount());
+        copy.setFantasyWorldsRating(source.getFantasyWorldsRating());
+        copy.setFantasyWorldsReviewCount(source.getFantasyWorldsReviewCount());
         copy.setRanobedbRating(source.getRanobedbRating());
         copy.setAudibleRating(source.getAudibleRating());
         copy.setAudibleReviewCount(source.getAudibleReviewCount());
@@ -165,6 +167,7 @@ public class BookFileDetachmentService {
         copy.setComicvineId(source.getComicvineId());
         copy.setLubimyczytacId(source.getLubimyczytacId());
         copy.setLitresId(source.getLitresId());
+        copy.setFantasyWorldsId(source.getFantasyWorldsId());
         copy.setRanobedbId(source.getRanobedbId());
         copy.setAudibleId(source.getAudibleId());
         copy.setApplebooksId(source.getApplebooksId());

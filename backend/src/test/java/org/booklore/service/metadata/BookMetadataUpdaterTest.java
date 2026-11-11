@@ -879,6 +879,27 @@ class BookMetadataUpdaterTest {
         }
 
         @Test
+        void updatesFantasyWorldsFields() {
+            BookMetadata newMeta = BookMetadata.builder().title("T")
+                    .fantasyWorldsId("3543").fantasyWorldsRating(4.8).fantasyWorldsReviewCount(58)
+                    .fantasyWorldsIdLocked(true).fantasyWorldsRatingLocked(true)
+                    .fantasyWorldsReviewCountLocked(true)
+                    .build();
+            MetadataUpdateContext context = buildContext(newMeta, MetadataReplaceMode.REPLACE_ALL);
+
+            try (MockedStatic<MetadataChangeDetector> mcd = mockStatic(MetadataChangeDetector.class)) {
+                mockSettingsAndChangeDetector(mcd, true, true);
+                updater.setBookMetadata(context);
+                assertThat(metadataEntity.getFantasyWorldsId()).isEqualTo("3543");
+                assertThat(metadataEntity.getFantasyWorldsRating()).isEqualTo(4.8);
+                assertThat(metadataEntity.getFantasyWorldsReviewCount()).isEqualTo(58);
+                assertThat(metadataEntity.getFantasyWorldsIdLocked()).isTrue();
+                assertThat(metadataEntity.getFantasyWorldsRatingLocked()).isTrue();
+                assertThat(metadataEntity.getFantasyWorldsReviewCountLocked()).isTrue();
+            }
+        }
+
+        @Test
         void updatesDoubanFields() {
             BookMetadata newMeta = BookMetadata.builder().title("T")
                     .doubanId("1084336").doubanRating(4.55).doubanReviewCount(320)

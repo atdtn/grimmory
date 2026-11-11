@@ -24,6 +24,7 @@ interface SidecarRatings {
   hardcover?: SidecarRating;
   lubimyczytac?: SidecarRating;
   litres?: SidecarRating;
+  fantasyWorlds?: SidecarRating;
   ranobedb?: SidecarRating;
   audible?: SidecarRating;
   applebooks?: SidecarRating;

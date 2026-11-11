@@ -408,6 +408,9 @@ public class AppSettingService {
         MetadataProviderSettings.Litres defaultLitres = new MetadataProviderSettings.Litres();
         defaultLitres.setEnabled(false);
 
+        MetadataProviderSettings.FantasyWorlds defaultFantasyWorlds = new MetadataProviderSettings.FantasyWorlds();
+        defaultFantasyWorlds.setEnabled(false);
+
         defaultMetadataProviderSettings.setOpenLibrary(defaultOpenLibrary);
         defaultMetadataProviderSettings.setAmazon(defaultAmazon);
         defaultMetadataProviderSettings.setGoogle(defaultGoogle);
@@ -418,6 +421,7 @@ public class AppSettingService {
         defaultMetadataProviderSettings.setDouban(defaultDouban);
         defaultMetadataProviderSettings.setAppleBooks(defaultAppleBooks);
         defaultMetadataProviderSettings.setLitres(defaultLitres);
+        defaultMetadataProviderSettings.setFantasyWorlds(defaultFantasyWorlds);
 
         return defaultMetadataProviderSettings;
     }
@@ -458,6 +462,9 @@ public class AppSettingService {
                 .litresId(nullProvider)
                 .litresRating(nullProvider)
                 .litresReviewCount(nullProvider)
+                .fantasyWorldsId(nullProvider)
+                .fantasyWorldsRating(nullProvider)
+                .fantasyWorldsReviewCount(nullProvider)
                 .amazonRating(nullProvider)
                 .amazonReviewCount(nullProvider)
                 .goodreadsRating(nullProvider)
@@ -507,6 +514,9 @@ public class AppSettingService {
                 .litresId(true)
                 .litresRating(true)
                 .litresReviewCount(true)
+                .fantasyWorldsId(true)
+                .fantasyWorldsRating(true)
+                .fantasyWorldsReviewCount(true)
                 .amazonRating(true)
                 .amazonReviewCount(true)
                 .goodreadsRating(true)
@@ -568,6 +578,8 @@ public class AppSettingService {
                 .lubimyczytacRating(2)
                 .litresRating(0)
                 .litresReviewCount(0)
+                .fantasyWorldsRating(0)
+                .fantasyWorldsReviewCount(0)
                 .audibleRating(0)
                 .audibleReviewCount(0)
                 .applebooksRating(0)
@@ -676,6 +688,9 @@ public class AppSettingService {
         fields.setLitresId(true);
         fields.setLitresRating(true);
         fields.setLitresReviewCount(true);
+        fields.setFantasyWorldsId(true);
+        fields.setFantasyWorldsRating(true);
+        fields.setFantasyWorldsReviewCount(true);
         fields.setRanobedbRating(true);
         fields.setAudibleId(true);
         fields.setAudibleRating(true);

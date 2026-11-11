@@ -215,6 +215,9 @@ public class BookMetadataUpdater {
         handleFieldUpdate(e.getLitresIdLocked(), clear.isLitresId(), m.getLitresId(), v -> e.setLitresId(nullIfBlank(v)), e::getLitresId, replaceMode);
         handleFieldUpdate(e.getLitresRatingLocked(), clear.isLitresRating(), m.getLitresRating(), e::setLitresRating, e::getLitresRating, replaceMode);
         handleFieldUpdate(e.getLitresReviewCountLocked(), clear.isLitresReviewCount(), m.getLitresReviewCount(), e::setLitresReviewCount, e::getLitresReviewCount, replaceMode);
+        handleFieldUpdate(e.getFantasyWorldsIdLocked(), clear.isFantasyWorldsId(), m.getFantasyWorldsId(), v -> e.setFantasyWorldsId(nullIfBlank(v)), e::getFantasyWorldsId, replaceMode);
+        handleFieldUpdate(e.getFantasyWorldsRatingLocked(), clear.isFantasyWorldsRating(), m.getFantasyWorldsRating(), e::setFantasyWorldsRating, e::getFantasyWorldsRating, replaceMode);
+        handleFieldUpdate(e.getFantasyWorldsReviewCountLocked(), clear.isFantasyWorldsReviewCount(), m.getFantasyWorldsReviewCount(), e::setFantasyWorldsReviewCount, e::getFantasyWorldsReviewCount, replaceMode);
         handleFieldUpdate(e.getRanobedbIdLocked(), clear.isRanobedbId(), m.getRanobedbId(), v -> e.setRanobedbId(nullIfBlank(v)), e::getRanobedbId, replaceMode);
         handleFieldUpdate(e.getRanobedbRatingLocked(), clear.isRanobedbRating(), m.getRanobedbRating(), e::setRanobedbRating, e::getRanobedbRating, replaceMode);
         handleFieldUpdate(e.getAudibleIdLocked(), clear.isAudibleId(), m.getAudibleId(), v -> e.setAudibleId(nullIfBlank(v)), e::getAudibleId, replaceMode);
@@ -733,6 +736,9 @@ public class BookMetadataUpdater {
                 Pair.of(m.getLitresIdLocked(), e::setLitresIdLocked),
                 Pair.of(m.getLitresRatingLocked(), e::setLitresRatingLocked),
                 Pair.of(m.getLitresReviewCountLocked(), e::setLitresReviewCountLocked),
+                Pair.of(m.getFantasyWorldsIdLocked(), e::setFantasyWorldsIdLocked),
+                Pair.of(m.getFantasyWorldsRatingLocked(), e::setFantasyWorldsRatingLocked),
+                Pair.of(m.getFantasyWorldsReviewCountLocked(), e::setFantasyWorldsReviewCountLocked),
                 Pair.of(m.getGoogleIdLocked(), e::setGoogleIdLocked),
                 Pair.of(m.getPageCountLocked(), e::setPageCountLocked),
                 Pair.of(m.getLanguageLocked(), e::setLanguageLocked),

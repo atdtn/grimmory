@@ -128,7 +128,7 @@ describe('MetadataSourceQueryService', () => {
       {name: 'Bookwyrm', enabled: true},
     ]);
 
-    expect(service.providers()).toHaveLength(12);
+    expect(service.providers()).toHaveLength(13);
     expect(service.enabledProviders().map(provider => provider.id)).toEqual(['Amazon']);
   });
 

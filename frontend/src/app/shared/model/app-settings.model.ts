@@ -53,6 +53,7 @@ export interface MetadataProviderSettings {
   douban: Douban;
   lubimyczytac: Lubimyczytac;
   litres: Litres;
+  fantasyWorlds: FantasyWorlds;
   audible: Audible;
   appleBooks: AppleBooks;
 }
@@ -101,6 +102,10 @@ export interface Lubimyczytac {
 }
 
 export interface Litres {
+  enabled: boolean;
+}
+
+export interface FantasyWorlds {
   enabled: boolean;
 }
 

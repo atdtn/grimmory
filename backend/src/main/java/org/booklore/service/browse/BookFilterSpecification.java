@@ -504,6 +504,10 @@ public class BookFilterSpecification {
         return buildRatingRangeSpec(rangeIds, "litresRating");
     }
 
+    public static Specification<BookEntity> withFantasyWorldsRatings(List<String> rangeIds) {
+        return buildRatingRangeSpec(rangeIds, "fantasyWorldsRating");
+    }
+
     public static Specification<BookEntity> withRanobedbRatings(List<String> rangeIds) {
         return buildRatingRangeSpec(rangeIds, "ranobedbRating");
     }

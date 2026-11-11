@@ -2692,7 +2692,8 @@
       "ranobedb": "RanobeDB",
       "audible": "Audible",
       "appleBooks": "Apple Books",
-      "litres": "LitRes"
+      "litres": "LitRes",
+      "fantasyWorlds": "Fantasy Worlds"
     },
     "providerFields": {
       "id": "{{ provider }} ID",
@@ -3569,6 +3570,8 @@
       "lubimyczytacRating": "Lubimyczytac Rating",
       "litresRating": "LitRes Rating",
       "litresReviewCount": "LitRes Rating Count",
+      "fantasyWorldsRating": "Fantasy Worlds Rating",
+      "fantasyWorldsReviewCount": "Fantasy Worlds Rating Count",
       "audibleReviewCount": "Audible Rating Count",
       "audibleRating": "Audible Rating"
     }

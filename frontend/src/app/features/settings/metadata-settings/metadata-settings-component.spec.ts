@@ -102,6 +102,7 @@ function buildMetadataRefreshOptions(): MetadataRefreshOptions {
     'audibleReviewCount',
     'applebooksId', 'applebooksRating', 'applebooksReviewCount',
     'litresId', 'litresRating', 'litresReviewCount',
+    'fantasyWorldsId', 'fantasyWorldsRating', 'fantasyWorldsReviewCount',
     'moods', 'tags',
   ] as const;
 

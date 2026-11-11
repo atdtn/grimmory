@@ -81,6 +81,12 @@ const providers = [
     labelKey: 'metadata.providers.litres',
     book: {ids: ['litresId'], rating: 'litresRating', reviewCount: 'litresReviewCount'},
   },
+  {
+    id: 'FantasyWorlds',
+    settingsKey: 'fantasyWorlds',
+    labelKey: 'metadata.providers.fantasyWorlds',
+    book: {ids: ['fantasyWorldsId'], rating: 'fantasyWorldsRating', reviewCount: 'fantasyWorldsReviewCount'},
+  },
 ] as const;
 
 export type MetadataProviderId = typeof providers[number]['id'];

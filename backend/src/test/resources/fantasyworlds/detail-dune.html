@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html prefix="og: http://ogp.me/ns# books: http://ogp.me/ns/books#" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Фрэнк Герберт - Капитул Дюны | 401 Кб</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="ru" />
+    <meta name="keywords" content="скачать книгу бесплатно, скачать, Фрэнк Герберт, Капитул Дюны" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="«Фрэнк Герберт - Капитул Дюны». Бене Тлейлаксу, планета Ракис и еще множество других планет, организаций и людей уничтожены Досточтимыми Матронами. Бене Гессерит удается воспроизвести гхола погибшего военачальника Тега, Шиана становится самой молодой Преподобной Матерью в истории, а Мурбелла проходит обучение, чтобы также стать Преподобной Матерью. Все это — составные части плана Верховной Матери Дарви Одраде. Плана, который является единственной возможностью уцелеть под беспощадным натиском Досточтимых Матрон. Но в дело вмешиваются новые факторы — таинственные Дрессировщики, футары, биологическое оружие, Сеть и кто-то еще." />
+    <meta name="revisit-after" content="1 days" />
+
+    <meta property="og:site_name" content="Fantasy Worlds" />
+    <meta property="og:type" content="books.book" />
+    <meta property="og:title" content="Фрэнк Герберт - Капитул Дюны" />
+    <meta property="og:description" content="Бене Тлейлаксу, планета Ракис и еще множество других планет, организаций и людей уничтожены Досточтимыми Матронами. Бене Гессерит удается воспроизвести гхола погибшего военачальника Тега, Шиана становится самой молодой Преподобной Матерью в истории, а Мурбелла проходит обучение, чтобы также стать Преподобной Матерью. Все это — составные части плана Верховной Матери Дарви Одраде. Плана, который является единственной возможностью уцелеть под беспощадным натиском Досточтимых Матрон. Но в дело вмешиваются новые факторы — таинственные Дрессировщики, футары, биологическое оружие, Сеть и кто-то еще.">
+    <meta property="og:image" content="http://fantasy-worlds.org/img/preview/53/5398.jpg" />
+    <meta property="og:url" content="" />
+    <meta property="books:author" content="http://fantasy-worlds.org/author/id1028/" />    <meta property="books:isbn" content=" 5-88358-044-0" />    <meta property="books:rating:value" content="9.2" />
+    <meta property="books:rating:scale" content="10" />
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://f-w.in/rss/" /> <!-- RSS лента -->
+    <link rel="stylesheet" href="/share/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="/share/css/jquery-ui.css" type="text/css" />
+    <link rel="stylesheet" href="/share/css/nisl.css" type="text/css" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Fantasy-Worlds" /> <!-- Поиск в омнибоксе -->
+
+    <script type="text/javascript" src="/share/js/lib.js"></script>
+    <script src="/share/js/jquery.js"></script>
+    <script src='/share/js/jquery-ui.custom.js'></script>
+    <script src='/share/js/toast.js'></script>
+    <script src='/share/js/nisl.js'></script>
+    <script src="/share/js/keyboardLayout.js"></script>
+    <script src="/share/js/ajax-poll.js" type="text/javascript" charset="utf-8"></script>
+    <script type='text/javascript' src='https://deltarockme.com/services/?id=141655'></script>
+    <script>
+
+    suc = "";
+    err = "";
+
+    function showSuccessToast() {
+        $().toastmessage('showSuccessToast', suc);
+    }
+
+    function showWarningToast() {
+        $().toastmessage('showWarningToast', err);
+    }
+
+
+        $(document).ready(function(){
+
+            $().toastmessage({stayTime: 5000});
+            if(suc != '') showSuccessToast();
+            if(err != '') showWarningToast();
+
+                
+            $.ajax({
+                url: "//api.fantasy-worlds.org/tags_cloud",
+                                dataType: 'json',
+                                async: true,
+                                success: function(data){
+                                    var tags = '';
+                                    if(data && "items" in data){
+                                        $.each(data.items,
+                                            function(i, d){
+                                                tags += ' <a style="text-decoration: none; font-size: ' + (11 + (d[2] < 500 ? Math.round(d[2]/75) : Math.round(d[2]/1000) + 7) ) + 'px" title="' + d[2] + '  книг" href="/lib/tag' + d[0] + '/">' + d[1].trim() + '</id> ';
+                                            });
+                                    }
+                                    $('#tags-container').html(tags);
+                                }});
+
+                
+                $('span._nb-select-button').on("autocompleteselected", function(){
+                  var book_id = $(this).attr('id').split("_")[2];
+                  var new_val = $(this).find("select").val();
+                  if(new_val == "fb2") new_val = "";
+
+                  $("#download_book_" + book_id).attr("href", "/lib/id" + book_id + "/download/" + new_val )
+                });
+
+            /*$("#description").osimoeditor({
+                width:'650px',
+                styles:{
+                    'margin':'5px auto'
+                }
+            });*/
+        });
+    </script>
+    <!-- Отличные стили для шапки и позиционирования юзербара -->
+    <style type="text/css">
+        .headerBg {background:url('/i/header2.jpg') no-repeat center top; min-height:1085px;}
+        .header {height:315px; text-align:center;} /* Шапка */
+        .userbar {width:345px; text-align:left; position:relative; margin:0px auto; top:-123px; left:292px; color:#000; font-size:11px;}
+        .userbar a {color:#000}
+    </style>
+</head>
+
+<body>
+
+<div class="footerBg">
+    <div class="headerBg">
+    <!-- Шапка-->
+        <div class="header">
+            <a href="/" id="logo"></a>
+            <div class="userbar">
+                <div style="float:left; width:72px;"><img src="/avatars/default.jpg" width=72 height=72 alt="Аватарка" /></div>
+                <div style="float:left; width:136px; text-align:center; padding-top:13px">Вы не авторизовались<br /><a href='/login/'><img src='/i/login.png' border='0' width='104' height='37' /></a></div>
+                <div style="float:left; width:136px; text-align:center;"><div style='padding-top:20px;'><a href='/register/'><b>Зарегистрироваться</b><br />на нашем портале</a></div></div>
+            </div><!-- // .userbar -->
+        </div> <!-- // .header -->
+    <!-- Центральный блок-->
+        <div class="center">
+        <!-- Левый блок -->
+            <div class="leftBlock">
+                <br /><br /><br /><br />
+            <!-- Меню -->
+                <ul>
+                    <!--li><g:plusone size="medium"></g:plusone></li-->                    <li><a href=/>Главная</a></li>
+                    <li><a href="/news/">Новости</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/forum/">Форум</a></li>
+                    <li><a href="/lib/">Библиотека</a></li>
+                    <li><a href="/comments/">Комментарии</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/photo">Обои</a></li>
+                    <li><a href="/gb/">Гостевая книга</a></li>
+                    <li><a href="/mail/">Обратная связь</a></li>
+                </ul><br />
+                <ul>
+                    <li><a href="http://forum.fantasy-worlds.net/publ/10">Врата миров</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/publ/11">Бестиарий</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/publ/9">Интервью</a></li>
+                    <li><a href="http://forum.fantasy-worlds.net/publ/8">Рецензии</a> <span class="leftBlockSmall">на книги</span></li>
+                </ul><br />
+
+                <noindex>
+
+            <!-- Кнопка -->
+            <div style="padding-left: 0px; margin-left: 0px;" class="text"><p class="contentTitle" style="padding-left: 0px; font-size: 19px; margin-left: 0px;">Поддержать bitcoin-ом:</p>
+            <p><a href="bitcoin:16gW7zamGuK4WXiUQk5s542wu1YwyWFLh6" style="font-size:10px;">16gW7zamGuK4WXiUQk5s542wu1YwyWFLh6</a></p></div>
+            <br />
+
+    <div>
+    <span class="contentTitle">Облако тегов</span>
+    <br/>
+    <div id="tags-container" style="
+    padding-top: 25px;
+    width: 197px;
+"></div>
+</div>
+    
+<br/>
+
+            <!-- Информер -->
+                <div>
+                    <div style='margin-left: 10px;'><a title='Official Fantasy-Worlds Twitter'  target='_blank' href='//twitter.com/fantasy_worlds'><img src='/i/alienbird_128.png'></a></div>
+                    <div style="margin-left: 10px;text-align: center;padding-top: 20px;padding-right: 70px;"><a title="Fantasy-Worlds Telegram bot" target="_blank" href="https://telegram.me/Fantasy_Worlds_Bot"><img src="/i/t_logo.png" style="width: 50px;"></a></div>
+
+                    <!--span class="contentTitle">Статистика</span-->
+                    <!--a style = "text-decoration: none;" href="#"><div class="text">Сейчас на сайте</div></a><br /-->
+                    <div class="informer">
+                        <!--Сейчас всего на сайте: <b>{ALL_ONLINE}</b><br />Гостей: <b>{GUEST_ONLINE}</b><br />Пользователей: <b>{USER_ONLINE}</b><br /--><br /><br />
+<br/>
+
+                    </div>
+                </div>
+            </div> <!-- // .leftBlock -->
+        <!-- Контент -->
+            <div class="rightBlock">
+                <div style="
+                    margin-bottom: 5px;
+                    background-color: #654109;
+                    color: white;
+                    padding: 10px;
+                    opacity: 50%;
+                    border-radius: 10px;
+                ">📖 Встречайте обновлённую читалку! Постраничный режим, глубокая настройка под себя и чтение без интернета. Попробуйте и <a href="mailto:library@fantasy-worlds.org" style="color: white;">напишите нам</a> — что понравилось, что улучшить.</div>
+                
+
+                <script type="text/javascript" src="/share/js/typewatch.js"></script>
+<script>
+$(document).ready(function(){
+  $('.search_autocomplete .close').click(function(){
+    $('.search_autocomplete').hide();
+  });
+
+  $(document).keyup(function(e) {
+    if (e.keyCode == 27) $('.search_autocomplete').hide();   // esc
+  });
+
+  $('input[name=q]').typeWatch({
+      callback: function(){
+        var new_val = $('input[name=q]').val();
+        if(new_val.length > 2){
+          $.ajax({
+            dataType: "json",
+            url: "/search.json?q=" + new_val,
+            success: function(data){
+
+              $('.search_autocomplete').show();
+              $('.search_autocomplete table').empty();
+
+              if(data['authors'].length > 0){
+                $.each(data['authors'], function(i, book){
+                  if(i < 5)
+                    $('.search_autocomplete table').append('<tr><td class="searchtype">' + ((i == 0) ? "авторы" : "" ) + '</td><td colspan="2"><h3><a href="/author/id' + book['id'] + '/">' + book['name'] + ' ' + book['surname'] + '</a></h3></td></tr>')
+                });
+              }
+
+              if(data['books'].length > 0){
+                $.each(data['books'], function(i, book){
+                  if(i < 5)
+                    $('.search_autocomplete table').append('<tr><td class="searchtype">' + ((i == 0) ? "книги" : "" ) + '</td><td><img width="50px" src="/img/preview/' + Math.floor(book['id'] / 100) + '/' + book['id'] + '.' + book['book_ext'] + '"></td><td><h3><a href="/lib/id' + book['id'] + '/">' + book['author_name'] + ' ' + book['author_surname'] + ' — ' + book['title'] + '</a></h3></td></tr>')
+                });
+              }
+
+              if(data['keywords'].length > 0){
+                $.each(data['keywords'], function(i, book){
+                  if(i < 5)
+                    $('.search_autocomplete table').append('<tr><td class="searchtype">' + ((i == 0) ? "теги" : "" ) + '</td><td colspan="2"><h3><a href="/lib/tag' + book['id'] + '/">' + book['name'] + '</a></h3></td></tr>')
+                });
+              }
+
+              if(data['keywords'].length == 0 && data['books'].length == 0 && data['authors'].length == 0){
+                $('.search_autocomplete').hide();
+                $('.search_autocomplete table').empty();
+              }
+            }
+          });
+        }else{
+          $('.search_autocomplete').hide();
+        }
+      },
+      wait: 750,
+      captureLength: 2
+  });
+});
+</script>
+<div style="width: 100%;" class="nb-suggest _init" data-nb="suggest" data-countMax="10" data-type="username"
+data-size="" data-source="/search.json" data-highlight="" data-class-suggest="nb-island _nb-fly-island _nb-suggest-container _nb--suggest">
+  <form data-nb="arrow" action="/search/" method="get" class="nb-arrow _init">
+    <span class="_nb-arrow-tail"></span>
+    <button class="nb-button _nb-normal-button _init _nb-search-arrow-button"
+    data-nb="button" type="submit">
+        <span class="_nb-button-content">Найти!</span>
+    </button>
+    <div class="_nb-search-arrow-content">
+        <label class="nb-input _nb-complex-input _nb-search-arrow-input _init" autocomplete="off"
+        value="" name="text" data-nb="input">
+                              <span class="_nb-input-content">
+                              <input type="text" placeholder="Поиск книги..." name="q" value="" class="_nb-input-controller" value="" autocomplete="off" name="text" />
+                <span class="_nb-input-view"> </span>
+            </span>
+        </label>
+    </div>
+          <div class="search_autocomplete">
+              <span class="close">×</span>
+              <table></table>
+          </div>
+</form>
+</div>
+<div style="margin-top: 15px;">
+
+	<div itemscope="itemscope" itemtype="http://schema.org/Book">
+<meta itemprop="bookFormat" content="EBook/fb2"/>
+<meta itemprop="inLanguage" content="ru" />
+<table width="100%" border='0px'>
+	<tr>
+		<td>
+			<div class="news_title" style="margin: 0;">
+				<h1 style="margin: 0;">Фрэнк Герберт — Капитул Дюны</h1>			</div>
+		</td>
+			</tr>
+</table>
+
+<table class="news_body" style="padding-left: 0;">
+	<tr>
+		<td style="vertical-align: top;">
+			<table>
+			<tr><td>
+				<a target="_blank" href="/img/full/53/5398.jpg">
+					<img src="/img/preview/53/5398.jpg" align="left" alt="Капитул Дюны" itemprop="image" />
+				</a>
+									<!-- p style="text-align: center;"><a target="_blank" href="http://litres.ru/122133/?lfrom=255676672" style="text-transform: uppercase;font-size: 10px;text-decoration: none; border-bottom: 1px dashed black;">купить на литрес за 349 руб.</a></p -->
+							</td>
+			</tr>
+						</table>
+		</td>
+		<td style="vertical-align: top;">
+	<span style="display:table;">
+		<br/>
+		<p><b>Автор:</b> <a itemprop="author" href="/author/id1028/">Фрэнк Герберт</a>
+		<br/>
+		<b>Название:</b> <span itemprop="name">Капитул Дюны</span>
+					<br/> <b>Оригинальное название:</b> Chapterhouse Dune
+							<br/> <b>Другие названия:</b> <span itemprop="alternateName">Дом глав родов Дюны</span>
+											<br/><b>Серия:</b> <a href='/series/id4268/'>Вселенная Дюны</a>: <a href='/series/id697/'>Хроники Дюны</a>
+							<br/> <b>Номер книги в серии:</b> 6
+							<br/> <b>Год:</b> 1985
+									<br/><b>ISBN:</b> <span itemprop='isbn'> 5-88358-044-0</span>
+				</p>
+		<p><b>Аннотация на книгу «Капитул Дюны»:</b>
+		<br/>
+		<span itemprop='description'>Бене Тлейлаксу, планета Ракис и еще множество других планет, организаций и людей уничтожены Досточтимыми Матронами. Бене Гессерит удается воспроизвести гхола погибшего военачальника Тега, Шиана становится самой молодой Преподобной Матерью в истории, а Мурбелла проходит обучение, чтобы также стать Преподобной Матерью. Все это — составные части плана Верховной Матери Дарви Одраде. Плана, который является единственной возможностью уцелеть под беспощадным натиском Досточтимых Матрон. Но в дело вмешиваются новые факторы — таинственные Дрессировщики, футары, биологическое оружие, Сеть и кто-то еще.</span></p>
+		<p>
+						
+			
+			
+				<a class=" nb-button _nb-normal-button _init nb-group-start" data-nb="button" id="download_book_5398" href="/lib/id5398/download/">
+					<span class="_nb-button-content">
+						<span class="_nb-button-text">Скачать</span>
+					</span>
+				</a><span data-nb-direction="bottom" data-nb="select" tabindex="0" class="nb-button _nb-normal-button nb-select _init _nb-select-button nb-group-end" id="select_type_5398">
+					<span class="_nb-button-content">
+						<span class="_nb-button-after">
+							<span class="_nb-select-arrow"></span>
+						</span>
+						<span class="_nb-button-text">fb2.zip, 401 Кб</span>
+					</span>
+					<select class="_nb-select-fallback">
+						<option label="fb2.zip, 401 Кб" value="fb2" data-icon="" selected="">fb2.zip, 401 Кб</option>
+													<option label="epub" value="epub" data-icon="">epub, 562 Кб</option>
+																			<option label="mobi" value="mobi" data-icon="">mobi, 1105 Кб</option>
+																			<option label="txt" value="txt" data-icon="">txt, 1597 Кб</option>
+											</select>
+					<span class=" nb-select-dropdown _nb-pseudo-select-dropdown"></span>
+				</span>
+
+				
+				<a class=" nb-button _nb-normal-button _init" data-nb="button" id="read_book_5398" href="https://reader.fantasy-worlds.org/book/5398/read.html" target="_blank">
+					<span class="_nb-button-content">
+						<span class="_nb-button-text">Читать книгу онлайн</span>
+					</span>
+				</a> <a href="/lib/id5398/read/" target="_blank" style="font-size: 12px; color: #999; vertical-align: middle;">по-старому</a>
+
+					 </p>
+
+	 		 	<div style="clear: both;">
+			
+					</div><br />
+		
+		
+				
+			</span>
+</td></tr>
+</table>
+
+<br clear="all" />
+
+
+<div  class="news_footer">
+	<span style="float:left">
+		Добавлено: 24.12.2008 15:18
+	 | <div style="display: inline;" id="poll_mark1_5398">Рейтинг:
+<meta itemprop="ratingCount" content="60"/>
+<meta itemprop="ratingValue" content="9.2"/>
+<meta itemprop="bestRating" content="10"/>
+<meta itemprop="worstRating" content="0"/>
+		9.2/60
+			<script type="text/javascript">
+	$( document ).ready(function(){
+		fantlab_id = 4330;
+		$.getJSON('https://api.fantlab.ru/work' + fantlab_id + '.json', function(data){
+			fantlab_ratio = data.rating;
+			fantlab_ratio_text = " | Рейтинг <a target='_blank' href='//fantlab.ru/work4330'>fantlab</a>: ";
+			if(fantlab_ratio){
+				fantlab_ratio_text += fantlab_ratio.rating + "/" + fantlab_ratio.voters;
+			}else{
+				fantlab_ratio_text += "0/0";
+			}
+			$('#fantlab-ratio-' + fantlab_id).html(fantlab_ratio_text);
+		})
+	});
+	</script>
+		<span style='padding: 0;' id='fantlab-ratio-4330'></span>
+		</div> | Добавил: <a href="/users/id9759">nastycatinbox</a></span> <span style="float:right">
+			<a href="#" onclick="fb2info(5398);">fb2-info</a>
+		</span>
+</div>
+</div>
+	<br />
+
+    
+				<div  class="comm_body">
+				<span class="comm_user">
+											angry_hobo
+					</span>
+					<span class="comm_date">
+												23.05.2026 22:47 <img width='18px' height='12px' src="/flags/Ukraine.png">					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' src='//www.gravatar.com/avatar/18d9ae88ef678fb88f49749be5681eab?s=32&d=monsterid&r=PG'>
+										какой ужасньій перевод. Сделан на коленке третьекласником. чего только стоят "алколитьі"
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_245761">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="245761"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+				<div  class="comm_body">
+				<span class="comm_user">
+											Эмобой
+					</span>
+					<span class="comm_date">
+												23.01.2010 20:11 <img width='18px' height='12px' src="/flags/Russia.png">					</span><br />
+				<div class="comm_mesage">
+											<img class='avatar' width='32px' src='//www.gravatar.com/avatar/2515ac6001fa20c7a6a75eb6e8e49e28?s=32&d=monsterid&r=PG'>
+										Самая лучшая фантастика, которую я когда либо читал.
+				</div>
+				<div style="display:none;" class="moderation" id="comment_moderate_block_17436">
+					<hr/>
+					<form action="/moderate_comment" method="post">
+						<select name="moderate_reason">
+													<option value="1">Оффтоп</option>
+													<option value="2">Обсуждение политики</option>
+													<option value="3">Флуд</option>
+													<option value="4">Реклама</option>
+													<option value="5">Оскорбления</option>
+													<option value="6">Дубль комментария</option>
+													<option value="7">Спойлер</option>
+													<option value="100">Другое</option>
+													<option value="999">Премодерация</option>
+												</select>
+						<input type="hidden" name="moderate_id" value="17436"/>
+						<input placeholder="Причина текстом" type="text" name="moderate_text"/>
+						<input type="submit" value="Отправить"/>
+					</form>
+				</div>
+						</div><br clear="all"/>
+	
+
+			
+<br />
+
+	<form action="/lib/id5398/" name="comment_form" method="post">
+		<table cellpadding="0" cellspacing="0">
+			<tbody>
+				<tr>
+					<td style="padding: 9px 10px 0px 0px; vertical-align: top; width: 80px;"><label>Логин:</label></td>
+					<td style="padding-top: 5px;"><input type="text" name="login" value="" ></td>
+					</tr>
+				<tr>
+					<td style="padding: 9px 10px 0px 0px; vertical-align: top; width: 80px;"><label>E-mail:</label></td>
+					<td style="padding-top: 5px;"><input type="text" name="email" value=""></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td style="padding-top: 5px;"><textarea name="comment" style="width: 310px; height: 120px;"></textarea></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td style="padding-top: 5px;"><input type="submit" value="Отправить" name="comment_button"></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	</div>
+            </div> <!-- // .rightBlock -->
+        </div><br clear="all" /> <!-- // .center -->
+        <div class="footer">
+            <table border=0 width='100%'>
+<tr><td><div style='text-align: right;'>
+</td><td>            <a href="//twitter.com/fantasy_worlds" class="twitter-follow-button">Follow @fantasy_worlds</a>
+<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script></div>            </td>
+            </tr>
+<tr><td>© Не все права принадлежат <b>«Fantasy Worlds»</b></td><td></td></tr>
+            </table>
+        </div> <!-- // .footer -->
+    </div> <!-- // .headerBg -->
+</div><!-- // .footerBg -->
+
+
+<script type='text/javascript' data-cfasync='false'>
+  let e850384cee_cnt = 0;
+  let e850384cee_interval = setInterval(function(){
+    if (typeof e850384cee_country !== 'undefined') {
+      clearInterval(e850384cee_interval);
+      (function(){
+        var ud;
+        try { ud = localStorage.getItem('e850384cee_uid'); } catch (e) { }
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.charset = 'utf-8';
+        script.async = 'true';
+        script.src = 'https://' + e850384cee_domain + '/' + e850384cee_path + '/' + e850384cee_file + '.js?23605&v=3&u=' + ud + '&a=' + Math.random();
+        document.body.appendChild(script);
+      })();
+    } else {
+      e850384cee_cnt += 1;
+      if (e850384cee_cnt >= 60) {
+        clearInterval(e850384cee_interval);
+      }
+    }
+  }, 500);
+</script>
+
+
+</body>
+</html>

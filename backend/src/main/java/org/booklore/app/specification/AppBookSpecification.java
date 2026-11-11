@@ -646,6 +646,10 @@ public class AppBookSpecification {
         return buildRatingRangeSpec(rangeIds, mode, "litresRating");
     }
 
+    public static Specification<BookEntity> withFantasyWorldsRatings(List<String> rangeIds, String mode) {
+        return buildRatingRangeSpec(rangeIds, mode, "fantasyWorldsRating");
+    }
+
     public static Specification<BookEntity> withRanobedbRatings(List<String> rangeIds, String mode) {
         return buildRatingRangeSpec(rangeIds, mode, "ranobedbRating");
     }

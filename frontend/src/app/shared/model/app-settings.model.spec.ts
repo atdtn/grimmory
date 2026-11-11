@@ -46,6 +46,8 @@ describe('app-settings.model', () => {
       applebooksReviewCount: 1,
       litresRating: 1,
       litresReviewCount: 1,
+      fantasyWorldsRating: 1,
+      fantasyWorldsReviewCount: 1,
       coverImage: 6
     };
 

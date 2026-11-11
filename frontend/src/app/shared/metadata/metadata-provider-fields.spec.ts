@@ -20,6 +20,7 @@ describe('provider fields', () => {
       'audibleId', 'audibleRating', 'audibleReviewCount',
       'applebooksId', 'applebooksRating', 'applebooksReviewCount',
       'litresId', 'litresRating', 'litresReviewCount',
+      'fantasyWorldsId', 'fantasyWorldsRating', 'fantasyWorldsReviewCount',
     ]);
   });
 

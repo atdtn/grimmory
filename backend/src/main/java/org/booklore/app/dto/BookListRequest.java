@@ -35,6 +35,7 @@ public record BookListRequest(
         @Size(max = 20) List<String> hardcoverRating,
         @Size(max = 20) List<String> lubimyczytacRating,
         @Size(max = 20) List<String> litresRating,
+        @Size(max = 20) List<String> fantasyWorldsRating,
         @Size(max = 20) List<String> ranobedbRating,
         @Size(max = 20) List<String> audibleRating,
         @Size(max = 20) List<String> pageCount,

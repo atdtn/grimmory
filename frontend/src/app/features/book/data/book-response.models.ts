@@ -134,6 +134,8 @@ interface BookMetadataFields {
   lubimyczytacRating?: number;
   litresRating?: number;
   litresReviewCount?: number;
+  fantasyWorldsRating?: number;
+  fantasyWorldsReviewCount?: number;
   audibleRating?: number;
   audibleReviewCount?: number;
   coverUpdatedOn?: string;
@@ -247,6 +249,9 @@ export interface BookDetailMetadata extends BookMetadataFields {
   litresId?: string;
   litresRating?: number;
   litresReviewCount?: number;
+  fantasyWorldsId?: string;
+  fantasyWorldsRating?: number;
+  fantasyWorldsReviewCount?: number;
   ranobedbId?: string;
   audibleId?: string;
   openlibraryId?: string;
@@ -296,6 +301,9 @@ export interface BookDetailMetadata extends BookMetadataFields {
   litresIdLocked?: boolean;
   litresRatingLocked?: boolean;
   litresReviewCountLocked?: boolean;
+  fantasyWorldsIdLocked?: boolean;
+  fantasyWorldsRatingLocked?: boolean;
+  fantasyWorldsReviewCountLocked?: boolean;
   ranobedbIdLocked?: boolean;
   ranobedbRatingLocked?: boolean;
   openlibraryIdLocked?: boolean;
