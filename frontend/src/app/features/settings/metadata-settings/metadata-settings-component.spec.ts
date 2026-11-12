@@ -104,6 +104,7 @@ function buildMetadataRefreshOptions(): MetadataRefreshOptions {
     'litresId', 'litresRating', 'litresReviewCount',
     'fantasyWorldsId', 'fantasyWorldsRating', 'fantasyWorldsReviewCount',
     'litnetId', 'litnetRating', 'litnetReviewCount',
+    'labirintId', 'labirintRating', 'labirintReviewCount',
     'moods', 'tags',
   ] as const;
 

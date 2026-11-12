@@ -157,6 +157,8 @@ public class BookFileDetachmentService {
         copy.setFantasyWorldsReviewCount(source.getFantasyWorldsReviewCount());
         copy.setLitnetRating(source.getLitnetRating());
         copy.setLitnetReviewCount(source.getLitnetReviewCount());
+        copy.setLabirintRating(source.getLabirintRating());
+        copy.setLabirintReviewCount(source.getLabirintReviewCount());
         copy.setRanobedbRating(source.getRanobedbRating());
         copy.setAudibleRating(source.getAudibleRating());
         copy.setAudibleReviewCount(source.getAudibleReviewCount());
@@ -171,6 +173,7 @@ public class BookFileDetachmentService {
         copy.setLitresId(source.getLitresId());
         copy.setFantasyWorldsId(source.getFantasyWorldsId());
         copy.setLitnetId(source.getLitnetId());
+        copy.setLabirintId(source.getLabirintId());
         copy.setRanobedbId(source.getRanobedbId());
         copy.setAudibleId(source.getAudibleId());
         copy.setApplebooksId(source.getApplebooksId());

@@ -512,6 +512,10 @@ public class BookFilterSpecification {
         return buildRatingRangeSpec(rangeIds, "litnetRating");
     }
 
+    public static Specification<BookEntity> withLabirintRatings(List<String> rangeIds) {
+        return buildRatingRangeSpec(rangeIds, "labirintRating");
+    }
+
     public static Specification<BookEntity> withRanobedbRatings(List<String> rangeIds) {
         return buildRatingRangeSpec(rangeIds, "ranobedbRating");
     }

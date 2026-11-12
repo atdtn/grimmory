@@ -414,6 +414,9 @@ public class AppSettingService {
         MetadataProviderSettings.Litnet defaultLitnet = new MetadataProviderSettings.Litnet();
         defaultLitnet.setEnabled(false);
 
+        MetadataProviderSettings.Labirint defaultLabirint = new MetadataProviderSettings.Labirint();
+        defaultLabirint.setEnabled(false);
+
         defaultMetadataProviderSettings.setOpenLibrary(defaultOpenLibrary);
         defaultMetadataProviderSettings.setAmazon(defaultAmazon);
         defaultMetadataProviderSettings.setGoogle(defaultGoogle);
@@ -426,6 +429,7 @@ public class AppSettingService {
         defaultMetadataProviderSettings.setLitres(defaultLitres);
         defaultMetadataProviderSettings.setFantasyWorlds(defaultFantasyWorlds);
         defaultMetadataProviderSettings.setLitnet(defaultLitnet);
+        defaultMetadataProviderSettings.setLabirint(defaultLabirint);
 
         return defaultMetadataProviderSettings;
     }
@@ -472,6 +476,9 @@ public class AppSettingService {
                 .litnetId(nullProvider)
                 .litnetRating(nullProvider)
                 .litnetReviewCount(nullProvider)
+                .labirintId(nullProvider)
+                .labirintRating(nullProvider)
+                .labirintReviewCount(nullProvider)
                 .amazonRating(nullProvider)
                 .amazonReviewCount(nullProvider)
                 .goodreadsRating(nullProvider)
@@ -527,6 +534,9 @@ public class AppSettingService {
                 .litnetId(true)
                 .litnetRating(true)
                 .litnetReviewCount(true)
+                .labirintId(true)
+                .labirintRating(true)
+                .labirintReviewCount(true)
                 .amazonRating(true)
                 .amazonReviewCount(true)
                 .goodreadsRating(true)
@@ -592,6 +602,8 @@ public class AppSettingService {
                 .fantasyWorldsReviewCount(0)
                 .litnetRating(0)
                 .litnetReviewCount(0)
+                .labirintRating(0)
+                .labirintReviewCount(0)
                 .audibleRating(0)
                 .audibleReviewCount(0)
                 .applebooksRating(0)
@@ -706,6 +718,9 @@ public class AppSettingService {
         fields.setLitnetId(true);
         fields.setLitnetRating(true);
         fields.setLitnetReviewCount(true);
+        fields.setLabirintId(true);
+        fields.setLabirintRating(true);
+        fields.setLabirintReviewCount(true);
         fields.setRanobedbRating(true);
         fields.setAudibleId(true);
         fields.setAudibleRating(true);

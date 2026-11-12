@@ -55,6 +55,7 @@ export interface MetadataProviderSettings {
   litres: Litres;
   fantasyWorlds: FantasyWorlds;
   litnet: Litnet;
+  labirint: Labirint;
   audible: Audible;
   appleBooks: AppleBooks;
 }
@@ -111,6 +112,10 @@ export interface FantasyWorlds {
 }
 
 export interface Litnet {
+  enabled: boolean;
+}
+
+export interface Labirint {
   enabled: boolean;
 }
 

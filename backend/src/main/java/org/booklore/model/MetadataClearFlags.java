@@ -41,6 +41,9 @@ public class MetadataClearFlags {
     private boolean litnetId;
     private boolean litnetRating;
     private boolean litnetReviewCount;
+    private boolean labirintId;
+    private boolean labirintRating;
+    private boolean labirintReviewCount;
     private boolean ranobedbId;
     private boolean ranobedbRating;
     private boolean audibleId;

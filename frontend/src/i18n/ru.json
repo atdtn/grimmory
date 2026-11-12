@@ -2694,7 +2694,8 @@
       "appleBooks": "",
       "litres": "ЛитРес",
       "fantasyWorlds": "Fantasy Worlds",
-      "litnet": "Litnet"
+      "litnet": "Litnet",
+      "labirint": "Лабиринт"
     },
     "providerFields": {
       "id": "",
@@ -3575,6 +3576,8 @@
       "fantasyWorldsReviewCount": "Количество оценок Fantasy Worlds",
       "litnetRating": "Рейтинг Litnet",
       "litnetReviewCount": "Количество оценок Litnet",
+      "labirintRating": "Рейтинг Лабиринта",
+      "labirintReviewCount": "Количество рецензий Лабиринта",
       "audibleReviewCount": "Количество отзывов Audible",
       "audibleRating": ""
     }

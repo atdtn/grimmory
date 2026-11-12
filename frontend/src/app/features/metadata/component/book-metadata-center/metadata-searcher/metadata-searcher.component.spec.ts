@@ -65,6 +65,7 @@ describe('MetadataSearcherComponent', () => {
       litres: {enabled: false},
       fantasyWorlds: {enabled: false},
       litnet: {enabled: false},
+      labirint: {enabled: false},
       audible: {enabled: false, domain: 'com'},
       appleBooks: {enabled: false, country: ''},
     },

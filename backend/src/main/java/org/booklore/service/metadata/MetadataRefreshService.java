@@ -365,6 +365,9 @@ public class MetadataRefreshService {
             addProviderToSet(fieldOptions.getLitnetId(), uniqueProviders);
             addProviderToSet(fieldOptions.getLitnetRating(), uniqueProviders);
             addProviderToSet(fieldOptions.getLitnetReviewCount(), uniqueProviders);
+            addProviderToSet(fieldOptions.getLabirintId(), uniqueProviders);
+            addProviderToSet(fieldOptions.getLabirintRating(), uniqueProviders);
+            addProviderToSet(fieldOptions.getLabirintReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonRating(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getGoodreadsRating(), uniqueProviders);
@@ -731,6 +734,30 @@ public class MetadataRefreshService {
             metadata.setLitnetReviewCount(existingMetadata.getLitnetReviewCount());
         }
 
+        if (enabledFields.isLabirintId()) {
+            if (metadataMap.containsKey(LABIRINT)) {
+                metadata.setLabirintId(metadataMap.get(LABIRINT).getLabirintId());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setLabirintId(existingMetadata.getLabirintId());
+        }
+
+        if (enabledFields.isLabirintRating()) {
+            if (metadataMap.containsKey(LABIRINT)) {
+                metadata.setLabirintRating(metadataMap.get(LABIRINT).getLabirintRating());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setLabirintRating(existingMetadata.getLabirintRating());
+        }
+
+        if (enabledFields.isLabirintReviewCount()) {
+            if (metadataMap.containsKey(LABIRINT)) {
+                metadata.setLabirintReviewCount(metadataMap.get(LABIRINT).getLabirintReviewCount());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setLabirintReviewCount(existingMetadata.getLabirintReviewCount());
+        }
+
         if (enabledFields.isRanobedbId()) {
             if (metadataMap.containsKey(Ranobedb)) {
                 metadata.setRanobedbId(metadataMap.get(Ranobedb).getRanobedbId());
@@ -890,6 +917,9 @@ public class MetadataRefreshService {
             metadata.setLitnetIdLocked(existingMetadata.getLitnetIdLocked());
             metadata.setLitnetRatingLocked(existingMetadata.getLitnetRatingLocked());
             metadata.setLitnetReviewCountLocked(existingMetadata.getLitnetReviewCountLocked());
+            metadata.setLabirintIdLocked(existingMetadata.getLabirintIdLocked());
+            metadata.setLabirintRatingLocked(existingMetadata.getLabirintRatingLocked());
+            metadata.setLabirintReviewCountLocked(existingMetadata.getLabirintReviewCountLocked());
             metadata.setRanobedbIdLocked(existingMetadata.getRanobedbIdLocked());
             metadata.setRanobedbRatingLocked(existingMetadata.getRanobedbRatingLocked());
             metadata.setAudibleIdLocked(existingMetadata.getAudibleIdLocked());

@@ -19,6 +19,7 @@ public class SidecarRatings {
     private SidecarRating litres;
     private SidecarRating fantasyWorlds;
     private SidecarRating litnet;
+    private SidecarRating labirint;
     private SidecarRating ranobedb;
     private SidecarRating audible;
     private SidecarRating applebooks;

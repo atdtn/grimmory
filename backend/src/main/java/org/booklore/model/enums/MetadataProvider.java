@@ -16,6 +16,8 @@ public enum MetadataProvider {
     FANTASY_WORLDS,
     @JsonProperty("Litnet")
     LITNET,
+    @JsonProperty("Labirint")
+    LABIRINT,
     Ranobedb,
     Audible,
     AppleBooks

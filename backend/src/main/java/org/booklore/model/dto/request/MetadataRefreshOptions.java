@@ -70,6 +70,9 @@ public class MetadataRefreshOptions {
         private FieldProvider litnetId;
         private FieldProvider litnetRating;
         private FieldProvider litnetReviewCount;
+        private FieldProvider labirintId;
+        private FieldProvider labirintRating;
+        private FieldProvider labirintReviewCount;
         private FieldProvider amazonRating;
         private FieldProvider amazonReviewCount;
         private FieldProvider goodreadsRating;
@@ -178,6 +181,12 @@ public class MetadataRefreshOptions {
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean litnetReviewCount = true;
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean labirintId = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean labirintRating = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean labirintReviewCount = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean amazonRating = true;
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean amazonReviewCount = true;
@@ -255,6 +264,9 @@ public class MetadataRefreshOptions {
             this.litnetId = true;
             this.litnetRating = true;
             this.litnetReviewCount = true;
+            this.labirintId = true;
+            this.labirintRating = true;
+            this.labirintReviewCount = true;
             this.amazonRating = true;
             this.amazonReviewCount = true;
             this.goodreadsRating = true;

@@ -124,7 +124,7 @@ public class BookdropMetadataService {
                 m.getOpenlibraryId(),
                 m.getComicvineId(), m.getDoubanId(), m.getApplebooksId(),
                 m.getLubimyczytacId(), m.getLitresId(), m.getFantasyWorldsId(), m.getLitnetId(),
-                m.getRanobedbId(), m.getAudibleId()
+                m.getLabirintId(), m.getRanobedbId(), m.getAudibleId()
         ).anyMatch(id -> id != null && !id.isBlank());
     }
 
@@ -168,6 +168,7 @@ public class BookdropMetadataService {
                 .litresId(truncate(extracted.getLitresId(), 100))
                 .fantasyWorldsId(truncate(extracted.getFantasyWorldsId(), 100))
                 .litnetId(truncate(extracted.getLitnetId(), 100))
+                .labirintId(truncate(extracted.getLabirintId(), 100))
                 .ranobedbId(truncate(extracted.getRanobedbId(), 100))
                 .doubanId(truncate(extracted.getDoubanId(), 100))
                 .applebooksId(truncate(extracted.getApplebooksId(), 100))

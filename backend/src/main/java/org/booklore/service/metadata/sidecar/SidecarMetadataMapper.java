@@ -110,6 +110,7 @@ public class SidecarMetadataMapper {
                     .litresId(ids.getLitresId())
                     .fantasyWorldsId(ids.getFantasyWorldsId())
                     .litnetId(ids.getLitnetId())
+                    .labirintId(ids.getLabirintId())
                     .ranobedbId(ids.getRanobedbId())
                     .applebooksId(ids.getApplebooksId())
                     .doubanId(ids.getDoubanId())
@@ -144,6 +145,10 @@ public class SidecarMetadataMapper {
             if (r.getLitnet() != null) {
                 builder.litnetRating(r.getLitnet().getAverage())
                         .litnetReviewCount(r.getLitnet().getCount());
+            }
+            if (r.getLabirint() != null) {
+                builder.labirintRating(r.getLabirint().getAverage())
+                        .labirintReviewCount(r.getLabirint().getCount());
             }
             if (r.getRanobedb() != null) {
                 builder.ranobedbRating(r.getRanobedb().getAverage());
@@ -223,6 +228,7 @@ public class SidecarMetadataMapper {
                 .litresId(entity.getLitresId())
                 .fantasyWorldsId(entity.getFantasyWorldsId())
                 .litnetId(entity.getLitnetId())
+                .labirintId(entity.getLabirintId())
                 .ranobedbId(entity.getRanobedbId())
                 .audibleId(entity.getAudibleId())
                 .applebooksId(entity.getApplebooksId())
@@ -240,6 +246,7 @@ public class SidecarMetadataMapper {
                 .litres(buildRating(entity.getLitresRating(), entity.getLitresReviewCount()))
                 .fantasyWorlds(buildRating(entity.getFantasyWorldsRating(), entity.getFantasyWorldsReviewCount()))
                 .litnet(buildRating(entity.getLitnetRating(), entity.getLitnetReviewCount()))
+                .labirint(buildRating(entity.getLabirintRating(), entity.getLabirintReviewCount()))
                 .ranobedb(buildRating(entity.getRanobedbRating(), null))
                 .audible(buildRating(entity.getAudibleRating(), entity.getAudibleReviewCount()))
                 .applebooks(buildRating(entity.getApplebooksRating(), entity.getApplebooksReviewCount()))

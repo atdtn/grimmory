@@ -920,6 +920,26 @@ class BookMetadataUpdaterTest {
         }
 
         @Test
+        void updatesLabirintFields() {
+            BookMetadata newMeta = BookMetadata.builder().title("T")
+                    .labirintId("595815").labirintRating(4.5).labirintReviewCount(10)
+                    .labirintIdLocked(true).labirintRatingLocked(true).labirintReviewCountLocked(true)
+                    .build();
+            MetadataUpdateContext context = buildContext(newMeta, MetadataReplaceMode.REPLACE_ALL);
+
+            try (MockedStatic<MetadataChangeDetector> mcd = mockStatic(MetadataChangeDetector.class)) {
+                mockSettingsAndChangeDetector(mcd, true, true);
+                updater.setBookMetadata(context);
+                assertThat(metadataEntity.getLabirintId()).isEqualTo("595815");
+                assertThat(metadataEntity.getLabirintRating()).isEqualTo(4.5);
+                assertThat(metadataEntity.getLabirintReviewCount()).isEqualTo(10);
+                assertThat(metadataEntity.getLabirintIdLocked()).isTrue();
+                assertThat(metadataEntity.getLabirintRatingLocked()).isTrue();
+                assertThat(metadataEntity.getLabirintReviewCountLocked()).isTrue();
+            }
+        }
+
+        @Test
         void updatesDoubanFields() {
             BookMetadata newMeta = BookMetadata.builder().title("T")
                     .doubanId("1084336").doubanRating(4.55).doubanReviewCount(320)

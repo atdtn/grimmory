@@ -2678,7 +2678,8 @@
       "appleBooks": "Apple Books",
       "litres": "LitRes",
       "fantasyWorlds": "Fantasy Worlds",
-      "litnet": "Litnet"
+      "litnet": "Litnet",
+      "labirint": "Labirint"
     },
     "providerFields": {
       "id": "{{ provider }} ID",
@@ -3560,6 +3561,8 @@
       "fantasyWorldsReviewCount": "Fantasy Worlds Rating Count",
       "litnetRating": "Litnet Rating",
       "litnetReviewCount": "Litnet Rating Count",
+      "labirintRating": "Labirint Rating",
+      "labirintReviewCount": "Labirint Review Count",
       "audibleReviewCount": "Audible Rating Count",
       "audibleRating": "Audible Rating"
     }

@@ -144,6 +144,7 @@ public class DuplicateDetectionService {
         addIfPresent(ids, "litres:", meta.getLitresId());
         addIfPresent(ids, "fantasyWorlds:", meta.getFantasyWorldsId());
         addIfPresent(ids, "litnet:", meta.getLitnetId());
+        addIfPresent(ids, "labirint:", meta.getLabirintId());
         addIfPresent(ids, "openlibrary:", meta.getOpenlibraryId());
         return ids;
     }

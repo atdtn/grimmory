@@ -87,6 +87,10 @@ public enum RuleField {
     LITNET_RATING,
     @JsonProperty("litnetReviewCount")
     LITNET_REVIEW_COUNT,
+    @JsonProperty("labirintRating")
+    LABIRINT_RATING,
+    @JsonProperty("labirintReviewCount")
+    LABIRINT_REVIEW_COUNT,
     @JsonProperty("description")
     DESCRIPTION,
     @JsonProperty("narrator")

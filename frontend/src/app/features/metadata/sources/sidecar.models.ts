@@ -26,6 +26,7 @@ interface SidecarRatings {
   litres?: SidecarRating;
   fantasyWorlds?: SidecarRating;
   litnet?: SidecarRating;
+  labirint?: SidecarRating;
   ranobedb?: SidecarRating;
   audible?: SidecarRating;
   applebooks?: SidecarRating;

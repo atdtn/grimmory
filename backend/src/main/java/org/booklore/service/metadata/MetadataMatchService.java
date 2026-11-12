@@ -73,6 +73,8 @@ public class MetadataMatchService {
         if (isPositive(metadata.getFantasyWorldsReviewCount(), metadata.getFantasyWorldsReviewCountLocked())) score += weights.getFantasyWorldsReviewCount();
         if (isPositive(metadata.getLitnetRating(), metadata.getLitnetRatingLocked())) score += weights.getLitnetRating();
         if (isPositive(metadata.getLitnetReviewCount(), metadata.getLitnetReviewCountLocked())) score += weights.getLitnetReviewCount();
+        if (isPositive(metadata.getLabirintRating(), metadata.getLabirintRatingLocked())) score += weights.getLabirintRating();
+        if (isPositive(metadata.getLabirintReviewCount(), metadata.getLabirintReviewCountLocked())) score += weights.getLabirintReviewCount();
         if (isPositive(metadata.getAudibleRating(), metadata.getAudibleRatingLocked())) score += weights.getAudibleRating();
         if (isPositive(metadata.getAudibleReviewCount(), metadata.getAudibleReviewCountLocked())) score += weights.getAudibleReviewCount();
         if (isPositive(metadata.getApplebooksRating(), metadata.getApplebooksRatingLocked())) score += weights.getApplebooksRating();

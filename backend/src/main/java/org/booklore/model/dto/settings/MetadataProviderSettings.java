@@ -21,6 +21,8 @@ public class MetadataProviderSettings {
     private FantasyWorlds fantasyWorlds;
     @JsonProperty("litnet")
     private Litnet litnet;
+    @JsonProperty("labirint")
+    private Labirint labirint;
     private Audible audible;
     private AppleBooks appleBooks;
 
@@ -88,6 +90,11 @@ public class MetadataProviderSettings {
 
     @Data
     public static class Litnet {
+        private boolean enabled;
+    }
+
+    @Data
+    public static class Labirint {
         private boolean enabled;
     }
 

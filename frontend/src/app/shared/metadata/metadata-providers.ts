@@ -93,6 +93,12 @@ const providers = [
     labelKey: 'metadata.providers.litnet',
     book: {ids: ['litnetId'], rating: 'litnetRating', reviewCount: 'litnetReviewCount'},
   },
+  {
+    id: 'Labirint',
+    settingsKey: 'labirint',
+    labelKey: 'metadata.providers.labirint',
+    book: {ids: ['labirintId'], rating: 'labirintRating', reviewCount: 'labirintReviewCount'},
+  },
 ] as const;
 
 export type MetadataProviderId = typeof providers[number]['id'];

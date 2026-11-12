@@ -30,6 +30,9 @@ public class MetadataProviderSpecificFields {
     private Boolean litnetId = true;
     private Boolean litnetRating = true;
     private Boolean litnetReviewCount = true;
+    private Boolean labirintId = true;
+    private Boolean labirintRating = true;
+    private Boolean labirintReviewCount = true;
     private Boolean ranobedbId;
     private Boolean ranobedbRating;
     private Boolean audibleId;

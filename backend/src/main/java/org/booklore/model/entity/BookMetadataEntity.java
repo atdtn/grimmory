@@ -150,6 +150,15 @@ public class BookMetadataEntity {
     @Column(name = "litnet_review_count")
     private Integer litnetReviewCount;
 
+    @Column(name = "labirint_id", length = 100)
+    private String labirintId;
+
+    @Column(name = "labirint_rating")
+    private Double labirintRating;
+
+    @Column(name = "labirint_review_count")
+    private Integer labirintReviewCount;
+
     @Column(name = "ranobedb_id", length = 100)
     private String ranobedbId;
 
@@ -351,6 +360,18 @@ public class BookMetadataEntity {
     @Builder.Default
     private Boolean litnetReviewCountLocked = Boolean.FALSE;
 
+    @Column(name = "labirint_id_locked")
+    @Builder.Default
+    private Boolean labirintIdLocked = Boolean.FALSE;
+
+    @Column(name = "labirint_rating_locked")
+    @Builder.Default
+    private Boolean labirintRatingLocked = Boolean.FALSE;
+
+    @Column(name = "labirint_review_count_locked")
+    @Builder.Default
+    private Boolean labirintReviewCountLocked = Boolean.FALSE;
+
     @Column(name = "ranobedb_id_locked")
     @Builder.Default
     private Boolean ranobedbIdLocked = Boolean.FALSE;
@@ -466,6 +487,7 @@ public class BookMetadataEntity {
         this.litresId = trimOrNull(this.litresId);
         this.fantasyWorldsId = trimOrNull(this.fantasyWorldsId);
         this.litnetId = trimOrNull(this.litnetId);
+        this.labirintId = trimOrNull(this.labirintId);
         this.ranobedbId = trimOrNull(this.ranobedbId);
         this.audibleId = trimOrNull(this.audibleId);
         this.applebooksId = trimOrNull(this.applebooksId);
@@ -578,6 +600,9 @@ public class BookMetadataEntity {
         this.litnetIdLocked = lock;
         this.litnetRatingLocked = lock;
         this.litnetReviewCountLocked = lock;
+        this.labirintIdLocked = lock;
+        this.labirintRatingLocked = lock;
+        this.labirintReviewCountLocked = lock;
         this.ranobedbIdLocked = lock;
         this.ranobedbRatingLocked = lock;
         this.audibleIdLocked = lock;
@@ -642,6 +667,9 @@ public class BookMetadataEntity {
                 && Boolean.TRUE.equals(this.litnetIdLocked)
                 && Boolean.TRUE.equals(this.litnetRatingLocked)
                 && Boolean.TRUE.equals(this.litnetReviewCountLocked)
+                && Boolean.TRUE.equals(this.labirintIdLocked)
+                && Boolean.TRUE.equals(this.labirintRatingLocked)
+                && Boolean.TRUE.equals(this.labirintReviewCountLocked)
                 && Boolean.TRUE.equals(this.ranobedbIdLocked)
                 && Boolean.TRUE.equals(this.ranobedbRatingLocked)
                 && Boolean.TRUE.equals(this.audibleIdLocked)

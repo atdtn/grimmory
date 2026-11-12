@@ -654,6 +654,10 @@ public class AppBookSpecification {
         return buildRatingRangeSpec(rangeIds, mode, "litnetRating");
     }
 
+    public static Specification<BookEntity> withLabirintRatings(List<String> rangeIds, String mode) {
+        return buildRatingRangeSpec(rangeIds, mode, "labirintRating");
+    }
+
     public static Specification<BookEntity> withRanobedbRatings(List<String> rangeIds, String mode) {
         return buildRatingRangeSpec(rangeIds, mode, "ranobedbRating");
     }

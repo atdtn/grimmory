@@ -221,6 +221,9 @@ public class BookMetadataUpdater {
         handleFieldUpdate(e.getLitnetIdLocked(), clear.isLitnetId(), m.getLitnetId(), v -> e.setLitnetId(nullIfBlank(v)), e::getLitnetId, replaceMode);
         handleFieldUpdate(e.getLitnetRatingLocked(), clear.isLitnetRating(), m.getLitnetRating(), e::setLitnetRating, e::getLitnetRating, replaceMode);
         handleFieldUpdate(e.getLitnetReviewCountLocked(), clear.isLitnetReviewCount(), m.getLitnetReviewCount(), e::setLitnetReviewCount, e::getLitnetReviewCount, replaceMode);
+        handleFieldUpdate(e.getLabirintIdLocked(), clear.isLabirintId(), m.getLabirintId(), v -> e.setLabirintId(nullIfBlank(v)), e::getLabirintId, replaceMode);
+        handleFieldUpdate(e.getLabirintRatingLocked(), clear.isLabirintRating(), m.getLabirintRating(), e::setLabirintRating, e::getLabirintRating, replaceMode);
+        handleFieldUpdate(e.getLabirintReviewCountLocked(), clear.isLabirintReviewCount(), m.getLabirintReviewCount(), e::setLabirintReviewCount, e::getLabirintReviewCount, replaceMode);
         handleFieldUpdate(e.getRanobedbIdLocked(), clear.isRanobedbId(), m.getRanobedbId(), v -> e.setRanobedbId(nullIfBlank(v)), e::getRanobedbId, replaceMode);
         handleFieldUpdate(e.getRanobedbRatingLocked(), clear.isRanobedbRating(), m.getRanobedbRating(), e::setRanobedbRating, e::getRanobedbRating, replaceMode);
         handleFieldUpdate(e.getAudibleIdLocked(), clear.isAudibleId(), m.getAudibleId(), v -> e.setAudibleId(nullIfBlank(v)), e::getAudibleId, replaceMode);
@@ -745,6 +748,9 @@ public class BookMetadataUpdater {
                 Pair.of(m.getLitnetIdLocked(), e::setLitnetIdLocked),
                 Pair.of(m.getLitnetRatingLocked(), e::setLitnetRatingLocked),
                 Pair.of(m.getLitnetReviewCountLocked(), e::setLitnetReviewCountLocked),
+                Pair.of(m.getLabirintIdLocked(), e::setLabirintIdLocked),
+                Pair.of(m.getLabirintRatingLocked(), e::setLabirintRatingLocked),
+                Pair.of(m.getLabirintReviewCountLocked(), e::setLabirintReviewCountLocked),
                 Pair.of(m.getGoogleIdLocked(), e::setGoogleIdLocked),
                 Pair.of(m.getPageCountLocked(), e::setPageCountLocked),
                 Pair.of(m.getLanguageLocked(), e::setLanguageLocked),
