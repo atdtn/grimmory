@@ -23,6 +23,11 @@ and Fantasy Worlds architecture.
 ## Decisions
 
 - **Search reads `items-books-*` from `ng-state`.** The site has no public JSON API.
+- **Search by title, not "title author".** Litnet treats every word as a
+  required term, so a combined query such as "Дюна Фрэнк Герберт" returns zero
+  even though "Дюна" returns results. The provider therefore queries the title
+  (or the author when there is no title) and uses the author only to rank the
+  hydrated results.
 - **The top search results are hydrated from the detail page.** Search exposes
   the uploader as `author` and omits the average rating, publisher and cycle, so
   the first three results are enriched with the detail page (bounded because of

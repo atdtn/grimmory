@@ -119,6 +119,33 @@ class LitnetParserTest {
     }
 
     @Test
+    void fetchMetadata_searchesByTitleOnlyWhenAuthorIsProvided() throws Exception {
+        mockSettings(true);
+        List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    HttpRequest request = invocation.getArgument(0);
+                    requests.add(request);
+                    String url = request.uri().toString();
+                    return url.contains("/search")
+                            ? response(200, htmlWithNgState(searchMasterJson), Map.of())
+                            : response(200, detailMasterHtml, Map.of());
+                });
+
+        parser.fetchMetadata(
+                Book.builder().title("Мастер и Маргарита").build(),
+                FetchMetadataRequest.builder()
+                        .title("Мастер и Маргарита")
+                        .author("Михаил Булгаков")
+                        .build());
+
+        assertThat(requests).isNotEmpty();
+        String rawQuery = requests.getFirst().uri().getRawQuery();
+        assertThat(rawQuery).contains("q=%D0%9C%D0%B0%D1%81%D1%82%D0%B5%D1%80");
+        assertThat(rawQuery).doesNotContain("%D0%91%D1%83%D0%BB%D0%B3%D0%B0%D0%BA%D0%BE%D0%B2");
+    }
+
+    @Test
     void fetchMetadata_hydratesTopResultsWithDetailMetadata() throws Exception {
         mockSettings(true);
         mockHttp(Map.of(

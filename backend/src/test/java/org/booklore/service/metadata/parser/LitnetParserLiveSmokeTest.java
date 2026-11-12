@@ -46,6 +46,8 @@ class LitnetParserLiveSmokeTest {
 
         List<FetchMetadataRequest> queries = List.of(
                 FetchMetadataRequest.builder().title("Мастер и Маргарита").build(),
+                FetchMetadataRequest.builder().title("Мастер и Маргарита")
+                        .author("Михаил Булгаков").build(),
                 FetchMetadataRequest.builder().title("Мастер клинков").build(),
                 FetchMetadataRequest.builder().author("Булгаков").build()
         );

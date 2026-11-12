@@ -120,9 +120,12 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
 
         log.info("Fetching Litnet metadata for book: {}",
                 book != null ? book.getTitle() : title);
-        String query = title != null
-                ? (author != null ? title + " " + author : title)
-                : author;
+
+        // Litnet's search treats every word as a required term, so
+        // "title author" commonly returns zero results even when the title
+        // alone succeeds. Search by title first and use the author only for
+        // ranking hydrated results.
+        String query = title != null ? title : author;
         List<JsonNode> books = search(query);
         if (books.isEmpty()) {
             log.info("No Litnet results found for query: {}", query);
@@ -134,7 +137,9 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
                 .filter(metadata -> metadata != null)
                 .toList();
         List<BookMetadata> filtered = mapped.stream()
-                .filter(metadata -> matchesSearch(metadata, title, author))
+                .filter(metadata -> title != null
+                        ? matchesText(metadata.getTitle(), title)
+                        : authorMatches(metadata, author))
                 .limit(MAX_RESULTS)
                 .toList();
         List<BookMetadata> results = filtered.isEmpty()
@@ -153,6 +158,11 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
             } else {
                 hydrated.add(result);
             }
+        }
+
+        if (author != null) {
+            hydrated.sort((left, right) -> Boolean.compare(
+                    authorMatches(right, author), authorMatches(left, author)));
         }
 
         log.info("Found {} Litnet results for query: {}", hydrated.size(), query);
@@ -467,15 +477,9 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
         return firstNonBlank(text(cycle, "name"), text(cycle, "title"));
     }
 
-    private boolean matchesSearch(BookMetadata metadata, String title, String author) {
-        if (title != null && !matchesText(metadata.getTitle(), title)) {
-            return false;
-        }
-        if (author != null) {
-            return metadata.getAuthors() != null && metadata.getAuthors().stream()
-                    .anyMatch(name -> matchesText(name, author));
-        }
-        return true;
+    private boolean authorMatches(BookMetadata metadata, String author) {
+        return metadata.getAuthors() != null && metadata.getAuthors().stream()
+                .anyMatch(name -> matchesText(name, author));
     }
 
     private void collectNames(JsonNode items, Set<String> target) {
