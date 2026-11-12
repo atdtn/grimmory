@@ -83,6 +83,54 @@ class FantasyWorldsParserTest {
     }
 
     @Test
+    void fetchMetadata_retriesAuthorWithoutPatronymic() throws Exception {
+        mockSettings(true);
+        String empty = "{\"books\":[],\"authors\":[],\"keywords\":[]}";
+        String found = """
+                {"books":[{"id":"37868","title":"В поисках того самого",
+                  "author_name":"Галина","author_surname":"Герасимова",
+                  "year":"2024","ISBN":"978-5-17-175973-5","ratio":"9/10",
+                  "genre":"1","lang_code":"ru","book_ext":"jpg"}],
+                 "authors":[],"keywords":[]}
+                """;
+        mockSearchQueries(Map.of("q=Галина Герасимова", found), empty);
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("").build(),
+                FetchMetadataRequest.builder().author("Галина Васильевна Герасимова").build());
+
+        assertThat(results).hasSize(1);
+        assertThat(results.getFirst().getTitle()).isEqualTo("В поисках того самого");
+        assertThat(results.getFirst().getAuthors()).containsExactly("Галина Герасимова");
+    }
+
+    @Test
+    void fetchMetadata_findsBookByTitleWhenAuthorHasPatronymicAndIsbnIsNormalized() throws Exception {
+        mockSettings(true);
+        String empty = "{\"books\":[],\"authors\":[],\"keywords\":[]}";
+        String found = """
+                {"books":[{"id":"32814","title":"Ведьмин фонарь",
+                  "author_name":"Галина","author_surname":"Герасимова",
+                  "year":"2024","ISBN":"978-5-9922-3373-5","ratio":"9/10",
+                  "genre":"1","lang_code":"ru","book_ext":"jpg"}],
+                 "authors":[],"keywords":[]}
+                """;
+        mockSearchQueries(Map.of("q=Ведьмин фонарь", found), empty);
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Ведьмин фонарь").build(),
+                FetchMetadataRequest.builder()
+                        .title("Ведьмин фонарь")
+                        .author("Галина Васильевна Герасимова")
+                        .isbn("9785992233735")
+                        .build());
+
+        assertThat(results).hasSize(1);
+        assertThat(results.getFirst().getTitle()).isEqualTo("Ведьмин фонарь");
+        assertThat(results.getFirst().getIsbn13()).isEqualTo("9785992233735");
+    }
+
+    @Test
     void fetchMetadata_mapsSearchJson() throws Exception {
         mockSettings(true);
         mockHttp(Map.of("https://fantasy-worlds.org/search.json", searchMasterJson));
@@ -278,6 +326,18 @@ class FantasyWorldsParserTest {
         providerSettings.setFantasyWorlds(fantasyWorlds);
         appSettings.setMetadataProviderSettings(providerSettings);
         when(appSettingService.getAppSettings()).thenReturn(appSettings);
+    }
+
+    private void mockSearchQueries(Map<String, String> bodiesByQuery, String fallbackBody) throws Exception {
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    HttpRequest request = invocation.getArgument(0);
+                    String query = request.uri().getQuery();
+                    String body = query != null && bodiesByQuery.containsKey(query)
+                            ? bodiesByQuery.get(query)
+                            : fallbackBody;
+                    return response(200, body, Map.of());
+                });
     }
 
     private void mockHttp(Map<String, String> bodiesByUrlPrefix) throws Exception {

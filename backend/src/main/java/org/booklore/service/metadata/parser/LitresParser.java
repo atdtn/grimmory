@@ -91,34 +91,53 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
 
         log.info("Fetching LitRes metadata for book: {}", book != null ? book.getTitle() : title);
 
-        List<JsonNode> searchResults = List.of();
-        boolean searchingByIsbn = false;
+        List<BookMetadata> results = List.of();
 
+        // Some catalogues index only one ISBN form (hyphenated or digits-only).
         if (isbn != null) {
-            searchingByIsbn = true;
-            searchResults = search(isbn);
+            for (String isbnQuery : MetadataSearchUtils.isbnVariants(isbn)) {
+                List<JsonNode> searchResults = search(isbnQuery);
+                if (!searchResults.isEmpty()) {
+                    results = hydrate(searchResults, isbn);
+                    if (!results.isEmpty()) {
+                        break;
+                    }
+                }
+            }
         }
-        if (searchResults.isEmpty() && title != null) {
-            searchResults = search(author != null ? title + " " + author : title);
+
+        if (results.isEmpty() && title != null) {
+            List<String> titleQueries = new ArrayList<>();
+            if (author != null) {
+                titleQueries.add(title + " " + author);
+            }
+            titleQueries.add(title);
+            for (String titleQuery : titleQueries) {
+                List<JsonNode> searchResults = search(titleQuery);
+                if (!searchResults.isEmpty()) {
+                    results = hydrate(searchResults, null);
+                    if (!results.isEmpty()) {
+                        break;
+                    }
+                }
+            }
         }
-        if (searchResults.isEmpty() && author != null) {
-            searchResults = search(author);
+
+        if (results.isEmpty() && author != null) {
+            for (String authorQuery : MetadataSearchUtils.authorVariants(author)) {
+                List<JsonNode> searchResults = search(authorQuery);
+                if (!searchResults.isEmpty()) {
+                    results = hydrate(searchResults, null);
+                    if (!results.isEmpty()) {
+                        break;
+                    }
+                }
+            }
         }
-        if (searchResults.isEmpty()) {
+
+        if (results.isEmpty()) {
             log.info("No LitRes results found for query: {}", searchQuery(title, author, isbn));
             return List.of();
-        }
-
-        List<BookMetadata> results = hydrate(searchResults, searchingByIsbn ? isbn : null);
-
-        // An ISBN query can return editions that do not actually carry that ISBN;
-        // fall back to a normal title/author search in that case.
-        if (results.isEmpty() && searchingByIsbn) {
-            if (title != null) {
-                results = hydrate(search(author != null ? title + " " + author : title), null);
-            } else if (author != null) {
-                results = hydrate(search(author), null);
-            }
         }
 
         log.info("Found {} LitRes results for query: {}", results.size(), searchQuery(title, author, isbn));

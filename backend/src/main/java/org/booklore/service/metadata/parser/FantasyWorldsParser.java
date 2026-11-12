@@ -120,29 +120,63 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
         log.info("Fetching Fantasy Worlds metadata for book: {}",
                 book != null ? book.getTitle() : title);
 
-        String query = title != null
-                ? (author != null ? title + " " + author : title)
-                : (author != null ? author : isbn);
-        List<JsonNode> books = search(query);
-        if (books.isEmpty()) {
-            log.info("No Fantasy Worlds results found for query: {}", query);
-            return List.of();
-        }
+        List<BookMetadata> firstRawResults = null;
+        for (String query : buildSearchQueries(title, author, isbn)) {
+            List<JsonNode> books = search(query);
+            if (books.isEmpty()) {
+                continue;
+            }
 
-        List<BookMetadata> results = mapResults(books, title, author, isbn);
-        if (results.isEmpty()) {
-            // The JSON search also matches authors and keywords. If strict
-            // filtering removed everything, return the raw results rather than
-            // hiding a potentially correct match.
-            results = books.stream()
-                    .limit(MAX_RESULTS)
+            List<BookMetadata> mapped = books.stream()
                     .map(this::mapSearchBook)
                     .filter(metadata -> metadata != null)
                     .toList();
+            if (mapped.isEmpty()) {
+                continue;
+            }
+            if (firstRawResults == null) {
+                firstRawResults = mapped;
+            }
+
+            List<BookMetadata> filtered = mapped.stream()
+                    .filter(metadata -> matchesSearch(metadata, title, author, isbn))
+                    .limit(MAX_RESULTS)
+                    .toList();
+            if (!filtered.isEmpty()) {
+                log.info("Found {} Fantasy Worlds results for query: {}", filtered.size(), query);
+                return filtered;
+            }
         }
 
-        log.info("Found {} Fantasy Worlds results for query: {}", results.size(), query);
-        return results;
+        if (firstRawResults != null) {
+            // The JSON search also matches authors and keywords. If strict
+            // filtering removed everything, return the raw results rather than
+            // hiding a potentially correct match.
+            List<BookMetadata> results = firstRawResults.stream().limit(MAX_RESULTS).toList();
+            log.info("Found {} Fantasy Worlds results for fallback query", results.size());
+            return results;
+        }
+
+        log.info("No Fantasy Worlds results found for query: {}",
+                title != null ? title : (author != null ? author : isbn));
+        return List.of();
+    }
+
+    private List<String> buildSearchQueries(String title, String author, String isbn) {
+        Set<String> queries = new LinkedHashSet<>();
+        if (title != null && author != null) {
+            queries.add(title + " " + author);
+        }
+        if (title != null) {
+            queries.add(title);
+        }
+        if (author != null) {
+            queries.addAll(MetadataSearchUtils.authorVariants(author));
+        }
+        if (isbn != null) {
+            queries.addAll(MetadataSearchUtils.isbnVariants(isbn));
+        }
+        return new ArrayList<>(queries);
     }
 
     @Override
@@ -204,20 +238,6 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
         return results;
     }
 
-    private List<BookMetadata> mapResults(List<JsonNode> books, String title, String author, String isbn) {
-        List<BookMetadata> mapped = books.stream()
-                .map(this::mapSearchBook)
-                .filter(metadata -> metadata != null)
-                .toList();
-
-        List<BookMetadata> filtered = mapped.stream()
-                .filter(metadata -> matchesSearch(metadata, title, author, isbn))
-                .limit(MAX_RESULTS)
-                .toList();
-
-        return filtered.isEmpty() ? mapped.stream().limit(MAX_RESULTS).toList() : filtered;
-    }
-
     private boolean matchesSearch(BookMetadata metadata, String title, String author, String isbn) {
         if (isbn != null) {
             String normalized = normalizeIsbn(isbn);
@@ -226,14 +246,25 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
                 return true;
             }
         }
-        if (title != null && !matchesText(metadata.getTitle(), title)) {
-            return false;
+        if (title != null) {
+            return matchesText(metadata.getTitle(), title);
         }
         if (author != null) {
-            return metadata.getAuthors() != null && metadata.getAuthors().stream()
-                    .anyMatch(name -> matchesText(name, author));
+            return authorMatches(metadata, author);
         }
-        return true;
+        return false;
+    }
+
+    private boolean authorMatches(BookMetadata metadata, String author) {
+        if (metadata.getAuthors() == null) {
+            return false;
+        }
+        for (String variant : MetadataSearchUtils.authorVariants(author)) {
+            if (metadata.getAuthors().stream().anyMatch(name -> matchesText(name, variant))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private BookMetadata mapSearchBook(JsonNode book) {

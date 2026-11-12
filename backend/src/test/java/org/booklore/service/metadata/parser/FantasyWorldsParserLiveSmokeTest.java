@@ -48,7 +48,13 @@ class FantasyWorldsParserLiveSmokeTest {
         List<FetchMetadataRequest> queries = List.of(
                 FetchMetadataRequest.builder().title("Дюна").build(),
                 FetchMetadataRequest.builder().title("Мастер и Маргарита").build(),
-                FetchMetadataRequest.builder().author("Булгаков").build()
+                FetchMetadataRequest.builder().author("Булгаков").build(),
+                FetchMetadataRequest.builder().author("Галина Васильевна Герасимова").build(),
+                FetchMetadataRequest.builder()
+                        .title("Ведьмин фонарь")
+                        .author("Галина Васильевна Герасимова")
+                        .isbn("9785992233735")
+                        .build()
         );
 
         BookMetadata firstResult = null;

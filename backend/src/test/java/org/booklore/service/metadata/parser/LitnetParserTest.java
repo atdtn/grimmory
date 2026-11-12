@@ -119,6 +119,37 @@ class LitnetParserTest {
     }
 
     @Test
+    void fetchMetadata_retriesAuthorWithoutPatronymic() throws Exception {
+        mockSettings(true);
+        List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    HttpRequest request = invocation.getArgument(0);
+                    requests.add(request);
+                    String url = request.uri().toString();
+                    if (url.contains("/search")) {
+                        String query = request.uri().getQuery();
+                        if (query != null && query.contains("Васильевна")) {
+                            return response(200, htmlWithNgState(
+                                    "{\"items-books-1-x\":[]}"), Map.of());
+                        }
+                        return response(200, htmlWithNgState(searchMasterJson), Map.of());
+                    }
+                    return response(200, detailMasterHtml, Map.of());
+                });
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("").build(),
+                FetchMetadataRequest.builder().author("Галина Васильевна Герасимова").build());
+
+        assertThat(results).isNotEmpty();
+        assertThat(requests.stream()
+                .map(request -> request.uri().getQuery())
+                .filter(query -> query != null && query.contains("Герасимова")))
+                .isNotEmpty();
+    }
+
+    @Test
     void fetchMetadata_searchesByTitleOnlyWhenAuthorIsProvided() throws Exception {
         mockSettings(true);
         List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();

@@ -125,10 +125,21 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
         // "title author" commonly returns zero results even when the title
         // alone succeeds. Search by title first and use the author only for
         // ranking hydrated results.
-        String query = title != null ? title : author;
-        List<JsonNode> books = search(query);
+        List<JsonNode> books = List.of();
+        String usedQuery = title;
+        if (title != null) {
+            books = search(title);
+        } else {
+            for (String authorQuery : MetadataSearchUtils.authorVariants(author)) {
+                books = search(authorQuery);
+                if (!books.isEmpty()) {
+                    usedQuery = authorQuery;
+                    break;
+                }
+            }
+        }
         if (books.isEmpty()) {
-            log.info("No Litnet results found for query: {}", query);
+            log.info("No Litnet results found for query: {}", usedQuery);
             return List.of();
         }
 
@@ -165,7 +176,7 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
                     authorMatches(right, author), authorMatches(left, author)));
         }
 
-        log.info("Found {} Litnet results for query: {}", hydrated.size(), query);
+        log.info("Found {} Litnet results for query: {}", hydrated.size(), usedQuery);
         return hydrated;
     }
 
@@ -478,8 +489,15 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
     }
 
     private boolean authorMatches(BookMetadata metadata, String author) {
-        return metadata.getAuthors() != null && metadata.getAuthors().stream()
-                .anyMatch(name -> matchesText(name, author));
+        if (metadata.getAuthors() == null) {
+            return false;
+        }
+        for (String variant : MetadataSearchUtils.authorVariants(author)) {
+            if (metadata.getAuthors().stream().anyMatch(name -> matchesText(name, variant))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void collectNames(JsonNode items, Set<String> target) {

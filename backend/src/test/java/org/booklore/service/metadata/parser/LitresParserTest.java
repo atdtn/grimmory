@@ -236,6 +236,37 @@ class LitresParserTest {
     }
 
     @Test
+    void fetchMetadata_retriesAuthorWithoutPatronymic() throws Exception {
+        mockSettings(true);
+        List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    HttpRequest request = invocation.getArgument(0);
+                    requests.add(request);
+                    String url = request.uri().toString();
+                    if (url.contains("/search")) {
+                        String query = request.uri().getQuery();
+                        if (query != null && query.contains("Васильевна")) {
+                            return response(200, "{\"status\":200,\"payload\":{\"data\":[]}}", Map.of());
+                        }
+                        return response(200, searchDuneJson, Map.of());
+                    }
+                    return response(200, detailDuneJson, Map.of());
+                });
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("").build(),
+                FetchMetadataRequest.builder().author("Галина Васильевна Герасимова").build());
+
+        assertThat(results).isNotEmpty();
+        assertThat(results.getFirst().getTitle()).isEqualTo("Дюна");
+        assertThat(requests.stream()
+                .map(request -> request.uri().getQuery())
+                .filter(query -> query != null && query.contains("Герасимова")))
+                .isNotEmpty();
+    }
+
+    @Test
     void fetchMetadata_returnsEmptyWhenSearchHasNoResults() throws Exception {
         mockSettings(true);
         mockHttp(Map.of("https://api.litres.ru/foundation/api/search",
