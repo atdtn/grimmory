@@ -38,6 +38,9 @@ public class MetadataClearFlags {
     private boolean fantasyWorldsId;
     private boolean fantasyWorldsRating;
     private boolean fantasyWorldsReviewCount;
+    private boolean litnetId;
+    private boolean litnetRating;
+    private boolean litnetReviewCount;
     private boolean ranobedbId;
     private boolean ranobedbRating;
     private boolean audibleId;

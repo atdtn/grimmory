@@ -83,6 +83,10 @@ public enum RuleField {
     FANTASY_WORLDS_RATING,
     @JsonProperty("fantasyWorldsReviewCount")
     FANTASY_WORLDS_REVIEW_COUNT,
+    @JsonProperty("litnetRating")
+    LITNET_RATING,
+    @JsonProperty("litnetReviewCount")
+    LITNET_REVIEW_COUNT,
     @JsonProperty("description")
     DESCRIPTION,
     @JsonProperty("narrator")

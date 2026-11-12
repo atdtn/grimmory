@@ -218,6 +218,9 @@ public class BookMetadataUpdater {
         handleFieldUpdate(e.getFantasyWorldsIdLocked(), clear.isFantasyWorldsId(), m.getFantasyWorldsId(), v -> e.setFantasyWorldsId(nullIfBlank(v)), e::getFantasyWorldsId, replaceMode);
         handleFieldUpdate(e.getFantasyWorldsRatingLocked(), clear.isFantasyWorldsRating(), m.getFantasyWorldsRating(), e::setFantasyWorldsRating, e::getFantasyWorldsRating, replaceMode);
         handleFieldUpdate(e.getFantasyWorldsReviewCountLocked(), clear.isFantasyWorldsReviewCount(), m.getFantasyWorldsReviewCount(), e::setFantasyWorldsReviewCount, e::getFantasyWorldsReviewCount, replaceMode);
+        handleFieldUpdate(e.getLitnetIdLocked(), clear.isLitnetId(), m.getLitnetId(), v -> e.setLitnetId(nullIfBlank(v)), e::getLitnetId, replaceMode);
+        handleFieldUpdate(e.getLitnetRatingLocked(), clear.isLitnetRating(), m.getLitnetRating(), e::setLitnetRating, e::getLitnetRating, replaceMode);
+        handleFieldUpdate(e.getLitnetReviewCountLocked(), clear.isLitnetReviewCount(), m.getLitnetReviewCount(), e::setLitnetReviewCount, e::getLitnetReviewCount, replaceMode);
         handleFieldUpdate(e.getRanobedbIdLocked(), clear.isRanobedbId(), m.getRanobedbId(), v -> e.setRanobedbId(nullIfBlank(v)), e::getRanobedbId, replaceMode);
         handleFieldUpdate(e.getRanobedbRatingLocked(), clear.isRanobedbRating(), m.getRanobedbRating(), e::setRanobedbRating, e::getRanobedbRating, replaceMode);
         handleFieldUpdate(e.getAudibleIdLocked(), clear.isAudibleId(), m.getAudibleId(), v -> e.setAudibleId(nullIfBlank(v)), e::getAudibleId, replaceMode);
@@ -739,6 +742,9 @@ public class BookMetadataUpdater {
                 Pair.of(m.getFantasyWorldsIdLocked(), e::setFantasyWorldsIdLocked),
                 Pair.of(m.getFantasyWorldsRatingLocked(), e::setFantasyWorldsRatingLocked),
                 Pair.of(m.getFantasyWorldsReviewCountLocked(), e::setFantasyWorldsReviewCountLocked),
+                Pair.of(m.getLitnetIdLocked(), e::setLitnetIdLocked),
+                Pair.of(m.getLitnetRatingLocked(), e::setLitnetRatingLocked),
+                Pair.of(m.getLitnetReviewCountLocked(), e::setLitnetReviewCountLocked),
                 Pair.of(m.getGoogleIdLocked(), e::setGoogleIdLocked),
                 Pair.of(m.getPageCountLocked(), e::setPageCountLocked),
                 Pair.of(m.getLanguageLocked(), e::setLanguageLocked),

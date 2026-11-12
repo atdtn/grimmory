@@ -143,6 +143,7 @@ public class DuplicateDetectionService {
         addIfPresent(ids, "applebooks:", meta.getApplebooksId());
         addIfPresent(ids, "litres:", meta.getLitresId());
         addIfPresent(ids, "fantasyWorlds:", meta.getFantasyWorldsId());
+        addIfPresent(ids, "litnet:", meta.getLitnetId());
         addIfPresent(ids, "openlibrary:", meta.getOpenlibraryId());
         return ids;
     }

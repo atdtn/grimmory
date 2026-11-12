@@ -48,6 +48,8 @@ describe('app-settings.model', () => {
       litresReviewCount: 1,
       fantasyWorldsRating: 1,
       fantasyWorldsReviewCount: 1,
+      litnetRating: 1,
+      litnetReviewCount: 1,
       coverImage: 6
     };
 

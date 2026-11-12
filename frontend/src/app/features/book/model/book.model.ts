@@ -194,6 +194,9 @@ export interface BookMetadata {
   fantasyWorldsId?: string;
   fantasyWorldsRating?: number | null;
   fantasyWorldsReviewCount?: number | null;
+  litnetId?: string;
+  litnetRating?: number | null;
+  litnetReviewCount?: number | null;
   ranobedbId?: string;
   ranobedbRating?: number | null;
   hardcoverRating?: number | null;
@@ -256,6 +259,9 @@ export interface BookMetadata {
   fantasyWorldsIdLocked?: boolean;
   fantasyWorldsRatingLocked?: boolean;
   fantasyWorldsReviewCountLocked?: boolean;
+  litnetIdLocked?: boolean;
+  litnetRatingLocked?: boolean;
+  litnetReviewCountLocked?: boolean;
   ranobedbIdLocked?: boolean;
   ranobedbRatingLocked?: boolean;
   audibleIdLocked?: boolean;
@@ -315,6 +321,9 @@ export interface MetadataClearFlags {
   fantasyWorldsId?: boolean;
   fantasyWorldsRating?: boolean;
   fantasyWorldsReviewCount?: boolean;
+  litnetId?: boolean;
+  litnetRating?: boolean;
+  litnetReviewCount?: boolean;
   ranobedbId?: boolean;
   ranobedbRating?: boolean;
   audibleId?: boolean;

@@ -2693,7 +2693,8 @@
       "audible": "",
       "appleBooks": "",
       "litres": "ЛитРес",
-      "fantasyWorlds": "Fantasy Worlds"
+      "fantasyWorlds": "Fantasy Worlds",
+      "litnet": "Litnet"
     },
     "providerFields": {
       "id": "",
@@ -3572,6 +3573,8 @@
       "litresReviewCount": "Количество оценок ЛитРес",
       "fantasyWorldsRating": "Рейтинг Fantasy Worlds",
       "fantasyWorldsReviewCount": "Количество оценок Fantasy Worlds",
+      "litnetRating": "Рейтинг Litnet",
+      "litnetReviewCount": "Количество оценок Litnet",
       "audibleReviewCount": "Количество отзывов Audible",
       "audibleRating": ""
     }

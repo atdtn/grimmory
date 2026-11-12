@@ -63,6 +63,8 @@ public interface AppBookMapper {
     @Mapping(target = "litresReviewCount", source = "book.metadata.litresReviewCount")
     @Mapping(target = "fantasyWorldsRating", source = "book.metadata.fantasyWorldsRating")
     @Mapping(target = "fantasyWorldsReviewCount", source = "book.metadata.fantasyWorldsReviewCount")
+    @Mapping(target = "litnetRating", source = "book.metadata.litnetRating")
+    @Mapping(target = "litnetReviewCount", source = "book.metadata.litnetReviewCount")
     @Mapping(target = "audibleRating", source = "book.metadata.audibleRating")
     @Mapping(target = "audibleReviewCount", source = "book.metadata.audibleReviewCount")
     @Mapping(target = "allMetadataLocked", source = "book.metadata", qualifiedByName = "mapAllMetadataLocked")

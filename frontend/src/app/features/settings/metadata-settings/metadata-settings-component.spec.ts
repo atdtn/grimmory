@@ -103,6 +103,7 @@ function buildMetadataRefreshOptions(): MetadataRefreshOptions {
     'applebooksId', 'applebooksRating', 'applebooksReviewCount',
     'litresId', 'litresRating', 'litresReviewCount',
     'fantasyWorldsId', 'fantasyWorldsRating', 'fantasyWorldsReviewCount',
+    'litnetId', 'litnetRating', 'litnetReviewCount',
     'moods', 'tags',
   ] as const;
 

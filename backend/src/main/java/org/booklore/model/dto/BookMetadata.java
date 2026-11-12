@@ -59,6 +59,9 @@ public class BookMetadata {
     private String fantasyWorldsId;
     private Double fantasyWorldsRating;
     private Integer fantasyWorldsReviewCount;
+    private String litnetId;
+    private Double litnetRating;
+    private Integer litnetReviewCount;
     private String ranobedbId;
     private Double ranobedbRating;
     private String audibleId;
@@ -118,6 +121,9 @@ public class BookMetadata {
     private Boolean fantasyWorldsIdLocked;
     private Boolean fantasyWorldsRatingLocked;
     private Boolean fantasyWorldsReviewCountLocked;
+    private Boolean litnetIdLocked;
+    private Boolean litnetRatingLocked;
+    private Boolean litnetReviewCountLocked;
     private Boolean ranobedbIdLocked;
     private Boolean ranobedbRatingLocked;
     private Boolean audibleIdLocked;

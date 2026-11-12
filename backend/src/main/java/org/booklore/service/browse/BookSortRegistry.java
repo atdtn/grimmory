@@ -44,6 +44,7 @@ public class BookSortRegistry {
                 "hardcoverRating", "hardcoverReviewCount", "ranobedbRating",
                 "lubimyczytacRating", "litresRating", "litresReviewCount",
                 "fantasyWorldsRating", "fantasyWorldsReviewCount",
+                "litnetRating", "litnetReviewCount",
                 "audibleRating", "audibleReviewCount",
                 "applebooksRating", "applebooksReviewCount",
                 "narrator", "pageCount", "language")) {

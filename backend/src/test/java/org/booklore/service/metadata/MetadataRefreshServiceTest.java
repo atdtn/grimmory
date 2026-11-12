@@ -463,6 +463,9 @@ class MetadataRefreshServiceTest {
                 .fantasyWorldsIdLocked(true)
                 .fantasyWorldsRatingLocked(true)
                 .fantasyWorldsReviewCountLocked(true)
+                .litnetIdLocked(true)
+                .litnetRatingLocked(true)
+                .litnetReviewCountLocked(true)
                 .allMetadataLocked(false)
                 .build();
 
@@ -488,6 +491,9 @@ class MetadataRefreshServiceTest {
         assertThat(result.getFantasyWorldsIdLocked()).isTrue();
         assertThat(result.getFantasyWorldsRatingLocked()).isTrue();
         assertThat(result.getFantasyWorldsReviewCountLocked()).isTrue();
+        assertThat(result.getLitnetIdLocked()).isTrue();
+        assertThat(result.getLitnetRatingLocked()).isTrue();
+        assertThat(result.getLitnetReviewCountLocked()).isTrue();
         assertThat(result.getAllMetadataLocked()).isFalse();
     }
 
@@ -894,6 +900,27 @@ class MetadataRefreshServiceTest {
         }
 
         @Test
+        void litnetFields() {
+            Map<MetadataProvider, BookMetadata> metadataMap = new HashMap<>();
+            metadataMap.put(MetadataProvider.LITNET, BookMetadata.builder()
+                    .litnetId("445406")
+                    .litnetRating(4.0)
+                    .litnetReviewCount(176)
+                    .build());
+
+            MetadataRefreshOptions options = MetadataRefreshOptions.builder()
+                    .fieldOptions(new MetadataRefreshOptions.FieldOptions())
+                    .enabledFields(new MetadataRefreshOptions.EnabledFields())
+                    .build();
+
+            BookMetadata result = service.buildFetchMetadata(null, 1L, options, metadataMap);
+
+            assertThat(result.getLitnetId()).isEqualTo("445406");
+            assertThat(result.getLitnetRating()).isEqualTo(4.0);
+            assertThat(result.getLitnetReviewCount()).isEqualTo(176);
+        }
+
+        @Test
         void ranobedbFields() {
             Map<MetadataProvider, BookMetadata> metadataMap = new HashMap<>();
             metadataMap.put(MetadataProvider.Ranobedb, BookMetadata.builder()
@@ -969,6 +996,9 @@ class MetadataRefreshServiceTest {
                     .fantasyWorldsId("3543")
                     .fantasyWorldsRating(4.8)
                     .fantasyWorldsReviewCount(58)
+                    .litnetId("445406")
+                    .litnetRating(4.0)
+                    .litnetReviewCount(176)
                     .ranobedbId("rn1")
                     .ranobedbRating(2.5)
                     .moods(Set.of("Dark"))
@@ -987,6 +1017,7 @@ class MetadataRefreshServiceTest {
                             .lubimyczytacId(false).lubimyczytacRating(false)
                             .litresId(false).litresRating(false).litresReviewCount(false)
                             .fantasyWorldsId(false).fantasyWorldsRating(false).fantasyWorldsReviewCount(false)
+                            .litnetId(false).litnetRating(false).litnetReviewCount(false)
                             .ranobedbId(false).ranobedbRating(false)
                             .moods(false).tags(false).categories(false).cover(false)
                             .build())
@@ -1015,6 +1046,9 @@ class MetadataRefreshServiceTest {
             assertThat(result.getFantasyWorldsId()).isEqualTo("3543");
             assertThat(result.getFantasyWorldsRating()).isEqualTo(4.8);
             assertThat(result.getFantasyWorldsReviewCount()).isEqualTo(58);
+            assertThat(result.getLitnetId()).isEqualTo("445406");
+            assertThat(result.getLitnetRating()).isEqualTo(4.0);
+            assertThat(result.getLitnetReviewCount()).isEqualTo(176);
             assertThat(result.getRanobedbId()).isEqualTo("rn1");
             assertThat(result.getRanobedbRating()).isEqualTo(2.5);
             assertThat(result.getMoods()).containsExactly("Dark");

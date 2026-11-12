@@ -22,6 +22,7 @@ public class BookParserConfig {
             LubimyCzytacParser lubimyczytacParser,
             LitresParser litresParser,
             FantasyWorldsParser fantasyWorldsParser,
+            LitnetParser litnetParser,
             AudibleParser audibleParser,
             AppleBooksParser appleBooksParser,
             OpenLibraryParser openLibraryParser
@@ -37,6 +38,7 @@ public class BookParserConfig {
                 Map.entry(MetadataProvider.Lubimyczytac, lubimyczytacParser),
                 Map.entry(MetadataProvider.Litres, litresParser),
                 Map.entry(MetadataProvider.FANTASY_WORLDS, fantasyWorldsParser),
+                Map.entry(MetadataProvider.LITNET, litnetParser),
                 Map.entry(MetadataProvider.Ranobedb, ranobedbParser),
                 Map.entry(MetadataProvider.Audible, audibleParser),
                 Map.entry(MetadataProvider.AppleBooks, appleBooksParser)

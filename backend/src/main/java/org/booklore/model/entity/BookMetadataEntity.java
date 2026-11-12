@@ -141,6 +141,15 @@ public class BookMetadataEntity {
     @Column(name = "fantasy_worlds_review_count")
     private Integer fantasyWorldsReviewCount;
 
+    @Column(name = "litnet_id", length = 100)
+    private String litnetId;
+
+    @Column(name = "litnet_rating")
+    private Double litnetRating;
+
+    @Column(name = "litnet_review_count")
+    private Integer litnetReviewCount;
+
     @Column(name = "ranobedb_id", length = 100)
     private String ranobedbId;
 
@@ -330,6 +339,18 @@ public class BookMetadataEntity {
     @Builder.Default
     private Boolean fantasyWorldsReviewCountLocked = Boolean.FALSE;
 
+    @Column(name = "litnet_id_locked")
+    @Builder.Default
+    private Boolean litnetIdLocked = Boolean.FALSE;
+
+    @Column(name = "litnet_rating_locked")
+    @Builder.Default
+    private Boolean litnetRatingLocked = Boolean.FALSE;
+
+    @Column(name = "litnet_review_count_locked")
+    @Builder.Default
+    private Boolean litnetReviewCountLocked = Boolean.FALSE;
+
     @Column(name = "ranobedb_id_locked")
     @Builder.Default
     private Boolean ranobedbIdLocked = Boolean.FALSE;
@@ -444,6 +465,7 @@ public class BookMetadataEntity {
         this.lubimyczytacId = trimOrNull(this.lubimyczytacId);
         this.litresId = trimOrNull(this.litresId);
         this.fantasyWorldsId = trimOrNull(this.fantasyWorldsId);
+        this.litnetId = trimOrNull(this.litnetId);
         this.ranobedbId = trimOrNull(this.ranobedbId);
         this.audibleId = trimOrNull(this.audibleId);
         this.applebooksId = trimOrNull(this.applebooksId);
@@ -553,6 +575,9 @@ public class BookMetadataEntity {
         this.fantasyWorldsIdLocked = lock;
         this.fantasyWorldsRatingLocked = lock;
         this.fantasyWorldsReviewCountLocked = lock;
+        this.litnetIdLocked = lock;
+        this.litnetRatingLocked = lock;
+        this.litnetReviewCountLocked = lock;
         this.ranobedbIdLocked = lock;
         this.ranobedbRatingLocked = lock;
         this.audibleIdLocked = lock;
@@ -614,6 +639,9 @@ public class BookMetadataEntity {
                 && Boolean.TRUE.equals(this.fantasyWorldsIdLocked)
                 && Boolean.TRUE.equals(this.fantasyWorldsRatingLocked)
                 && Boolean.TRUE.equals(this.fantasyWorldsReviewCountLocked)
+                && Boolean.TRUE.equals(this.litnetIdLocked)
+                && Boolean.TRUE.equals(this.litnetRatingLocked)
+                && Boolean.TRUE.equals(this.litnetReviewCountLocked)
                 && Boolean.TRUE.equals(this.ranobedbIdLocked)
                 && Boolean.TRUE.equals(this.ranobedbRatingLocked)
                 && Boolean.TRUE.equals(this.audibleIdLocked)

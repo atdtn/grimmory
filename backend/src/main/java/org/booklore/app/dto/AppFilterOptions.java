@@ -30,6 +30,7 @@ public record AppFilterOptions(
         List<CountedOption> lubimyczytacRatings,
         List<CountedOption> litresRatings,
         List<CountedOption> fantasyWorldsRatings,
+        List<CountedOption> litnetRatings,
         List<CountedOption> ranobedbRatings,
         List<CountedOption> audibleRatings,
         List<CountedOption> pageCounts,

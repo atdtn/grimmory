@@ -210,6 +210,7 @@ export class RatingTasteChartComponent {
     if (book.metadata?.lubimyczytacRating) ratings.push(book.metadata.lubimyczytacRating);
     if (book.metadata?.litresRating) ratings.push(book.metadata.litresRating);
     if (book.metadata?.fantasyWorldsRating) ratings.push(book.metadata.fantasyWorldsRating);
+    if (book.metadata?.litnetRating) ratings.push(book.metadata.litnetRating);
     if (book.metadata?.ranobedbRating) ratings.push(book.metadata.ranobedbRating);
 
     if (ratings.length > 0) {

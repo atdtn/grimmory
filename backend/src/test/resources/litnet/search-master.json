@@ -1,0 +1,87 @@
+{
+  "counters-books-1-Мастер и Маргарита": {
+    "books": 11,
+    "authors": 0,
+    "posts": 2,
+    "audioAuthors": 0
+  },
+  "items-books-1-Мастер и Маргарита": [
+    {
+      "id": 445406,
+      "link": "https://litnet.com/ru/book/master-i-margarita-b445406",
+      "linkToReader": "https://litnet.com/ru/reader/master-i-margarita-b445406",
+      "image": "https://publiccdn.litnet.com/books/covers/220/1690205193_64.jpg",
+      "title": "Мастер и Маргарита",
+      "author": {
+        "id": 7683998,
+        "name": "Редактор",
+        "link": "/ru/redaktor-u7683998"
+      },
+      "coAuthor": {
+        "id": "",
+        "name": "",
+        "link": "/ru"
+      },
+      "tagList": [
+        {
+          "id": 10205768,
+          "name": "классическая литература",
+          "link": "/ru/tag/классическая литература-t10205768"
+        }
+      ],
+      "amount": {
+        "price": 0,
+        "priceWithDiscount": 0,
+        "priceForRent": 0,
+        "priceAudioWithDiscount": 0,
+        "priceAudio": 0,
+        "currency": "₽"
+      },
+      "rating": 176,
+      "genreList": [
+        {
+          "id": 296,
+          "rating": 6095,
+          "name": "Проза",
+          "link": "/ru/top/proza",
+          "isParent": false
+        }
+      ],
+      "description": "Роман «Мастер и Маргарита», написанный одним из самых известных русских писателей XX века Михаилом Булгаковым. <br />\rГениальная мистическая история о добре и зле, о свете и тьме, благородстве и подлости.<br />\r<br />\rРоман «Мастер и Маргарита» является многоплановым и включает в себя элементы фантастики, мистики, социальной сатиры и философии.",
+      "discount": 0,
+      "discountForRent": 0,
+      "discountForLoyaltyProgram": 0,
+      "priorityInCycle": 0,
+      "readProgress": 0,
+      "lastUpdatedDate": "2023-07-24",
+      "firstPublicationDate": "2023-07-24",
+      "finishedDate": "2024-01-25",
+      "expiredRentDate": null,
+      "isAdult": false,
+      "isText": true,
+      "isAudio": false,
+      "isFinished": true,
+      "isPurchased": false,
+      "isPurchasedAudio": false,
+      "isExclusive": false,
+      "isMini": false,
+      "isContest": false,
+      "inMyLibrary": false,
+      "inRent": false,
+      "isInLottery": false,
+      "isShowCyclePosition": true,
+      "isFrozen": false,
+      "isIntro": false,
+      "countOfPages": 373,
+      "countOfViews": 53984,
+      "countOfAddToLibrary": 1412,
+      "countOfComments": 7,
+      "countOfCommentsUpdated": 0,
+      "countOfLikes": 176,
+      "countOfLastUpdateChr": 0,
+      "adultLabel": 16,
+      "contentMarkLabels": [],
+      "abFlag": null
+    }
+  ]
+}

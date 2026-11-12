@@ -900,6 +900,26 @@ class BookMetadataUpdaterTest {
         }
 
         @Test
+        void updatesLitnetFields() {
+            BookMetadata newMeta = BookMetadata.builder().title("T")
+                    .litnetId("445406").litnetRating(4.0).litnetReviewCount(176)
+                    .litnetIdLocked(true).litnetRatingLocked(true).litnetReviewCountLocked(true)
+                    .build();
+            MetadataUpdateContext context = buildContext(newMeta, MetadataReplaceMode.REPLACE_ALL);
+
+            try (MockedStatic<MetadataChangeDetector> mcd = mockStatic(MetadataChangeDetector.class)) {
+                mockSettingsAndChangeDetector(mcd, true, true);
+                updater.setBookMetadata(context);
+                assertThat(metadataEntity.getLitnetId()).isEqualTo("445406");
+                assertThat(metadataEntity.getLitnetRating()).isEqualTo(4.0);
+                assertThat(metadataEntity.getLitnetReviewCount()).isEqualTo(176);
+                assertThat(metadataEntity.getLitnetIdLocked()).isTrue();
+                assertThat(metadataEntity.getLitnetRatingLocked()).isTrue();
+                assertThat(metadataEntity.getLitnetReviewCountLocked()).isTrue();
+            }
+        }
+
+        @Test
         void updatesDoubanFields() {
             BookMetadata newMeta = BookMetadata.builder().title("T")
                     .doubanId("1084336").doubanRating(4.55).doubanReviewCount(320)

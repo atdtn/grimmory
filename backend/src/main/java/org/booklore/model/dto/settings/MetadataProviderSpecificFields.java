@@ -27,6 +27,9 @@ public class MetadataProviderSpecificFields {
     private Boolean fantasyWorldsId = true;
     private Boolean fantasyWorldsRating = true;
     private Boolean fantasyWorldsReviewCount = true;
+    private Boolean litnetId = true;
+    private Boolean litnetRating = true;
+    private Boolean litnetReviewCount = true;
     private Boolean ranobedbId;
     private Boolean ranobedbRating;
     private Boolean audibleId;

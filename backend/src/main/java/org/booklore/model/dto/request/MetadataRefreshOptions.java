@@ -67,6 +67,9 @@ public class MetadataRefreshOptions {
         private FieldProvider fantasyWorldsId;
         private FieldProvider fantasyWorldsRating;
         private FieldProvider fantasyWorldsReviewCount;
+        private FieldProvider litnetId;
+        private FieldProvider litnetRating;
+        private FieldProvider litnetReviewCount;
         private FieldProvider amazonRating;
         private FieldProvider amazonReviewCount;
         private FieldProvider goodreadsRating;
@@ -169,6 +172,12 @@ public class MetadataRefreshOptions {
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean fantasyWorldsReviewCount = true;
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean litnetId = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean litnetRating = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean litnetReviewCount = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean amazonRating = true;
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean amazonReviewCount = true;
@@ -243,6 +252,9 @@ public class MetadataRefreshOptions {
             this.fantasyWorldsId = true;
             this.fantasyWorldsRating = true;
             this.fantasyWorldsReviewCount = true;
+            this.litnetId = true;
+            this.litnetRating = true;
+            this.litnetReviewCount = true;
             this.amazonRating = true;
             this.amazonReviewCount = true;
             this.goodreadsRating = true;

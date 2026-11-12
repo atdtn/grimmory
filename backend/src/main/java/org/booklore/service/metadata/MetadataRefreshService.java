@@ -362,6 +362,9 @@ public class MetadataRefreshService {
             addProviderToSet(fieldOptions.getFantasyWorldsId(), uniqueProviders);
             addProviderToSet(fieldOptions.getFantasyWorldsRating(), uniqueProviders);
             addProviderToSet(fieldOptions.getFantasyWorldsReviewCount(), uniqueProviders);
+            addProviderToSet(fieldOptions.getLitnetId(), uniqueProviders);
+            addProviderToSet(fieldOptions.getLitnetRating(), uniqueProviders);
+            addProviderToSet(fieldOptions.getLitnetReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonRating(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getGoodreadsRating(), uniqueProviders);
@@ -704,6 +707,30 @@ public class MetadataRefreshService {
             metadata.setFantasyWorldsReviewCount(existingMetadata.getFantasyWorldsReviewCount());
         }
 
+        if (enabledFields.isLitnetId()) {
+            if (metadataMap.containsKey(LITNET)) {
+                metadata.setLitnetId(metadataMap.get(LITNET).getLitnetId());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setLitnetId(existingMetadata.getLitnetId());
+        }
+
+        if (enabledFields.isLitnetRating()) {
+            if (metadataMap.containsKey(LITNET)) {
+                metadata.setLitnetRating(metadataMap.get(LITNET).getLitnetRating());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setLitnetRating(existingMetadata.getLitnetRating());
+        }
+
+        if (enabledFields.isLitnetReviewCount()) {
+            if (metadataMap.containsKey(LITNET)) {
+                metadata.setLitnetReviewCount(metadataMap.get(LITNET).getLitnetReviewCount());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setLitnetReviewCount(existingMetadata.getLitnetReviewCount());
+        }
+
         if (enabledFields.isRanobedbId()) {
             if (metadataMap.containsKey(Ranobedb)) {
                 metadata.setRanobedbId(metadataMap.get(Ranobedb).getRanobedbId());
@@ -860,6 +887,9 @@ public class MetadataRefreshService {
             metadata.setFantasyWorldsIdLocked(existingMetadata.getFantasyWorldsIdLocked());
             metadata.setFantasyWorldsRatingLocked(existingMetadata.getFantasyWorldsRatingLocked());
             metadata.setFantasyWorldsReviewCountLocked(existingMetadata.getFantasyWorldsReviewCountLocked());
+            metadata.setLitnetIdLocked(existingMetadata.getLitnetIdLocked());
+            metadata.setLitnetRatingLocked(existingMetadata.getLitnetRatingLocked());
+            metadata.setLitnetReviewCountLocked(existingMetadata.getLitnetReviewCountLocked());
             metadata.setRanobedbIdLocked(existingMetadata.getRanobedbIdLocked());
             metadata.setRanobedbRatingLocked(existingMetadata.getRanobedbRatingLocked());
             metadata.setAudibleIdLocked(existingMetadata.getAudibleIdLocked());

@@ -62,6 +62,8 @@ public class AppBookSummary {
     private Integer litresReviewCount;
     private Double fantasyWorldsRating;
     private Integer fantasyWorldsReviewCount;
+    private Double litnetRating;
+    private Integer litnetReviewCount;
     private Double audibleRating;
     private Integer audibleReviewCount;
     private Boolean allMetadataLocked;
