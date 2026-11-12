@@ -23,8 +23,14 @@ and Fantasy Worlds architecture.
 ## Decisions
 
 - **Search reads `items-books-*` from `ng-state`.** The site has no public JSON API.
+- **The top search results are hydrated from the detail page.** Search exposes
+  the uploader as `author` and omits the average rating, publisher and cycle, so
+  the first three results are enriched with the detail page (bounded because of
+  the one-second politeness interval). If a detail fetch fails, the search data
+  is kept.
 - **Details read the book node from `ng-state` and use JSON-LD as fallback**
-  (and for the average rating, which search results do not expose).
+  (and for the average rating, which search results do not expose). Both the
+  transfer-cache snake_case node and the page/card camelCase node are accepted.
 - **No ISBN.** Litnet has no ISBN data, so an ISBN-only query returns an empty
   result and logs that the source cannot search by ISBN. If a title/author is
   also present, the query proceeds normally and the ISBN field stays empty.
@@ -42,6 +48,9 @@ and Fantasy Worlds architecture.
 - **Persistence.** `litnetId`, `litnetRating`, `litnetReviewCount` are stored in
   `book_metadata` (migration `V153`), sidecar, refresh options, browse filters,
   sorting, rules and the v2 API. They are not embedded into file metadata.
+- **Provider path variables.** A `Converter<String, MetadataProvider>` accepts
+  both the Java enum name (`LITNET`) and the JSON/frontend name (`Litnet`),
+  so the detail endpoint works with the provider id advertised by the API.
 - **Opt-in.** Disabled by default.
 
 ## Non-goals and known limitations

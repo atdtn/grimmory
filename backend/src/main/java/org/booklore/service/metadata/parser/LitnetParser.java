@@ -57,6 +57,7 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
     private static final int REQUEST_TIMEOUT_SECONDS = 15;
     private static final int MAX_RETRIES = 3;
     private static final int MAX_RESULTS = 10;
+    private static final int MAX_HYDRATED_RESULTS = 3;
     private static final long DEFAULT_REQUEST_INTERVAL_MS = 1_000L;
     private static final long MAX_RETRY_DELAY_MS = 30_000L;
     private static final Pattern NUMERIC_ID_PATTERN = Pattern.compile("\\d+");
@@ -140,8 +141,22 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
                 ? mapped.stream().limit(MAX_RESULTS).toList()
                 : filtered;
 
-        log.info("Found {} Litnet results for query: {}", results.size(), query);
-        return results;
+        // Search results expose the uploader as the author and omit the average
+        // rating, publisher and cycle. Hydrate a bounded number of results from
+        // the detail page so the normal picker/refresh flow gets real metadata.
+        List<BookMetadata> hydrated = new ArrayList<>(results.size());
+        for (int i = 0; i < results.size(); i++) {
+            BookMetadata result = results.get(i);
+            if (i < MAX_HYDRATED_RESULTS && result.getLitnetId() != null) {
+                BookMetadata details = fetchDetailedMetadata(result.getLitnetId());
+                hydrated.add(details != null ? details : result);
+            } else {
+                hydrated.add(result);
+            }
+        }
+
+        log.info("Found {} Litnet results for query: {}", hydrated.size(), query);
+        return hydrated;
     }
 
     @Override
@@ -264,7 +279,7 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
         List<String> authors = new ArrayList<>();
         if (book != null) {
             addName(authors, book.path("author"), "name");
-            JsonNode coAuthor = book.path("co_author");
+            JsonNode coAuthor = book.has("co_author") ? book.path("co_author") : book.path("coAuthor");
             if (coAuthor.isTextual()) {
                 addIfNotBlank(authors, coAuthor.asText());
             } else {
@@ -279,15 +294,19 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
                 book != null ? stripHtml(text(book, "annotation")) : null,
                 stripHtml(text(jsonLd, "description")));
         String image = firstNonBlank(
-                book != null ? firstNonBlank(text(book, "image_original"), text(book, "image")) : null,
+                book != null ? firstNonBlank(text(book, "image_original"), text(book, "imageOriginal"),
+                        text(book, "image")) : null,
                 text(jsonLd, "image"));
         String publishedAt = firstNonBlank(
-                book != null ? text(book, "published_at") : null,
+                book != null ? firstNonBlank(text(book, "published_at"), text(book, "firstPublicationDate")) : null,
                 text(jsonLd, "datePublished"));
 
         Set<String> categories = new LinkedHashSet<>();
         if (book != null) {
             collectNames(book.path("genres"), categories);
+            if (categories.isEmpty()) {
+                collectNames(book.path("genreList"), categories);
+            }
         }
         if (categories.isEmpty() && jsonLd != null) {
             collectGenreField(jsonLd.path("genre"), categories);
@@ -295,13 +314,18 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
         Set<String> tags = new LinkedHashSet<>();
         if (book != null) {
             collectNames(book.path("tags"), tags);
+            if (tags.isEmpty()) {
+                collectNames(book.path("tagList"), tags);
+            }
         }
 
         JsonNode aggregateRating = jsonLd != null ? jsonLd.path("aggregateRating") : null;
         Double rating = doubleValue(aggregateRating, "ratingValue");
         Integer reviewCount = integerValue(aggregateRating, "ratingCount");
         if (reviewCount == null && book != null) {
-            reviewCount = integerValue(book.path("stats"), "rating");
+            reviewCount = firstNonNull(
+                    integerValue(book.path("stats"), "rating"),
+                    integerValue(book, "rating"));
         }
 
         String externalUrl = firstNonBlank(text(jsonLd, "url"), text(book, "link"));
@@ -325,15 +349,19 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
                 .litnetReviewCount(reviewCount != null && reviewCount > 0 ? reviewCount : null);
 
         if (book != null) {
-            builder.pageCount(integerValue(book, "pages"))
-                    .publisher(text(book.path("publisher"), "publisher_title"))
+            builder.pageCount(firstNonNull(
+                            integerValue(book, "pages"),
+                            integerValue(book, "countOfPages")))
+                    .publisher(firstNonBlank(
+                            text(book.path("publisher"), "publisher_title"),
+                            text(book.path("publisher"), "title")))
                     .seriesName(cycleName(book.path("cycle")));
-            Integer cycleNumber = integerValue(book, "priority_cycle");
+            Integer cycleNumber = firstNonNull(
+                    integerValue(book, "priority_cycle"),
+                    integerValue(book, "priorityInCycle"));
             if (cycleNumber != null && cycleNumber > 0) {
                 builder.seriesNumber(cycleNumber.floatValue());
             }
-        } else {
-            builder.publisher(null);
         }
 
         return builder.build();
@@ -357,28 +385,35 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
         } catch (NumberFormatException e) {
             return null;
         }
-        return findBookNode(state, numericId, 0);
+        JsonNode preferred = findBookNode(state, numericId, 0, true);
+        return preferred != null ? preferred : findBookNode(state, numericId, 0, false);
     }
 
-    private JsonNode findBookNode(JsonNode node, long id, int depth) {
+    /**
+     * The page state can contain the same book twice: the transfer-cache node
+     * (snake_case, richest fields) and the page/card node (camelCase). Prefer
+     * the transfer-cache shape, then fall back to any book-shaped node.
+     */
+    private JsonNode findBookNode(JsonNode node, long id, int depth, boolean requireTransferCacheShape) {
         if (node == null || depth > 8) {
             return null;
         }
         if (node.isObject()) {
             JsonNode idNode = node.get("id");
             if (idNode != null && idNode.canConvertToLong() && idNode.asLong() == id
-                    && node.has("title")) {
+                    && node.has("title")
+                    && (!requireTransferCacheShape || node.has("pages"))) {
                 return node;
             }
             for (Map.Entry<String, JsonNode> entry : node.properties()) {
-                JsonNode found = findBookNode(entry.getValue(), id, depth + 1);
+                JsonNode found = findBookNode(entry.getValue(), id, depth + 1, requireTransferCacheShape);
                 if (found != null) {
                     return found;
                 }
             }
         } else if (node.isArray()) {
             for (JsonNode child : node) {
-                JsonNode found = findBookNode(child, id, depth + 1);
+                JsonNode found = findBookNode(child, id, depth + 1, requireTransferCacheShape);
                 if (found != null) {
                     return found;
                 }
@@ -501,23 +536,12 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
     }
 
     private synchronized String executeRequest(String url) {
-        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .timeout(Duration.ofSeconds(REQUEST_TIMEOUT_SECONDS))
-                .header("User-Agent", USER_AGENT)
-                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-                .header("Accept-Language", "ru-RU,ru;q=0.9")
-                .header("Referer", SITE_BASE + "/");
-        if (!cookies.isEmpty()) {
-            builder.header("Cookie", cookieHeader());
-        }
-        HttpRequest request = builder.GET().build();
-
         for (int attempt = 1; attempt <= MAX_RETRIES; attempt++) {
             try {
                 if (!waitForRequestInterval()) {
                     return null;
                 }
+                HttpRequest request = buildRequest(url);
                 HttpResponse<String> response;
                 try {
                     response = httpClient.send(
@@ -564,6 +588,20 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
             }
         }
         return null;
+    }
+
+    private HttpRequest buildRequest(String url) {
+        HttpRequest.Builder builder = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .timeout(Duration.ofSeconds(REQUEST_TIMEOUT_SECONDS))
+                .header("User-Agent", USER_AGENT)
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                .header("Accept-Language", "ru-RU,ru;q=0.9")
+                .header("Referer", SITE_BASE + "/");
+        if (!cookies.isEmpty()) {
+            builder.header("Cookie", cookieHeader());
+        }
+        return builder.GET().build();
     }
 
     private boolean waitForRequestInterval() {
@@ -708,8 +746,23 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
         return null;
     }
 
-    private static String firstNonBlank(String first, String second) {
-        return first != null && !first.isBlank() ? first : second;
+    @SafeVarargs
+    private static <T> T firstNonNull(T... values) {
+        for (T value : values) {
+            if (value != null) {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    private static String firstNonBlank(String... values) {
+        for (String value : values) {
+            if (value != null && !value.isBlank()) {
+                return value;
+            }
+        }
+        return null;
     }
 
     private static String trimToNull(String value) {

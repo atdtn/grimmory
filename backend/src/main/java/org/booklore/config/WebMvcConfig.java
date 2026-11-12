@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.booklore.interceptor.KomgaCleanInterceptor;
 import org.booklore.interceptor.KomgaEnabledInterceptor;
 import org.booklore.interceptor.OpdsEnabledInterceptor;
+import org.booklore.model.enums.MetadataProvider;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.task.VirtualThreadTaskExecutor;
@@ -28,6 +31,26 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private final OpdsEnabledInterceptor opdsEnabledInterceptor;
     private final KomgaEnabledInterceptor komgaEnabledInterceptor;
     private final KomgaCleanInterceptor komgaCleanInterceptor;
+
+    /**
+     * Allows path variables to use the JSON provider name (for example
+     * {@code Litnet}/{@code FantasyWorlds}) as well as the Java enum name.
+     */
+    @Bean
+    public Converter<String, MetadataProvider> metadataProviderConverter() {
+        return source -> {
+            if (source == null) {
+                throw new IllegalArgumentException("Metadata provider is required");
+            }
+            String normalized = source.trim().replace("_", "");
+            for (MetadataProvider provider : MetadataProvider.values()) {
+                if (provider.name().replace("_", "").equalsIgnoreCase(normalized)) {
+                    return provider;
+                }
+            }
+            throw new IllegalArgumentException("Unknown metadata provider: " + source);
+        };
+    }
 
     @Override
     public void configureAsyncSupport(AsyncSupportConfigurer configurer) {

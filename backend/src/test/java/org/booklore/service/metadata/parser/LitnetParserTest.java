@@ -119,6 +119,24 @@ class LitnetParserTest {
     }
 
     @Test
+    void fetchMetadata_hydratesTopResultsWithDetailMetadata() throws Exception {
+        mockSettings(true);
+        mockHttp(Map.of(
+                "https://litnet.com/ru/search", htmlWithNgState(searchMasterJson),
+                "https://litnet.com/ru/book/x-b445406", detailMasterHtml));
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Мастер и Маргарита").build(),
+                FetchMetadataRequest.builder().title("Мастер и Маргарита").build());
+
+        assertThat(results).hasSize(1);
+        BookMetadata result = results.getFirst();
+        assertThat(result.getAuthors()).containsExactly("Михаил Булгаков");
+        assertThat(result.getLitnetRating()).isEqualTo(4.0);
+        assertThat(result.getPublisher()).isEqualTo("Литнет Паблишинг");
+    }
+
+    @Test
     void fetchMetadata_filtersIrrelevantSearchResults() throws Exception {
         mockSettings(true);
         String state = """
@@ -185,6 +203,95 @@ class LitnetParserTest {
     }
 
     @Test
+    void fetchDetailedMetadata_mapsCamelCasePageNode() throws Exception {
+        mockSettings(true);
+        String html = """
+                <!DOCTYPE html><html><head><script type="application/ld+json">
+                {"@context":"https://schema.org","@type":"Book","name":"Страничная книга",
+                 "aggregateRating":{"ratingValue":4.5,"ratingCount":10}}
+                </script></head><body><script id="ng-state" type="application/json">
+                {"book-page-main":{"data":{"page":{"id":888,"title":"Страничная книга",
+                  "annotation":"Страничное описание","imageOriginal":"https://cdn/cover-original.jpg",
+                  "author":{"name":"Автор Страницы"},"countOfPages":250,
+                  "firstPublicationDate":"2022-02-02","priorityInCycle":0,
+                  "tagList":[{"name":"тег страницы"}],
+                  "publisher":{"title":"Страничный издатель"}}}}}
+                </script></body></html>
+                """;
+        mockHttp(Map.of("https://litnet.com/ru/book/x-b888", html));
+
+        BookMetadata result = parser.fetchDetailedMetadata("888");
+
+        assertThat(result).isNotNull();
+        assertThat(result.getTitle()).isEqualTo("Страничная книга");
+        assertThat(result.getPageCount()).isEqualTo(250);
+        assertThat(result.getPublisher()).isEqualTo("Страничный издатель");
+        assertThat(result.getTags()).containsExactly("тег страницы");
+        assertThat(result.getThumbnailUrl()).isEqualTo("https://cdn/cover-original.jpg");
+    }
+
+    @Test
+    void fetchDetailedMetadata_fallsBackToJsonLdOnly() throws Exception {
+        mockSettings(true);
+        String html = """
+                <!DOCTYPE html><html><head><script type="application/ld+json">
+                {"@context":"https://schema.org","@type":"Book","name":"Только JSON-LD",
+                 "author":{"@type":"Person","name":"Автор JSON"},
+                 "description":"Описание из JSON-LD","datePublished":"2021-03-04",
+                 "image":"https://cdn/json-cover.jpg","genre":["Фэнтези"],
+                 "aggregateRating":{"ratingValue":4.25,"ratingCount":12}}
+                </script></head><body></body></html>
+                """;
+        mockHttp(Map.of("https://litnet.com/ru/book/x-b999", html));
+
+        BookMetadata result = parser.fetchDetailedMetadata("999");
+
+        assertThat(result).isNotNull();
+        assertThat(result.getTitle()).isEqualTo("Только JSON-LD");
+        assertThat(result.getAuthors()).containsExactly("Автор JSON");
+        assertThat(result.getPublishedDate()).isEqualTo(LocalDate.of(2021, 3, 4));
+        assertThat(result.getCategories()).containsExactly("Фэнтези");
+        assertThat(result.getLitnetRating()).isEqualTo(4.25);
+        assertThat(result.getLitnetReviewCount()).isEqualTo(12);
+    }
+
+    @Test
+    void fetchDetailedMetadata_mapsCoAuthor() throws Exception {
+        mockSettings(true);
+        String book = """
+                {"id":555,"title":"Книга с соавтором","annotation":"Описание",
+                 "image":"https://cdn/555.jpg","author":{"name":"Основной Автор"},
+                 "co_author":{"name":"Соавтор"},"pages":10,"published_at":"2020-01-01"}
+                """;
+        mockHttp(Map.of("https://litnet.com/ru/book/x-b555", detailHtmlWithBook("555", book, "Книга с соавтором")));
+
+        BookMetadata result = parser.fetchDetailedMetadata("555");
+
+        assertThat(result).isNotNull();
+        assertThat(result.getAuthors()).containsExactly("Основной Автор", "Соавтор");
+    }
+
+    @Test
+    void fetchDetailedMetadata_sendsCookiesFromFailedAttempt() throws Exception {
+        mockSettings(true);
+        HttpResponse<String> challenge = response(200, "Just a moment...",
+                Map.of("Set-Cookie", List.of("__cf_bm=abc; Path=/; HttpOnly")));
+        HttpResponse<String> ok = response(200, detailMasterHtml, Map.of());
+        List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    requests.add(invocation.getArgument(0));
+                    return requests.size() == 1 ? challenge : ok;
+                });
+
+        BookMetadata result = parser.fetchDetailedMetadata("445406");
+
+        assertThat(result).isNotNull();
+        assertThat(requests).hasSize(2);
+        assertThat(requests.get(1).headers().firstValue("Cookie")).hasValue("__cf_bm=abc");
+    }
+
+    @Test
     void fetchDetailedMetadata_retriesCloudflareChallengeAnd429() throws Exception {
         mockSettings(true);
         HttpResponse<String> challenge = response(200, "Just a moment...", Map.of());
@@ -201,9 +308,20 @@ class LitnetParserTest {
     }
 
     @Test
-    void metadataProviderSerializesAsFrontendId() {
-        assertThat(new ObjectMapper().writeValueAsString(MetadataProvider.LITNET))
+    void providerPathVariableNamesAreCaseInsensitive() {
+        var converter = new org.booklore.config.WebMvcConfig(null, null, null).metadataProviderConverter();
+        assertThat(converter.convert("Litnet")).isEqualTo(MetadataProvider.LITNET);
+        assertThat(converter.convert("LITNET")).isEqualTo(MetadataProvider.LITNET);
+        assertThat(converter.convert("FantasyWorlds")).isEqualTo(MetadataProvider.FANTASY_WORLDS);
+    }
+
+    @Test
+    void metadataProviderRoundTripsAsFrontendId() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        assertThat(objectMapper.writeValueAsString(MetadataProvider.LITNET))
                 .isEqualTo("\"Litnet\"");
+        assertThat(objectMapper.readValue("\"Litnet\"", MetadataProvider.class))
+                .isEqualTo(MetadataProvider.LITNET);
     }
 
     private String htmlWithNgState(String stateJson) {
@@ -213,6 +331,10 @@ class LitnetParserTest {
     }
 
     private String detailHtmlWithCycle(String bookJson, String title) {
+        return detailHtmlWithBook("777", bookJson, title);
+    }
+
+    private String detailHtmlWithBook(String id, String bookJson, String title) {
         return "<!DOCTYPE html><html><head><script type=\"application/ld+json\">"
                 + "{\"@context\":\"https://schema.org\",\"@type\":\"Book\",\"name\":\"" + title
                 + "\",\"aggregateRating\":{\"ratingValue\":4.5,\"ratingCount\":10}}"
