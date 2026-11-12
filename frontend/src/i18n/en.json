@@ -491,22 +491,6 @@
         "magicShelf": "Magic Shelf",
         "default": "Scroller"
       },
-      "sortFields": {
-        "title": "Title",
-        "addedOn": "Date Added",
-        "author": "Author",
-        "authorSurnameVorname": "Author (Surname)",
-        "seriesName": "Series Name",
-        "seriesNumber": "Series Number",
-        "personalRating": "Personal Rating",
-        "publisher": "Publisher",
-        "publishedDate": "Published Date",
-        "lastReadTime": "Last Read",
-        "readStatus": "Read Status",
-        "dateFinished": "Date Finished",
-        "readingProgress": "Reading Progress",
-        "pageCount": "Pages"
-      },
       "sortDirections": {
         "asc": "Ascending",
         "desc": "Descending"
@@ -3528,6 +3512,7 @@
     "fields": {
       "random": "Random",
       "title": "Title",
+      "subtitle": "Subtitle",
       "author": "Author",
       "authorSurname": "Author (Surname)",
       "genre": "Genre",
