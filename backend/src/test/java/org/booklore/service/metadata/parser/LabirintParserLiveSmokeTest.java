@@ -58,6 +58,15 @@ class LabirintParserLiveSmokeTest {
             if (firstResult == null) {
                 firstResult = first;
             }
+            if (query.getIsbn() != null) {
+                assertThat(first.getIsbn13()).isEqualTo("9785001120636");
+            }
+            if ("Мастер и Маргарита".equals(query.getTitle())) {
+                assertThat(first.getIsbn13()).isNotNull();
+                assertThat(first.getPublisher()).isNotBlank();
+                assertThat(first.getPageCount()).isGreaterThan(0);
+                assertThat(first.getLabirintRating()).isNotNull();
+            }
             System.out.printf("Labirint live search %s -> %d results, first: %s / %s, ISBN %s, pages %s%n",
                     query.getTitle() != null ? query.getTitle() : (query.getAuthor() != null ? query.getAuthor() : query.getIsbn()),
                     results.size(), first.getTitle(), first.getAuthors(),
@@ -67,6 +76,10 @@ class LabirintParserLiveSmokeTest {
         assertThat(firstResult).isNotNull();
         BookMetadata details = parser.fetchDetailedMetadata(firstResult.getLabirintId());
         assertThat(details).isNotNull();
+        assertThat(details.getIsbn13()).isNotNull();
+        assertThat(details.getPublisher()).isNotBlank();
+        assertThat(details.getPageCount()).isGreaterThan(0);
+        assertThat(details.getLabirintRating()).isNotNull();
         System.out.printf("Labirint live details: %s / %s / publisher %s / rating %s%n",
                 details.getTitle(), details.getAuthors(), details.getPublisher(), details.getLabirintRating());
     }

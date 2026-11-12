@@ -29,7 +29,11 @@ cover and rating.
 - **Top three search results are hydrated from detail pages.** Cards carry
   title, authors, cover, publisher and series, but ISBN, page count, exact year
   and rating exist only on the detail page. Hydration is bounded because detail
-  pages are large and requests are paced.
+  pages are large and requests are paced. Detail values are merged over the
+  card so a gap in detail parsing never removes card data.
+- **ISBN is a hard filter.** When an ISBN is supplied, only results whose
+  ISBN-10/ISBN-13 matches are returned; fuzzy non-matching cards are never
+  applied. ISBN-10 and ISBN-13 are normalized before comparison.
 - **Detail parsing avoids hashed Nuxt classes.** It uses:
   - `h1[itemprop=name]` plus the author suffix cleanup;
   - schema.org `meta[itemprop=isbn|ratingValue|reviewCount]`;
@@ -46,6 +50,12 @@ cover and rating.
   stored in `book_metadata` (migration `V154`), sidecar, refresh options,
   browse filters/sorting, rules, duplicate detection, bookdrop and v2 API.
   They are not embedded into file metadata.
+- **Language is left unset.** Labirint carries foreign-language editions, so
+  hard-coding `ru` would be wrong; the detail page does not expose a reliable
+  language field.
+- **Lock migration.** `V155` backfills the Russian-provider lock columns for
+  books that were fully locked before those providers existed, so upgrading
+  does not silently clear the "all fields locked" state.
 - **Opt-in:** disabled by default.
 
 ## Non-goals and known limitations

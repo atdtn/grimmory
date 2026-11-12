@@ -117,7 +117,8 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
             if (cards.isEmpty()) {
                 continue;
             }
-            List<BookMetadata> hydrated = hydrate(cards);
+            List<BookMetadata> hydrated = hydrate(cards,
+                    isbn != null ? MAX_RESULTS : MAX_HYDRATED_RESULTS);
             if (isbn != null) {
                 List<BookMetadata> exact = hydrated.stream()
                         .filter(metadata -> isbnMatches(metadata, isbn))
@@ -126,6 +127,9 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
                     results = exact;
                     break;
                 }
+                // ISBN is a hard filter: a fuzzy search result must not be
+                // returned as the requested edition.
+                continue;
             }
             results = hydrated;
             break;
@@ -265,23 +269,49 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
                 .publisher(blankToNull(card.attr("data-pubhouse")))
                 .seriesName(blankToNull(card.attr("data-series")))
                 .categories(categories)
-                .language("ru")
                 .labirintReviewCount(reviewCount != null && reviewCount > 0 ? reviewCount : null)
                 .build();
     }
 
-    private List<BookMetadata> hydrate(List<BookMetadata> cards) {
+    private List<BookMetadata> hydrate(List<BookMetadata> cards, int hydrationLimit) {
         List<BookMetadata> results = new ArrayList<>(cards.size());
         for (int i = 0; i < cards.size(); i++) {
             BookMetadata card = cards.get(i);
-            if (i < MAX_HYDRATED_RESULTS && card.getLabirintId() != null) {
+            if (i < hydrationLimit && card.getLabirintId() != null) {
                 BookMetadata details = fetchDetailedMetadata(card.getLabirintId());
-                results.add(details != null ? details : card);
+                results.add(details != null ? merge(card, details) : card);
             } else {
                 results.add(card);
             }
         }
         return results;
+    }
+
+    /**
+     * Detail pages are authoritative for bibliographic fields, but should not
+     * erase useful values that only the search card carried.
+     */
+    private BookMetadata merge(BookMetadata card, BookMetadata details) {
+        Set<String> categories = details.getCategories() != null && !details.getCategories().isEmpty()
+                ? details.getCategories() : card.getCategories();
+        List<String> authors = details.getAuthors() != null && !details.getAuthors().isEmpty()
+                ? details.getAuthors() : card.getAuthors();
+        return details.toBuilder()
+                .authors(authors)
+                .description(firstNonBlank(details.getDescription(), card.getDescription()))
+                .thumbnailUrl(firstNonBlank(details.getThumbnailUrl(), card.getThumbnailUrl()))
+                .publisher(firstNonBlank(details.getPublisher(), card.getPublisher()))
+                .seriesName(firstNonBlank(details.getSeriesName(), card.getSeriesName()))
+                .pageCount(details.getPageCount() != null ? details.getPageCount() : card.getPageCount())
+                .isbn13(firstNonBlank(details.getIsbn13(), card.getIsbn13()))
+                .isbn10(firstNonBlank(details.getIsbn10(), card.getIsbn10()))
+                .publishedDate(details.getPublishedDate() != null ? details.getPublishedDate() : card.getPublishedDate())
+                .categories(categories)
+                .language(firstNonBlank(details.getLanguage(), card.getLanguage()))
+                .labirintRating(details.getLabirintRating() != null ? details.getLabirintRating() : card.getLabirintRating())
+                .labirintReviewCount(details.getLabirintReviewCount() != null
+                        ? details.getLabirintReviewCount() : card.getLabirintReviewCount())
+                .build();
     }
 
     private BookMetadata parseDetails(Document document, String id) {
@@ -333,9 +363,6 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
         String cover = text(document.selectFirst("meta[property=og:image]"));
         String ratingText = text(document.selectFirst("meta[itemprop=ratingValue]"));
         String reviewText = text(document.selectFirst("meta[itemprop=reviewCount]"));
-        if (reviewText == null) {
-            reviewText = text(document.selectFirst("meta[itemprop=ratingCount]"));
-        }
 
         BookMetadata.BookMetadataBuilder builder = BookMetadata.builder()
                 .provider(MetadataProvider.LABIRINT)
@@ -349,7 +376,6 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
                 .pageCount(pageCount != null && pageCount > 0 ? pageCount : null)
                 .thumbnailUrl(normalizeUrl(cover))
                 .externalUrl(canonicalUrl(document, id))
-                .language("ru")
                 .categories(categories)
                 .labirintRating(parseDouble(ratingText))
                 .labirintReviewCount(parseInteger(reviewText));
@@ -372,7 +398,7 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
             String value = ogTitle.startsWith("Книга:")
                     ? ogTitle.substring("Книга:".length()).trim()
                     : ogTitle;
-            int separator = value.indexOf(" - ");
+            int separator = value.lastIndexOf(" - ");
             if (separator > 0) {
                 value = value.substring(0, separator).trim();
             }
@@ -444,7 +470,8 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
 
     private Element findFeatureLabel(Document document, String label) {
         for (Element element : document.select("div")) {
-            if (label.equals(element.ownText().trim())) {
+            String ownText = element.ownText().replace(":", "").trim();
+            if (label.equalsIgnoreCase(ownText)) {
                 return element;
             }
         }
@@ -473,8 +500,17 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
 
     private boolean isbnMatches(BookMetadata metadata, String isbn) {
         String normalized = normalizeIsbn(isbn);
-        return normalized != null
-                && (normalized.equals(metadata.getIsbn13()) || normalized.equals(metadata.getIsbn10()));
+        if (normalized == null) {
+            return false;
+        }
+        String requested13 = toIsbn13(normalized);
+        String metadata13 = toIsbn13(normalizeIsbn(metadata.getIsbn13()));
+        String metadata10 = normalizeIsbn(metadata.getIsbn10());
+        return normalized.equals(metadata.getIsbn10())
+                || normalized.equals(metadata.getIsbn13())
+                || (requested13 != null && requested13.equals(metadata13))
+                || (metadata10 != null && requested13 != null
+                && requested13.equals(toIsbn13(metadata10)));
     }
 
     private String normalizeIsbn(String isbn) {
@@ -486,6 +522,26 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
             cleaned = cleaned.substring(0, cleaned.length() - 1) + "X";
         }
         return cleaned.isEmpty() ? null : cleaned;
+    }
+
+    private String toIsbn13(String isbn) {
+        if (isbn == null) {
+            return null;
+        }
+        if (isbn.length() == 13) {
+            return isbn;
+        }
+        if (isbn.length() != 10) {
+            return null;
+        }
+        String core = "978" + isbn.substring(0, 9);
+        int sum = 0;
+        for (int i = 0; i < core.length(); i++) {
+            int digit = core.charAt(i) - '0';
+            sum += (i % 2 == 0) ? digit : digit * 3;
+        }
+        int check = (10 - (sum % 10)) % 10;
+        return core + check;
     }
 
     private String canonicalUrl(Document document, String id) {
@@ -683,7 +739,7 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
         if (value == null) {
             return null;
         }
-        Matcher matcher = DIGITS_PATTERN.matcher(value);
+        Matcher matcher = DIGITS_PATTERN.matcher(value.replaceAll("[\\s\\u00a0]", ""));
         return matcher.find() ? parseInteger(matcher.group()) : null;
     }
 

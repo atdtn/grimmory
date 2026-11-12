@@ -104,7 +104,9 @@ class LabirintParserTest {
         assertThat(first.getLabirintReviewCount()).isEqualTo(10);
         assertThat(first.getThumbnailUrl()).isEqualTo("https://imo10.labirint.ru/books/595815/cover.jpg/484-0");
         assertThat(first.getExternalUrl()).isEqualTo("https://www.labirint.ru/books/595815/");
-        assertThat(first.getDescription()).contains("Известный литератор").doesNotContain("<br");
+        assertThat(first.getDescription()).contains("Известный литератор")
+                .doesNotContain("<br")
+                .doesNotContain("Свернуть");
         assertThat(first.getCategories()).contains("Художественная литература",
                 "Классическая проза", "Классическая отечественная проза");
     }
@@ -122,6 +124,20 @@ class LabirintParserTest {
 
         assertThat(results).hasSize(1);
         assertThat(results.getFirst().getIsbn13()).isEqualTo("9785001120636");
+    }
+
+    @Test
+    void fetchMetadata_returnsEmptyWhenIsbnDoesNotMatchAnyResult() throws Exception {
+        mockSettings(true);
+        mockHttp(Map.of(
+                "https://www.labirint.ru/search/", searchMasterHtml,
+                "https://www.labirint.ru/books/595815/", detailMasterHtml));
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Мастер и Маргарита").build(),
+                FetchMetadataRequest.builder().isbn("9780000000000").build());
+
+        assertThat(results).isEmpty();
     }
 
     @Test
@@ -149,6 +165,36 @@ class LabirintParserTest {
 
         assertThat(results).isNotEmpty();
         assertThat(requests).hasSizeGreaterThanOrEqualTo(2);
+    }
+
+    @Test
+    void fetchMetadata_keepsCardFieldsMissingFromDetail() throws Exception {
+        mockSettings(true);
+        String minimalDetail = """
+                <!DOCTYPE html><html><head>
+                  <meta itemprop="isbn" content="978-5-00112-063-6">
+                </head><body>
+                  <h1 itemprop="name">Мастер и Маргарита: Михаил Булгаков</h1>
+                  <div class="feature"><div class="name">Автор</div>
+                    <div><a href="https://www.labirint.ru/authors/11745/">Булгаков Михаил Афанасьевич</a></div>
+                  </div>
+                  <div id="annotation"><div>Аннотация с детальной страницы.</div></div>
+                </body></html>
+                """;
+        mockHttp(Map.of(
+                "https://www.labirint.ru/search/", searchMasterHtml,
+                "https://www.labirint.ru/books/595815/", minimalDetail));
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Мастер и Маргарита").build(),
+                FetchMetadataRequest.builder().title("Мастер и Маргарита").build());
+
+        assertThat(results).isNotEmpty();
+        BookMetadata first = results.getFirst();
+        assertThat(first.getPublisher()).isEqualTo("Время");
+        assertThat(first.getSeriesName()).isEqualTo("Сквозь время");
+        assertThat(first.getThumbnailUrl()).contains("cover.jpg/363-0");
+        assertThat(first.getIsbn13()).isEqualTo("9785001120636");
     }
 
     @Test
