@@ -117,7 +117,13 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
             if (cards.isEmpty()) {
                 continue;
             }
-            List<BookMetadata> hydrated = hydrate(cards,
+            List<BookMetadata> candidates = cards.stream()
+                    .filter(metadata -> matchesSearch(metadata, title, author, isbn))
+                    .toList();
+            if (candidates.isEmpty()) {
+                continue;
+            }
+            List<BookMetadata> hydrated = hydrate(candidates,
                     isbn != null ? MAX_RESULTS : MAX_HYDRATED_RESULTS);
             if (isbn != null) {
                 List<BookMetadata> exact = hydrated.stream()
@@ -496,6 +502,56 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
         } else if (cleaned.length() == 10) {
             builder.isbn10(cleaned);
         }
+    }
+
+    private boolean matchesSearch(BookMetadata metadata, String title, String author, String isbn) {
+        if (isbn != null) {
+            // Cards do not expose ISBN; the exact ISBN check happens after
+            // hydration. Keep title/author candidates here.
+            if (title != null) {
+                return matchesText(metadata.getTitle(), title);
+            }
+            if (author != null) {
+                return authorMatches(metadata, author);
+            }
+            return true;
+        }
+        if (title != null) {
+            return matchesText(metadata.getTitle(), title);
+        }
+        if (author != null) {
+            return authorMatches(metadata, author);
+        }
+        return false;
+    }
+
+    private boolean authorMatches(BookMetadata metadata, String author) {
+        if (metadata.getAuthors() == null) {
+            return false;
+        }
+        for (String variant : MetadataSearchUtils.authorVariants(author)) {
+            if (metadata.getAuthors().stream().anyMatch(name -> matchesText(name, variant))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean matchesText(String haystack, String needle) {
+        String normalizedHaystack = normalizeText(haystack);
+        if (normalizedHaystack.isBlank()) {
+            return false;
+        }
+        for (String token : normalizeText(needle).split(" ")) {
+            if (token.isBlank()) {
+                continue;
+            }
+            int stemLength = token.length() <= 3 ? token.length() : Math.min(4, token.length() - 1);
+            if (!normalizedHaystack.contains(token.substring(0, stemLength))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean isbnMatches(BookMetadata metadata, String isbn) {

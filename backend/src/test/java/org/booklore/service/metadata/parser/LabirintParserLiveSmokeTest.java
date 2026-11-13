@@ -45,7 +45,11 @@ class LabirintParserLiveSmokeTest {
         List<FetchMetadataRequest> queries = List.of(
                 FetchMetadataRequest.builder().title("Мастер и Маргарита").build(),
                 FetchMetadataRequest.builder().isbn("978-5-00112-063-6").build(),
-                FetchMetadataRequest.builder().author("Булгаков").build()
+                FetchMetadataRequest.builder().author("Булгаков").build(),
+                FetchMetadataRequest.builder()
+                        .title("Ведьмин фонарь")
+                        .author("Галина Васильевна Герасимова")
+                        .build()
         );
 
         BookMetadata firstResult = null;
@@ -66,6 +70,10 @@ class LabirintParserLiveSmokeTest {
                 assertThat(first.getPublisher()).isNotBlank();
                 assertThat(first.getPageCount()).isGreaterThan(0);
                 assertThat(first.getLabirintRating()).isNotNull();
+            }
+            if ("Ведьмин фонарь".equals(query.getTitle())) {
+                assertThat(first.getTitle()).contains("Ведьмин фонарь");
+                assertThat(first.getAuthors()).anyMatch(author -> author.contains("Герасимова"));
             }
             System.out.printf("Labirint live search %s -> %d results, first: %s / %s, ISBN %s, pages %s%n",
                     query.getTitle() != null ? query.getTitle() : (query.getAuthor() != null ? query.getAuthor() : query.getIsbn()),

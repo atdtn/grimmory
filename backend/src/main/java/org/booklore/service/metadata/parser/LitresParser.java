@@ -115,7 +115,7 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
             for (String titleQuery : titleQueries) {
                 List<JsonNode> searchResults = search(titleQuery);
                 if (!searchResults.isEmpty()) {
-                    results = hydrate(searchResults, null);
+                    results = filterRelevant(hydrate(searchResults, null), title, author);
                     if (!results.isEmpty()) {
                         break;
                     }
@@ -127,7 +127,7 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
             for (String authorQuery : MetadataSearchUtils.authorVariants(author)) {
                 List<JsonNode> searchResults = search(authorQuery);
                 if (!searchResults.isEmpty()) {
-                    results = hydrate(searchResults, null);
+                    results = filterRelevant(hydrate(searchResults, null), null, author);
                     if (!results.isEmpty()) {
                         break;
                     }
@@ -142,6 +142,58 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
 
         log.info("Found {} LitRes results for query: {}", results.size(), searchQuery(title, author, isbn));
         return results;
+    }
+
+    private List<BookMetadata> filterRelevant(List<BookMetadata> results, String title, String author) {
+        if (title != null) {
+            return results.stream()
+                    .filter(metadata -> matchesText(metadata.getTitle(), title))
+                    .limit(MAX_RESULTS)
+                    .toList();
+        }
+        if (author != null) {
+            return results.stream()
+                    .filter(metadata -> authorMatches(metadata, author))
+                    .limit(MAX_RESULTS)
+                    .toList();
+        }
+        return results;
+    }
+
+    private boolean authorMatches(BookMetadata metadata, String author) {
+        if (metadata.getAuthors() == null) {
+            return false;
+        }
+        for (String variant : MetadataSearchUtils.authorVariants(author)) {
+            if (metadata.getAuthors().stream().anyMatch(name -> matchesText(name, variant))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean matchesText(String haystack, String needle) {
+        String normalizedHaystack = normalizeText(haystack);
+        if (normalizedHaystack.isBlank()) {
+            return false;
+        }
+        for (String token : normalizeText(needle).split(" ")) {
+            if (token.isBlank()) {
+                continue;
+            }
+            int stemLength = token.length() <= 3 ? token.length() : Math.min(4, token.length() - 1);
+            if (!normalizedHaystack.contains(token.substring(0, stemLength))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static String normalizeText(String value) {
+        return value == null ? "" : value.toLowerCase(java.util.Locale.ROOT)
+                .replace('ё', 'е')
+                .replaceAll("[^\\p{L}\\p{N}]+", " ")
+                .trim();
     }
 
     private List<BookMetadata> hydrate(List<JsonNode> searchResults, String isbnToMatch) {

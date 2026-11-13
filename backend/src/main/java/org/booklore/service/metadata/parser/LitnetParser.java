@@ -125,41 +125,68 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
         // "title author" commonly returns zero results even when the title
         // alone succeeds. Search by title first and use the author only for
         // ranking hydrated results.
-        List<JsonNode> books = List.of();
-        String usedQuery = title;
         if (title != null) {
-            books = search(title);
-        } else {
-            for (String authorQuery : MetadataSearchUtils.authorVariants(author)) {
-                books = search(authorQuery);
-                if (!books.isEmpty()) {
-                    usedQuery = authorQuery;
-                    break;
-                }
-            }
+            return fetchByTitle(title, author);
         }
+        return fetchByAuthor(author);
+    }
+
+    private List<BookMetadata> fetchByTitle(String title, String author) {
+        List<JsonNode> books = search(title);
         if (books.isEmpty()) {
-            log.info("No Litnet results found for query: {}", usedQuery);
+            log.info("No Litnet results found for query: {}", title);
             return List.of();
         }
 
         List<BookMetadata> mapped = books.stream()
                 .map(this::mapSearchBook)
                 .filter(metadata -> metadata != null)
-                .toList();
-        List<BookMetadata> filtered = mapped.stream()
-                .filter(metadata -> title != null
-                        ? matchesText(metadata.getTitle(), title)
-                        : authorMatches(metadata, author))
+                .filter(metadata -> matchesText(metadata.getTitle(), title))
                 .limit(MAX_RESULTS)
                 .toList();
-        List<BookMetadata> results = filtered.isEmpty()
-                ? mapped.stream().limit(MAX_RESULTS).toList()
-                : filtered;
+        if (mapped.isEmpty()) {
+            log.info("No relevant Litnet results found for query: {}", title);
+            return List.of();
+        }
 
-        // Search results expose the uploader as the author and omit the average
-        // rating, publisher and cycle. Hydrate a bounded number of results from
-        // the detail page so the normal picker/refresh flow gets real metadata.
+        List<BookMetadata> hydrated = hydrate(mapped);
+        if (author != null) {
+            hydrated.sort((left, right) -> Boolean.compare(
+                    authorMatches(right, author), authorMatches(left, author)));
+        }
+        log.info("Found {} Litnet results for query: {}", hydrated.size(), title);
+        return hydrated;
+    }
+
+    private List<BookMetadata> fetchByAuthor(String author) {
+        for (String authorQuery : MetadataSearchUtils.authorVariants(author)) {
+            List<JsonNode> books = search(authorQuery);
+            if (books.isEmpty()) {
+                continue;
+            }
+            List<BookMetadata> mapped = books.stream()
+                    .map(this::mapSearchBook)
+                    .filter(metadata -> metadata != null)
+                    .limit(MAX_RESULTS)
+                    .toList();
+            if (mapped.isEmpty()) {
+                continue;
+            }
+            // Search results expose the uploader, so the real author is known
+            // only after detail hydration.
+            List<BookMetadata> hydrated = hydrate(mapped).stream()
+                    .filter(metadata -> authorMatches(metadata, author))
+                    .toList();
+            if (!hydrated.isEmpty()) {
+                log.info("Found {} Litnet results for query: {}", hydrated.size(), authorQuery);
+                return hydrated;
+            }
+        }
+        log.info("No relevant Litnet results found for author: {}", author);
+        return List.of();
+    }
+
+    private List<BookMetadata> hydrate(List<BookMetadata> results) {
         List<BookMetadata> hydrated = new ArrayList<>(results.size());
         for (int i = 0; i < results.size(); i++) {
             BookMetadata result = results.get(i);
@@ -170,13 +197,6 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
                 hydrated.add(result);
             }
         }
-
-        if (author != null) {
-            hydrated.sort((left, right) -> Boolean.compare(
-                    authorMatches(right, author), authorMatches(left, author)));
-        }
-
-        log.info("Found {} Litnet results for query: {}", hydrated.size(), usedQuery);
         return hydrated;
     }
 

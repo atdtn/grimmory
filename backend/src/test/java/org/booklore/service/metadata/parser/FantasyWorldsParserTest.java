@@ -205,6 +205,24 @@ class FantasyWorldsParserTest {
     }
 
     @Test
+    void fetchMetadata_returnsEmptyWhenAllSearchResultsAreUnrelated() throws Exception {
+        mockSettings(true);
+        String unrelated = """
+                {"books":[{"id":"1","title":"Совсем другая книга","author_name":"Другой",
+                  "author_surname":"Автор","year":"2020","ISBN":"","ratio":"5/1",
+                  "genre":"1","lang_code":"ru","book_ext":"jpg"}],
+                 "authors":[],"keywords":[]}
+                """;
+        mockHttp(Map.of("https://fantasy-worlds.org/search.json", unrelated));
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Ведьмин фонарь").build(),
+                FetchMetadataRequest.builder().title("Ведьмин фонарь").build());
+
+        assertThat(results).isEmpty();
+    }
+
+    @Test
     void fetchMetadata_normalizesIsbn13FromCommaSeparatedValue() throws Exception {
         mockSettings(true);
         String json = """

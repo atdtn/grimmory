@@ -119,6 +119,20 @@ class LitnetParserTest {
     }
 
     @Test
+    void fetchMetadata_returnsEmptyWhenSearchResultsAreUnrelated() throws Exception {
+        mockSettings(true);
+        mockHttp(Map.of(
+                "https://litnet.com/ru/search", htmlWithNgState(searchMasterJson),
+                "https://litnet.com/ru/book/x-b445406", detailMasterHtml));
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Совсем другая книга").build(),
+                FetchMetadataRequest.builder().title("Совсем другая книга").build());
+
+        assertThat(results).isEmpty();
+    }
+
+    @Test
     void fetchMetadata_retriesAuthorWithoutPatronymic() throws Exception {
         mockSettings(true);
         List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();
@@ -135,7 +149,8 @@ class LitnetParserTest {
                         }
                         return response(200, htmlWithNgState(searchMasterJson), Map.of());
                     }
-                    return response(200, detailMasterHtml, Map.of());
+                    return response(200, detailMasterHtml.replace("Михаил Булгаков", "Галина Герасимова"),
+                            Map.of());
                 });
 
         List<BookMetadata> results = parser.fetchMetadata(

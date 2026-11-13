@@ -236,6 +236,20 @@ class LitresParserTest {
     }
 
     @Test
+    void fetchMetadata_returnsEmptyWhenSearchResultsAreUnrelated() throws Exception {
+        mockSettings(true);
+        mockHttp(Map.of(
+                "https://api.litres.ru/foundation/api/search", searchDuneJson,
+                "https://api.litres.ru/foundation/api/arts/55339991", detailDuneJson));
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Совсем другая книга").build(),
+                FetchMetadataRequest.builder().title("Совсем другая книга").build());
+
+        assertThat(results).isEmpty();
+    }
+
+    @Test
     void fetchMetadata_retriesAuthorWithoutPatronymic() throws Exception {
         mockSettings(true);
         List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();
@@ -251,7 +265,8 @@ class LitresParserTest {
                         }
                         return response(200, searchDuneJson, Map.of());
                     }
-                    return response(200, detailDuneJson, Map.of());
+                    return response(200, detailDuneJson.replace("Фрэнк Герберт", "Галина Герасимова"),
+                            Map.of());
                 });
 
         List<BookMetadata> results = parser.fetchMetadata(

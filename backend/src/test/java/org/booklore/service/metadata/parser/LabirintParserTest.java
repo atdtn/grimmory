@@ -127,6 +127,20 @@ class LabirintParserTest {
     }
 
     @Test
+    void fetchMetadata_returnsEmptyWhenSearchResultsAreUnrelated() throws Exception {
+        mockSettings(true);
+        mockHttp(Map.of(
+                "https://www.labirint.ru/search/", searchMasterHtml,
+                "https://www.labirint.ru/books/595815/", detailMasterHtml));
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Совсем другая книга").build(),
+                FetchMetadataRequest.builder().title("Совсем другая книга").build());
+
+        assertThat(results).isEmpty();
+    }
+
+    @Test
     void fetchMetadata_returnsEmptyWhenIsbnDoesNotMatchAnyResult() throws Exception {
         mockSettings(true);
         mockHttp(Map.of(
@@ -154,7 +168,10 @@ class LabirintParserTest {
                         if (decoded.contains("Васильевна")) {
                             return response(200, "<html><body></body></html>", Map.of());
                         }
-                        return response(200, searchMasterHtml, Map.of());
+                        return response(200,
+                                searchMasterHtml.replace("Булгаков Михаил Афанасьевич",
+                                        "Герасимова Галина Васильевна"),
+                                Map.of());
                     }
                     return response(200, detailMasterHtml, Map.of());
                 });
