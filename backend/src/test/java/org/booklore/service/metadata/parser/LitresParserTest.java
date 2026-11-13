@@ -236,6 +236,40 @@ class LitresParserTest {
     }
 
     @Test
+    void fetchMetadata_doesNotReturnAuthorsOtherBooksWhenTitleIsPresent() throws Exception {
+        mockSettings(true);
+        List<HttpRequest> requests = new java.util.concurrent.CopyOnWriteArrayList<>();
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    HttpRequest request = invocation.getArgument(0);
+                    requests.add(request);
+                    String url = request.uri().toString();
+                    if (url.contains("/search")) {
+                        String query = request.uri().getQuery();
+                        if (query != null && query.contains("Загадка")) {
+                            return response(200, "{\"status\":200,\"payload\":{\"data\":[]}}", Map.of());
+                        }
+                        return response(200, searchDuneJson, Map.of());
+                    }
+                    return response(200, detailDuneJson.replace("Фрэнк Герберт", "Галина Герасимова"),
+                            Map.of());
+                });
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Загадка проклятого дома").build(),
+                FetchMetadataRequest.builder()
+                        .title("Загадка проклятого дома")
+                        .author("Галина Герасимова")
+                        .build());
+
+        assertThat(results).isEmpty();
+        assertThat(requests.stream()
+                .map(request -> request.uri().getQuery())
+                .filter(query -> query != null && query.startsWith("q=")))
+                .allSatisfy(query -> assertThat(query).contains("Загадка"));
+    }
+
+    @Test
     void fetchMetadata_returnsEmptyWhenSearchResultsAreUnrelated() throws Exception {
         mockSettings(true);
         mockHttp(Map.of(

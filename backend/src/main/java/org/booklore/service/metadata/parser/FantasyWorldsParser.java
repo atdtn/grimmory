@@ -151,7 +151,7 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
         if (title != null) {
             queries.add(title);
         }
-        if (author != null) {
+        if (author != null && title == null) {
             queries.addAll(MetadataSearchUtils.authorVariants(author));
         }
         if (isbn != null) {

@@ -191,7 +191,7 @@ public class LabirintParser implements BookParser, DetailedMetadataProvider {
         if (title != null) {
             queries.add(title);
         }
-        if (author != null) {
+        if (author != null && title == null) {
             queries.addAll(MetadataSearchUtils.authorVariants(author));
         }
         return new ArrayList<>(queries);

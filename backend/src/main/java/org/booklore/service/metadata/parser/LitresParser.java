@@ -123,7 +123,9 @@ public class LitresParser implements BookParser, DetailedMetadataProvider {
             }
         }
 
-        if (results.isEmpty() && author != null) {
+        // Do not fall back to "all books by this author" when the user asked
+        // for a specific title: those are different books, not matches.
+        if (results.isEmpty() && author != null && title == null) {
             for (String authorQuery : MetadataSearchUtils.authorVariants(author)) {
                 List<JsonNode> searchResults = search(authorQuery);
                 if (!searchResults.isEmpty()) {
