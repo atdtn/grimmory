@@ -45,6 +45,63 @@ public final class MetadataSearchUtils {
     }
 
     /**
+     * Matches a title/author while tolerating Russian inflection, but requires
+     * the query words to appear in the same order and close together. This
+     * prevents titles such as "Дальняя дорога, старая любовь" from matching
+     * the query "Старые дороги".
+     */
+    public static boolean matchesText(String haystack, String needle) {
+        String[] haystackTokens = normalizeText(haystack).split(" ");
+        String[] needleTokens = normalizeText(needle).split(" ");
+        if (haystackTokens.length == 0 || haystackTokens[0].isBlank()
+                || needleTokens.length == 0 || needleTokens[0].isBlank()) {
+            return false;
+        }
+
+        int haystackIndex = 0;
+        int firstMatch = -1;
+        int lastMatch = -1;
+        for (String needleToken : needleTokens) {
+            if (needleToken.isBlank()) {
+                continue;
+            }
+            boolean found = false;
+            for (int i = haystackIndex; i < haystackTokens.length; i++) {
+                if (tokenMatches(haystackTokens[i], needleToken)) {
+                    if (firstMatch < 0) {
+                        firstMatch = i;
+                    }
+                    lastMatch = i;
+                    haystackIndex = i + 1;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
+        return lastMatch - firstMatch + 1 <= needleTokens.length + 2;
+    }
+
+    private static boolean tokenMatches(String haystackToken, String needleToken) {
+        if (haystackToken.isBlank() || needleToken.isBlank()) {
+            return false;
+        }
+        int stemLength = needleToken.length() <= 3
+                ? needleToken.length()
+                : Math.min(4, needleToken.length() - 1);
+        return haystackToken.contains(needleToken.substring(0, stemLength));
+    }
+
+    public static String normalizeText(String value) {
+        return value == null ? "" : value.toLowerCase(java.util.Locale.ROOT)
+                .replace('ё', 'е')
+                .replaceAll("[^\\p{L}\\p{N}]+", " ")
+                .trim();
+    }
+
+    /**
      * Returns raw and normalized ISBN forms. Some catalogues index only the
      * hyphenated form, others only the digit-only form.
      */

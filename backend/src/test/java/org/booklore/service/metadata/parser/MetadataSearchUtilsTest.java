@@ -16,6 +16,18 @@ class MetadataSearchUtilsTest {
     }
 
     @Test
+    void titleMatchingRespectsWordOrderAndProximity() {
+        assertThat(MetadataSearchUtils.matchesText("Ветер и крылья. Старые дороги", "Старые дороги"))
+                .isTrue();
+        assertThat(MetadataSearchUtils.matchesText("Капитул Дюны", "Дюна"))
+                .isTrue();
+        assertThat(MetadataSearchUtils.matchesText("Дальняя дорога, старая любовь", "Старые дороги"))
+                .isFalse();
+        assertThat(MetadataSearchUtils.matchesText("По дорогам старого королевства", "Старые дороги"))
+                .isFalse();
+    }
+
+    @Test
     void isbnVariantsKeepRawAndNormalizedForms() {
         assertThat(MetadataSearchUtils.isbnVariants("978-5-9922-3373-5"))
                 .containsExactly("978-5-9922-3373-5", "9785992233735");

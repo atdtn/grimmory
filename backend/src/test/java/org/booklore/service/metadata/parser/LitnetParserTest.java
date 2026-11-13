@@ -119,6 +119,40 @@ class LitnetParserTest {
     }
 
     @Test
+    void fetchMetadata_requiresAuthorWhenTitleAlsoMatches() throws Exception {
+        mockSettings(true);
+        String state = """
+                {"items-books-1-Старые дороги":[
+                  {"id":1,"title":"Дальняя дорога, старая любовь","author":{"name":"Vlumor"},
+                   "description":"","image":"https://cdn/1.jpg",
+                   "link":"https://litnet.com/ru/book/one-b1","firstPublicationDate":"2020-01-01"},
+                  {"id":2,"title":"Старые дороги","author":{"name":"Галина Гончарова"},
+                   "description":"","image":"https://cdn/2.jpg",
+                   "link":"https://litnet.com/ru/book/two-b2","firstPublicationDate":"2020-01-01"}
+                ]}
+                """;
+        String detail = detailHtmlWithBook("2", """
+                {"id":2,"title":"Старые дороги","annotation":"Описание",
+                 "image":"https://cdn/2.jpg","author":{"name":"Галина Гончарова"},
+                 "pages":100,"published_at":"2020-01-01"}
+                """, "Старые дороги");
+        mockHttp(Map.of(
+                "https://litnet.com/ru/search", htmlWithNgState(state),
+                "https://litnet.com/ru/book/x-b2", detail));
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Старые дороги").build(),
+                FetchMetadataRequest.builder()
+                        .title("Старые дороги")
+                        .author("Галина Дмитриевна Гончарова")
+                        .build());
+
+        assertThat(results).hasSize(1);
+        assertThat(results.getFirst().getTitle()).isEqualTo("Старые дороги");
+        assertThat(results.getFirst().getAuthors()).containsExactly("Галина Гончарова");
+    }
+
+    @Test
     void fetchMetadata_returnsEmptyWhenSearchResultsAreUnrelated() throws Exception {
         mockSettings(true);
         mockHttp(Map.of(

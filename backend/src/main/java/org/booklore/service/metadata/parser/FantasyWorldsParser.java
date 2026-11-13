@@ -28,7 +28,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -228,7 +227,8 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
             }
         }
         if (title != null) {
-            return matchesText(metadata.getTitle(), title);
+            return MetadataSearchUtils.matchesText(metadata.getTitle(), title)
+                    && (author == null || authorMatches(metadata, author));
         }
         if (author != null) {
             return authorMatches(metadata, author);
@@ -241,7 +241,7 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
             return false;
         }
         for (String variant : MetadataSearchUtils.authorVariants(author)) {
-            if (metadata.getAuthors().stream().anyMatch(name -> matchesText(name, variant))) {
+            if (metadata.getAuthors().stream().anyMatch(name -> MetadataSearchUtils.matchesText(name, variant))) {
                 return true;
             }
         }
@@ -674,34 +674,6 @@ public class FantasyWorldsParser implements BookParser, DetailedMetadataProvider
         }
     }
 
-    private static String normalizeText(String value) {
-        return value == null ? "" : value.toLowerCase(Locale.ROOT)
-                .replace('ё', 'е')
-                .replaceAll("[^\\p{L}\\p{N}]+", " ")
-                .trim();
-    }
-
-    /**
-     * Russian titles are heavily inflected ("Дюна" vs "Дюны"), so compare a
-     * short prefix of every query word rather than requiring an exact substring.
-     */
-    private static boolean matchesText(String haystack, String needle) {
-        String normalizedHaystack = normalizeText(haystack);
-        if (normalizedHaystack.isBlank()) {
-            return false;
-        }
-        for (String token : normalizeText(needle).split(" ")) {
-            if (token.isBlank()) {
-                continue;
-            }
-            int stemLength = token.length() <= 3 ? token.length() : Math.min(4, token.length() - 1);
-            String stem = token.substring(0, stemLength);
-            if (!normalizedHaystack.contains(stem)) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     private static String blankToNull(String value) {
         return value == null || value.isBlank() ? null : value;

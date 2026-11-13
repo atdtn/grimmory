@@ -141,7 +141,7 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
         List<BookMetadata> mapped = books.stream()
                 .map(this::mapSearchBook)
                 .filter(metadata -> metadata != null)
-                .filter(metadata -> matchesText(metadata.getTitle(), title))
+                .filter(metadata -> MetadataSearchUtils.matchesText(metadata.getTitle(), title))
                 .limit(MAX_RESULTS)
                 .toList();
         if (mapped.isEmpty()) {
@@ -151,8 +151,9 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
 
         List<BookMetadata> hydrated = hydrate(mapped);
         if (author != null) {
-            hydrated.sort((left, right) -> Boolean.compare(
-                    authorMatches(right, author), authorMatches(left, author)));
+            hydrated = hydrated.stream()
+                    .filter(metadata -> authorMatches(metadata, author))
+                    .toList();
         }
         log.info("Found {} Litnet results for query: {}", hydrated.size(), title);
         return hydrated;
@@ -513,7 +514,7 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
             return false;
         }
         for (String variant : MetadataSearchUtils.authorVariants(author)) {
-            if (metadata.getAuthors().stream().anyMatch(name -> matchesText(name, variant))) {
+            if (metadata.getAuthors().stream().anyMatch(name -> MetadataSearchUtils.matchesText(name, variant))) {
                 return true;
             }
         }
@@ -815,27 +816,4 @@ public class LitnetParser implements BookParser, DetailedMetadataProvider {
         return trimmed.isEmpty() ? null : trimmed;
     }
 
-    private static boolean matchesText(String haystack, String needle) {
-        String normalizedHaystack = normalizeText(haystack);
-        if (normalizedHaystack.isBlank()) {
-            return false;
-        }
-        for (String token : normalizeText(needle).split(" ")) {
-            if (token.isBlank()) {
-                continue;
-            }
-            int stemLength = token.length() <= 3 ? token.length() : Math.min(4, token.length() - 1);
-            if (!normalizedHaystack.contains(token.substring(0, stemLength))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static String normalizeText(String value) {
-        return value == null ? "" : value.toLowerCase(java.util.Locale.ROOT)
-                .replace('ё', 'е')
-                .replaceAll("[^\\p{L}\\p{N}]+", " ")
-                .trim();
-    }
 }

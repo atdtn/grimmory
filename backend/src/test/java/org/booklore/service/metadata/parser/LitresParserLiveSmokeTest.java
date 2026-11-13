@@ -48,7 +48,11 @@ class LitresParserLiveSmokeTest {
         List<FetchMetadataRequest> queries = List.of(
                 FetchMetadataRequest.builder().title("Дюна").build(),
                 FetchMetadataRequest.builder().author("Сергей Лукьяненко").build(),
-                FetchMetadataRequest.builder().title("Мастер и Маргарита").build()
+                FetchMetadataRequest.builder().title("Мастер и Маргарита").build(),
+                FetchMetadataRequest.builder()
+                        .title("Старые дороги")
+                        .author("Галина Дмитриевна Гончарова")
+                        .build()
         );
 
         for (FetchMetadataRequest query : queries) {
