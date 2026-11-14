@@ -24,6 +24,7 @@ public class BookParserConfig {
             FantasyWorldsParser fantasyWorldsParser,
             LitnetParser litnetParser,
             LabirintParser labirintParser,
+            Fb2TopParser fb2TopParser,
             AudibleParser audibleParser,
             AppleBooksParser appleBooksParser,
             OpenLibraryParser openLibraryParser
@@ -41,6 +42,7 @@ public class BookParserConfig {
                 Map.entry(MetadataProvider.FANTASY_WORLDS, fantasyWorldsParser),
                 Map.entry(MetadataProvider.LITNET, litnetParser),
                 Map.entry(MetadataProvider.LABIRINT, labirintParser),
+                Map.entry(MetadataProvider.FB2_TOP, fb2TopParser),
                 Map.entry(MetadataProvider.Ranobedb, ranobedbParser),
                 Map.entry(MetadataProvider.Audible, audibleParser),
                 Map.entry(MetadataProvider.AppleBooks, appleBooksParser)
