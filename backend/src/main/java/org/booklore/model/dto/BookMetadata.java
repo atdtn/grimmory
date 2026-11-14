@@ -65,6 +65,9 @@ public class BookMetadata {
     private String labirintId;
     private Double labirintRating;
     private Integer labirintReviewCount;
+    private String fb2TopId;
+    private Double fb2TopRating;
+    private Integer fb2TopReviewCount;
     private String ranobedbId;
     private Double ranobedbRating;
     private String audibleId;
@@ -130,6 +133,9 @@ public class BookMetadata {
     private Boolean labirintIdLocked;
     private Boolean labirintRatingLocked;
     private Boolean labirintReviewCountLocked;
+    private Boolean fb2TopIdLocked;
+    private Boolean fb2TopRatingLocked;
+    private Boolean fb2TopReviewCountLocked;
     private Boolean ranobedbIdLocked;
     private Boolean ranobedbRatingLocked;
     private Boolean audibleIdLocked;

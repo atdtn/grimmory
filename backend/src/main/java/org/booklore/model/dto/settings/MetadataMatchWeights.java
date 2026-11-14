@@ -78,6 +78,10 @@ public class MetadataMatchWeights {
     @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
     private int labirintReviewCount = 0;
     @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+    private int fb2TopRating = 0;
+    @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+    private int fb2TopReviewCount = 0;
+    @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
     private int audibleRating = 0;
     @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
     private int audibleReviewCount = 0;
@@ -98,6 +102,7 @@ public class MetadataMatchWeights {
                 ranobedbRating + lubimyczytacRating + litresRating + litresReviewCount +
                 fantasyWorldsRating + fantasyWorldsReviewCount +
                 litnetRating + litnetReviewCount + labirintRating + labirintReviewCount +
+                fb2TopRating + fb2TopReviewCount +
                 audibleRating + audibleReviewCount + coverImage;
     }
 }

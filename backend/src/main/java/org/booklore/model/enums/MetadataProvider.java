@@ -18,6 +18,8 @@ public enum MetadataProvider {
     LITNET,
     @JsonProperty("Labirint")
     LABIRINT,
+    @JsonProperty("Fb2Top")
+    FB2_TOP,
     Ranobedb,
     Audible,
     AppleBooks

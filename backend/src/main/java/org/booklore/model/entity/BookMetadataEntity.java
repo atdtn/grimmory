@@ -159,6 +159,15 @@ public class BookMetadataEntity {
     @Column(name = "labirint_review_count")
     private Integer labirintReviewCount;
 
+    @Column(name = "fb2_top_id", length = 100)
+    private String fb2TopId;
+
+    @Column(name = "fb2_top_rating")
+    private Double fb2TopRating;
+
+    @Column(name = "fb2_top_review_count")
+    private Integer fb2TopReviewCount;
+
     @Column(name = "ranobedb_id", length = 100)
     private String ranobedbId;
 
@@ -372,6 +381,18 @@ public class BookMetadataEntity {
     @Builder.Default
     private Boolean labirintReviewCountLocked = Boolean.FALSE;
 
+    @Column(name = "fb2_top_id_locked")
+    @Builder.Default
+    private Boolean fb2TopIdLocked = Boolean.FALSE;
+
+    @Column(name = "fb2_top_rating_locked")
+    @Builder.Default
+    private Boolean fb2TopRatingLocked = Boolean.FALSE;
+
+    @Column(name = "fb2_top_review_count_locked")
+    @Builder.Default
+    private Boolean fb2TopReviewCountLocked = Boolean.FALSE;
+
     @Column(name = "ranobedb_id_locked")
     @Builder.Default
     private Boolean ranobedbIdLocked = Boolean.FALSE;
@@ -488,6 +509,7 @@ public class BookMetadataEntity {
         this.fantasyWorldsId = trimOrNull(this.fantasyWorldsId);
         this.litnetId = trimOrNull(this.litnetId);
         this.labirintId = trimOrNull(this.labirintId);
+        this.fb2TopId = trimOrNull(this.fb2TopId);
         this.ranobedbId = trimOrNull(this.ranobedbId);
         this.audibleId = trimOrNull(this.audibleId);
         this.applebooksId = trimOrNull(this.applebooksId);
@@ -603,6 +625,9 @@ public class BookMetadataEntity {
         this.labirintIdLocked = lock;
         this.labirintRatingLocked = lock;
         this.labirintReviewCountLocked = lock;
+        this.fb2TopIdLocked = lock;
+        this.fb2TopRatingLocked = lock;
+        this.fb2TopReviewCountLocked = lock;
         this.ranobedbIdLocked = lock;
         this.ranobedbRatingLocked = lock;
         this.audibleIdLocked = lock;
@@ -670,6 +695,9 @@ public class BookMetadataEntity {
                 && Boolean.TRUE.equals(this.labirintIdLocked)
                 && Boolean.TRUE.equals(this.labirintRatingLocked)
                 && Boolean.TRUE.equals(this.labirintReviewCountLocked)
+                && Boolean.TRUE.equals(this.fb2TopIdLocked)
+                && Boolean.TRUE.equals(this.fb2TopRatingLocked)
+                && Boolean.TRUE.equals(this.fb2TopReviewCountLocked)
                 && Boolean.TRUE.equals(this.ranobedbIdLocked)
                 && Boolean.TRUE.equals(this.ranobedbRatingLocked)
                 && Boolean.TRUE.equals(this.audibleIdLocked)

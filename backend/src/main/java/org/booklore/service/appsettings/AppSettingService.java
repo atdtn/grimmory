@@ -417,6 +417,9 @@ public class AppSettingService {
         MetadataProviderSettings.Labirint defaultLabirint = new MetadataProviderSettings.Labirint();
         defaultLabirint.setEnabled(false);
 
+        MetadataProviderSettings.Fb2Top defaultFb2Top = new MetadataProviderSettings.Fb2Top();
+        defaultFb2Top.setEnabled(false);
+
         defaultMetadataProviderSettings.setOpenLibrary(defaultOpenLibrary);
         defaultMetadataProviderSettings.setAmazon(defaultAmazon);
         defaultMetadataProviderSettings.setGoogle(defaultGoogle);
@@ -430,6 +433,7 @@ public class AppSettingService {
         defaultMetadataProviderSettings.setFantasyWorlds(defaultFantasyWorlds);
         defaultMetadataProviderSettings.setLitnet(defaultLitnet);
         defaultMetadataProviderSettings.setLabirint(defaultLabirint);
+        defaultMetadataProviderSettings.setFb2Top(defaultFb2Top);
 
         return defaultMetadataProviderSettings;
     }
@@ -479,6 +483,9 @@ public class AppSettingService {
                 .labirintId(nullProvider)
                 .labirintRating(nullProvider)
                 .labirintReviewCount(nullProvider)
+                .fb2TopId(nullProvider)
+                .fb2TopRating(nullProvider)
+                .fb2TopReviewCount(nullProvider)
                 .amazonRating(nullProvider)
                 .amazonReviewCount(nullProvider)
                 .goodreadsRating(nullProvider)
@@ -537,6 +544,9 @@ public class AppSettingService {
                 .labirintId(true)
                 .labirintRating(true)
                 .labirintReviewCount(true)
+                .fb2TopId(true)
+                .fb2TopRating(true)
+                .fb2TopReviewCount(true)
                 .amazonRating(true)
                 .amazonReviewCount(true)
                 .goodreadsRating(true)
@@ -604,6 +614,8 @@ public class AppSettingService {
                 .litnetReviewCount(0)
                 .labirintRating(0)
                 .labirintReviewCount(0)
+                .fb2TopRating(0)
+                .fb2TopReviewCount(0)
                 .audibleRating(0)
                 .audibleReviewCount(0)
                 .applebooksRating(0)
@@ -721,6 +733,9 @@ public class AppSettingService {
         fields.setLabirintId(true);
         fields.setLabirintRating(true);
         fields.setLabirintReviewCount(true);
+        fields.setFb2TopId(true);
+        fields.setFb2TopRating(true);
+        fields.setFb2TopReviewCount(true);
         fields.setRanobedbRating(true);
         fields.setAudibleId(true);
         fields.setAudibleRating(true);

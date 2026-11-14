@@ -73,6 +73,9 @@ public class MetadataRefreshOptions {
         private FieldProvider labirintId;
         private FieldProvider labirintRating;
         private FieldProvider labirintReviewCount;
+        private FieldProvider fb2TopId;
+        private FieldProvider fb2TopRating;
+        private FieldProvider fb2TopReviewCount;
         private FieldProvider amazonRating;
         private FieldProvider amazonReviewCount;
         private FieldProvider goodreadsRating;
@@ -187,6 +190,12 @@ public class MetadataRefreshOptions {
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean labirintReviewCount = true;
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean fb2TopId = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean fb2TopRating = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
+        private boolean fb2TopReviewCount = true;
+        @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean amazonRating = true;
         @Builder.Default @JsonSetter(nulls = Nulls.SKIP)
         private boolean amazonReviewCount = true;
@@ -267,6 +276,9 @@ public class MetadataRefreshOptions {
             this.labirintId = true;
             this.labirintRating = true;
             this.labirintReviewCount = true;
+            this.fb2TopId = true;
+            this.fb2TopRating = true;
+            this.fb2TopReviewCount = true;
             this.amazonRating = true;
             this.amazonReviewCount = true;
             this.goodreadsRating = true;
