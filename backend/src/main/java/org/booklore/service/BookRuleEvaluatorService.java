@@ -271,7 +271,7 @@ public class BookRuleEvaluatorService {
                  "isbn13", "isbn10", "asin", "contentRating", "narrator",
                  "goodreadsId", "hardcoverId", "googleId", "audibleId", "applebooksId", "doubanId",
                  "lubimyczytacId", "litresId", "fantasyWorldsId", "litnetId", "labirintId",
-                 "ranobedbId", "comicvineId", "openlibraryId" ->
+                 "fb2TopId", "ranobedbId", "comicvineId", "openlibraryId" ->
                     stringPresence(cb, root.get("metadata").get(metadataField));
 
             // Numeric/date/boolean fields on BookMetadataEntity
@@ -280,7 +280,8 @@ public class BookRuleEvaluatorService {
                  "lubimyczytacRating", "litresRating", "litresReviewCount",
                  "fantasyWorldsRating", "fantasyWorldsReviewCount",
                  "litnetRating", "litnetReviewCount",
-                 "labirintRating", "labirintReviewCount", "audibleRating",
+                 "labirintRating", "labirintReviewCount", "fb2TopRating", "fb2TopReviewCount",
+                 "audibleRating",
                  "applebooksRating", "applebooksReviewCount",
                  "doubanRating", "doubanReviewCount",
                  "amazonReviewCount", "goodreadsReviewCount", "hardcoverReviewCount", "audibleReviewCount" ->
@@ -809,6 +810,8 @@ public class BookRuleEvaluatorService {
             case LITNET_REVIEW_COUNT -> root.get("metadata").get("litnetReviewCount");
             case LABIRINT_RATING -> root.get("metadata").get("labirintRating");
             case LABIRINT_REVIEW_COUNT -> root.get("metadata").get("labirintReviewCount");
+            case FB2_TOP_RATING -> root.get("metadata").get("fb2TopRating");
+            case FB2_TOP_REVIEW_COUNT -> root.get("metadata").get("fb2TopReviewCount");
             case DESCRIPTION -> root.get("metadata").get("description");
             case NARRATOR -> root.get("metadata").get("narrator");
             case AUDIBLE_RATING -> root.get("metadata").get("audibleRating");
@@ -975,6 +978,7 @@ public class BookRuleEvaluatorService {
             RuleField.FANTASY_WORLDS_RATING, RuleField.FANTASY_WORLDS_REVIEW_COUNT,
             RuleField.LITNET_RATING, RuleField.LITNET_REVIEW_COUNT,
             RuleField.LABIRINT_RATING, RuleField.LABIRINT_REVIEW_COUNT,
+            RuleField.FB2_TOP_RATING, RuleField.FB2_TOP_REVIEW_COUNT,
             RuleField.RANOBEDB_RATING,
             RuleField.AUDIBLE_RATING, RuleField.AUDIBLE_REVIEW_COUNT,
             RuleField.APPLEBOOKS_RATING, RuleField.APPLEBOOKS_REVIEW_COUNT,

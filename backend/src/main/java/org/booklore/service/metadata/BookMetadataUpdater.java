@@ -224,6 +224,9 @@ public class BookMetadataUpdater {
         handleFieldUpdate(e.getLabirintIdLocked(), clear.isLabirintId(), m.getLabirintId(), v -> e.setLabirintId(nullIfBlank(v)), e::getLabirintId, replaceMode);
         handleFieldUpdate(e.getLabirintRatingLocked(), clear.isLabirintRating(), m.getLabirintRating(), e::setLabirintRating, e::getLabirintRating, replaceMode);
         handleFieldUpdate(e.getLabirintReviewCountLocked(), clear.isLabirintReviewCount(), m.getLabirintReviewCount(), e::setLabirintReviewCount, e::getLabirintReviewCount, replaceMode);
+        handleFieldUpdate(e.getFb2TopIdLocked(), clear.isFb2TopId(), m.getFb2TopId(), v -> e.setFb2TopId(nullIfBlank(v)), e::getFb2TopId, replaceMode);
+        handleFieldUpdate(e.getFb2TopRatingLocked(), clear.isFb2TopRating(), m.getFb2TopRating(), e::setFb2TopRating, e::getFb2TopRating, replaceMode);
+        handleFieldUpdate(e.getFb2TopReviewCountLocked(), clear.isFb2TopReviewCount(), m.getFb2TopReviewCount(), e::setFb2TopReviewCount, e::getFb2TopReviewCount, replaceMode);
         handleFieldUpdate(e.getRanobedbIdLocked(), clear.isRanobedbId(), m.getRanobedbId(), v -> e.setRanobedbId(nullIfBlank(v)), e::getRanobedbId, replaceMode);
         handleFieldUpdate(e.getRanobedbRatingLocked(), clear.isRanobedbRating(), m.getRanobedbRating(), e::setRanobedbRating, e::getRanobedbRating, replaceMode);
         handleFieldUpdate(e.getAudibleIdLocked(), clear.isAudibleId(), m.getAudibleId(), v -> e.setAudibleId(nullIfBlank(v)), e::getAudibleId, replaceMode);
@@ -751,6 +754,9 @@ public class BookMetadataUpdater {
                 Pair.of(m.getLabirintIdLocked(), e::setLabirintIdLocked),
                 Pair.of(m.getLabirintRatingLocked(), e::setLabirintRatingLocked),
                 Pair.of(m.getLabirintReviewCountLocked(), e::setLabirintReviewCountLocked),
+                Pair.of(m.getFb2TopIdLocked(), e::setFb2TopIdLocked),
+                Pair.of(m.getFb2TopRatingLocked(), e::setFb2TopRatingLocked),
+                Pair.of(m.getFb2TopReviewCountLocked(), e::setFb2TopReviewCountLocked),
                 Pair.of(m.getGoogleIdLocked(), e::setGoogleIdLocked),
                 Pair.of(m.getPageCountLocked(), e::setPageCountLocked),
                 Pair.of(m.getLanguageLocked(), e::setLanguageLocked),

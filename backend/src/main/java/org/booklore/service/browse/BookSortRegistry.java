@@ -46,6 +46,7 @@ public class BookSortRegistry {
                 "fantasyWorldsRating", "fantasyWorldsReviewCount",
                 "litnetRating", "litnetReviewCount",
                 "labirintRating", "labirintReviewCount",
+                "fb2TopRating", "fb2TopReviewCount",
                 "audibleRating", "audibleReviewCount",
                 "applebooksRating", "applebooksReviewCount",
                 "narrator", "pageCount", "language")) {

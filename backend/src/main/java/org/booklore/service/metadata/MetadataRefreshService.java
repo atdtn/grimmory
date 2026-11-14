@@ -368,6 +368,9 @@ public class MetadataRefreshService {
             addProviderToSet(fieldOptions.getLabirintId(), uniqueProviders);
             addProviderToSet(fieldOptions.getLabirintRating(), uniqueProviders);
             addProviderToSet(fieldOptions.getLabirintReviewCount(), uniqueProviders);
+            addProviderToSet(fieldOptions.getFb2TopId(), uniqueProviders);
+            addProviderToSet(fieldOptions.getFb2TopRating(), uniqueProviders);
+            addProviderToSet(fieldOptions.getFb2TopReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonRating(), uniqueProviders);
             addProviderToSet(fieldOptions.getAmazonReviewCount(), uniqueProviders);
             addProviderToSet(fieldOptions.getGoodreadsRating(), uniqueProviders);
@@ -758,6 +761,30 @@ public class MetadataRefreshService {
             metadata.setLabirintReviewCount(existingMetadata.getLabirintReviewCount());
         }
 
+        if (enabledFields.isFb2TopId()) {
+            if (metadataMap.containsKey(FB2_TOP)) {
+                metadata.setFb2TopId(metadataMap.get(FB2_TOP).getFb2TopId());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setFb2TopId(existingMetadata.getFb2TopId());
+        }
+
+        if (enabledFields.isFb2TopRating()) {
+            if (metadataMap.containsKey(FB2_TOP)) {
+                metadata.setFb2TopRating(metadataMap.get(FB2_TOP).getFb2TopRating());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setFb2TopRating(existingMetadata.getFb2TopRating());
+        }
+
+        if (enabledFields.isFb2TopReviewCount()) {
+            if (metadataMap.containsKey(FB2_TOP)) {
+                metadata.setFb2TopReviewCount(metadataMap.get(FB2_TOP).getFb2TopReviewCount());
+            }
+        } else if (isReplaceAll && existingMetadata != null) {
+            metadata.setFb2TopReviewCount(existingMetadata.getFb2TopReviewCount());
+        }
+
         if (enabledFields.isRanobedbId()) {
             if (metadataMap.containsKey(Ranobedb)) {
                 metadata.setRanobedbId(metadataMap.get(Ranobedb).getRanobedbId());
@@ -920,6 +947,9 @@ public class MetadataRefreshService {
             metadata.setLabirintIdLocked(existingMetadata.getLabirintIdLocked());
             metadata.setLabirintRatingLocked(existingMetadata.getLabirintRatingLocked());
             metadata.setLabirintReviewCountLocked(existingMetadata.getLabirintReviewCountLocked());
+            metadata.setFb2TopIdLocked(existingMetadata.getFb2TopIdLocked());
+            metadata.setFb2TopRatingLocked(existingMetadata.getFb2TopRatingLocked());
+            metadata.setFb2TopReviewCountLocked(existingMetadata.getFb2TopReviewCountLocked());
             metadata.setRanobedbIdLocked(existingMetadata.getRanobedbIdLocked());
             metadata.setRanobedbRatingLocked(existingMetadata.getRanobedbRatingLocked());
             metadata.setAudibleIdLocked(existingMetadata.getAudibleIdLocked());

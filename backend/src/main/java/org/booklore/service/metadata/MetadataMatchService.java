@@ -75,6 +75,8 @@ public class MetadataMatchService {
         if (isPositive(metadata.getLitnetReviewCount(), metadata.getLitnetReviewCountLocked())) score += weights.getLitnetReviewCount();
         if (isPositive(metadata.getLabirintRating(), metadata.getLabirintRatingLocked())) score += weights.getLabirintRating();
         if (isPositive(metadata.getLabirintReviewCount(), metadata.getLabirintReviewCountLocked())) score += weights.getLabirintReviewCount();
+        if (isPositive(metadata.getFb2TopRating(), metadata.getFb2TopRatingLocked())) score += weights.getFb2TopRating();
+        if (isPositive(metadata.getFb2TopReviewCount(), metadata.getFb2TopReviewCountLocked())) score += weights.getFb2TopReviewCount();
         if (isPositive(metadata.getAudibleRating(), metadata.getAudibleRatingLocked())) score += weights.getAudibleRating();
         if (isPositive(metadata.getAudibleReviewCount(), metadata.getAudibleReviewCountLocked())) score += weights.getAudibleReviewCount();
         if (isPositive(metadata.getApplebooksRating(), metadata.getApplebooksRatingLocked())) score += weights.getApplebooksRating();

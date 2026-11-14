@@ -251,6 +251,9 @@ public class BookQueryService {
             m.setLabirintIdLocked(null);
             m.setLabirintRatingLocked(null);
             m.setLabirintReviewCountLocked(null);
+            m.setFb2TopIdLocked(null);
+            m.setFb2TopRatingLocked(null);
+            m.setFb2TopReviewCountLocked(null);
             m.setRanobedbIdLocked(null);
             m.setRanobedbRatingLocked(null);
             m.setAudibleIdLocked(null);
@@ -285,6 +288,7 @@ public class BookQueryService {
             m.setFantasyWorldsId(null);
             m.setLitnetId(null);
             m.setLabirintId(null);
+            m.setFb2TopId(null);
             m.setRanobedbId(null);
             m.setAudibleId(null);
             m.setDoubanId(null);

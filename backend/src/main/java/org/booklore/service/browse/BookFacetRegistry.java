@@ -94,6 +94,7 @@ public class BookFacetRegistry {
                 rating("fantasy_worlds_rating", "Fantasy Worlds Rating", BookFilterSpecification::withFantasyWorldsRatings, "fantasyWorldsRating"),
                 rating("litnet_rating", "Litnet Rating", BookFilterSpecification::withLitnetRatings, "litnetRating"),
                 rating("labirint_rating", "Labirint Rating", BookFilterSpecification::withLabirintRatings, "labirintRating"),
+                rating("fb2_top_rating", "FB2.top Rating", BookFilterSpecification::withFb2TopRatings, "fb2TopRating"),
                 rating("audible_rating", "Audible Rating", BookFilterSpecification::withAudibleRatings, "audibleRating"),
                 rating("applebooks_rating", "Apple Books Rating", BookFilterSpecification::withApplebooksRatings, "applebooksRating"),
                 values("age_rating", "Age Rating", any(BookFilterSpecification::withAgeRatings),

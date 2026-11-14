@@ -91,6 +91,10 @@ public enum RuleField {
     LABIRINT_RATING,
     @JsonProperty("labirintReviewCount")
     LABIRINT_REVIEW_COUNT,
+    @JsonProperty("fb2TopRating")
+    FB2_TOP_RATING,
+    @JsonProperty("fb2TopReviewCount")
+    FB2_TOP_REVIEW_COUNT,
     @JsonProperty("description")
     DESCRIPTION,
     @JsonProperty("narrator")

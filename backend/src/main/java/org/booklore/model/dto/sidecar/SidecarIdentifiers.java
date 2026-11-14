@@ -23,6 +23,7 @@ public class SidecarIdentifiers {
     private String fantasyWorldsId;
     private String litnetId;
     private String labirintId;
+    private String fb2TopId;
     private String ranobedbId;
     private String audibleId;
     private String applebooksId;
