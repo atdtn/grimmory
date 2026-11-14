@@ -99,6 +99,12 @@ const providers = [
     labelKey: 'metadata.providers.labirint',
     book: {ids: ['labirintId'], rating: 'labirintRating', reviewCount: 'labirintReviewCount'},
   },
+  {
+    id: 'Fb2Top',
+    settingsKey: 'fb2Top',
+    labelKey: 'metadata.providers.fb2Top',
+    book: {ids: ['fb2TopId'], rating: 'fb2TopRating', reviewCount: 'fb2TopReviewCount'},
+  },
 ] as const;
 
 export type MetadataProviderId = typeof providers[number]['id'];

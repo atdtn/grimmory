@@ -56,6 +56,7 @@ export interface MetadataProviderSettings {
   fantasyWorlds: FantasyWorlds;
   litnet: Litnet;
   labirint: Labirint;
+  fb2Top: Fb2Top;
   audible: Audible;
   appleBooks: AppleBooks;
 }
@@ -116,6 +117,10 @@ export interface Litnet {
 }
 
 export interface Labirint {
+  enabled: boolean;
+}
+
+export interface Fb2Top {
   enabled: boolean;
 }
 

@@ -52,6 +52,8 @@ describe('app-settings.model', () => {
       litnetReviewCount: 1,
       labirintRating: 1,
       labirintReviewCount: 1,
+      fb2TopRating: 1,
+      fb2TopReviewCount: 1,
       coverImage: 6
     };
 

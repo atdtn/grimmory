@@ -200,6 +200,9 @@ export interface BookMetadata {
   labirintId?: string;
   labirintRating?: number | null;
   labirintReviewCount?: number | null;
+  fb2TopId?: string;
+  fb2TopRating?: number | null;
+  fb2TopReviewCount?: number | null;
   ranobedbId?: string;
   ranobedbRating?: number | null;
   hardcoverRating?: number | null;
@@ -268,6 +271,9 @@ export interface BookMetadata {
   labirintIdLocked?: boolean;
   labirintRatingLocked?: boolean;
   labirintReviewCountLocked?: boolean;
+  fb2TopIdLocked?: boolean;
+  fb2TopRatingLocked?: boolean;
+  fb2TopReviewCountLocked?: boolean;
   ranobedbIdLocked?: boolean;
   ranobedbRatingLocked?: boolean;
   audibleIdLocked?: boolean;
@@ -333,6 +339,9 @@ export interface MetadataClearFlags {
   labirintId?: boolean;
   labirintRating?: boolean;
   labirintReviewCount?: boolean;
+  fb2TopId?: boolean;
+  fb2TopRating?: boolean;
+  fb2TopReviewCount?: boolean;
   ranobedbId?: boolean;
   ranobedbRating?: boolean;
   audibleId?: boolean;

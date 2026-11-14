@@ -35,6 +35,7 @@ export const BOOK_QUERY_FACET_KEYS = [
   'fantasy_worlds_rating',
   'litnet_rating',
   'labirint_rating',
+  'fb2_top_rating',
   'audible_rating',
   'comic_character',
   'comic_team',
@@ -77,6 +78,8 @@ export const BOOK_QUERY_SORT_KEYS = [
   'litnetReviewCount',
   'labirintRating',
   'labirintReviewCount',
+  'fb2TopRating',
+  'fb2TopReviewCount',
   'audibleRating',
   'audibleReviewCount',
 ] as const;

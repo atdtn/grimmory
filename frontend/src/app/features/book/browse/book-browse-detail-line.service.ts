@@ -53,6 +53,7 @@ export class BookBrowseDetailLineService {
       case 'fantasyWorldsRating':
       case 'litnetRating':
       case 'labirintRating':
+      case 'fb2TopRating':
       case 'audibleRating':
         return this.format('rating', metadata?.[key]);
       case 'amazonReviewCount':
@@ -62,6 +63,7 @@ export class BookBrowseDetailLineService {
       case 'fantasyWorldsReviewCount':
       case 'litnetReviewCount':
       case 'labirintReviewCount':
+      case 'fb2TopReviewCount':
       case 'audibleReviewCount':
         return this.format('number', metadata?.[key]);
       case 'readingProgress':

@@ -212,6 +212,7 @@ export class RatingTasteChartComponent {
     if (book.metadata?.fantasyWorldsRating) ratings.push(book.metadata.fantasyWorldsRating);
     if (book.metadata?.litnetRating) ratings.push(book.metadata.litnetRating);
     if (book.metadata?.labirintRating) ratings.push(book.metadata.labirintRating);
+    if (book.metadata?.fb2TopRating) ratings.push(book.metadata.fb2TopRating);
     if (book.metadata?.ranobedbRating) ratings.push(book.metadata.ranobedbRating);
 
     if (ratings.length > 0) {

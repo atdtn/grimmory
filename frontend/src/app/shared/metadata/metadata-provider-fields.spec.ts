@@ -23,6 +23,7 @@ describe('provider fields', () => {
       'fantasyWorldsId', 'fantasyWorldsRating', 'fantasyWorldsReviewCount',
       'litnetId', 'litnetRating', 'litnetReviewCount',
       'labirintId', 'labirintRating', 'labirintReviewCount',
+      'fb2TopId', 'fb2TopRating', 'fb2TopReviewCount',
     ]);
   });
 
