@@ -215,6 +215,35 @@ class Fb2TopParserTest {
     }
 
     @Test
+    void fetchDetailedMetadata_readsCoverFromImageAttributeWithoutOpenGraph() throws Exception {
+        mockSettings(true);
+        String html = """
+                <!doctype html><html lang="ru"><head>
+                  <link rel="canonical" href="https://fb2.top/master-i-margarita-66372"/>
+                </head><body>
+                  <img src="https://sun9-1.userapi.com/cover.jpg" class="book-info-poster-img" itemprop="image">
+                  <h1 itemprop="name">Мастер и Маргарита</h1>
+                </body></html>
+                """;
+        mockHttp(Map.of("https://fb2.top/master-i-margarita-66372", html));
+
+        BookMetadata result = parser.fetchDetailedMetadata("master-i-margarita-66372");
+
+        assertThat(result).isNotNull();
+        assertThat(result.getThumbnailUrl()).isEqualTo("https://sun9-1.userapi.com/cover.jpg");
+    }
+
+    @Test
+    void retryDelayHonoursHttpDateRetryAfter() {
+        String retryAfter = java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME
+                .format(java.time.ZonedDateTime.now(java.time.ZoneOffset.UTC).plusSeconds(2));
+
+        assertThat(Fb2TopParser.retryDelayMillis(retryAfter, 1))
+                .isBetween(1_000L, 2_500L);
+        assertThat(Fb2TopParser.retryDelayMillis("not-a-date", 2)).isEqualTo(2_000L);
+    }
+
+    @Test
     void fetchDetailedMetadata_ignoresPlaceholderCover() throws Exception {
         mockSettings(true);
         mockHttp(Map.of("https://fb2.top/master-i-margarita-66372", detailNoposterHtml));

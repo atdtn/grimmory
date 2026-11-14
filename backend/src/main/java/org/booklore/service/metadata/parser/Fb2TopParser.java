@@ -301,9 +301,9 @@ public class Fb2TopParser implements BookParser, DetailedMetadataProvider {
             addIfNotBlank(categories, text(genre));
         }
 
-        String cover = text(document.selectFirst("img.book-info-poster-img"));
+        String cover = elementResource(document.selectFirst("img.book-info-poster-img"));
         if (cover == null) {
-            cover = text(document.selectFirst("[itemprop=image]"));
+            cover = elementResource(document.selectFirst("[itemprop=image]"));
         }
         if (cover == null) {
             cover = text(document.selectFirst("meta[property=og:image]"));
@@ -566,14 +566,31 @@ public class Fb2TopParser implements BookParser, DetailedMetadataProvider {
     private long retryDelayMillis(HttpResponse<String> response, int attempt) {
         return Math.min(MAX_RETRY_DELAY_MS,
                 response.headers().firstValue("Retry-After")
-                        .map(value -> {
-                            try {
-                                return Math.max(0L, Long.parseLong(value.trim()) * 1000L);
-                            } catch (NumberFormatException e) {
-                                return null;
-                            }
-                        })
+                        .map(value -> retryDelayMillis(value, attempt))
                         .orElse(1000L * attempt));
+    }
+
+    /**
+     * Parses both forms allowed by RFC 9110: delay-seconds and HTTP-date.
+     */
+    static long retryDelayMillis(String retryAfter, int attempt) {
+        long fallback = 1000L * attempt;
+        if (retryAfter == null || retryAfter.isBlank()) {
+            return fallback;
+        }
+        try {
+            return Math.max(0L, Long.parseLong(retryAfter.trim()) * 1000L);
+        } catch (NumberFormatException ignored) {
+            // Fall through to the HTTP-date form.
+        }
+        try {
+            java.time.ZonedDateTime retryAt = java.time.ZonedDateTime.parse(
+                    retryAfter.trim(), java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME);
+            return Math.max(0L, Duration.between(
+                    java.time.ZonedDateTime.now(java.time.ZoneOffset.UTC), retryAt).toMillis());
+        } catch (RuntimeException e) {
+            return fallback;
+        }
     }
 
     private boolean isRetryable(int status) {
@@ -612,6 +629,13 @@ public class Fb2TopParser implements BookParser, DetailedMetadataProvider {
             Thread.currentThread().interrupt();
             return false;
         }
+    }
+
+    private static String elementResource(Element element) {
+        if (element == null) {
+            return null;
+        }
+        return firstNonBlank(element.attr("content"), element.attr("src"), element.attr("data-src"));
     }
 
     private static String text(Element element) {
