@@ -658,6 +658,10 @@ public class AppBookSpecification {
         return buildRatingRangeSpec(rangeIds, mode, "labirintRating");
     }
 
+    public static Specification<BookEntity> withFb2TopRatings(List<String> rangeIds, String mode) {
+        return buildRatingRangeSpec(rangeIds, mode, "fb2TopRating");
+    }
+
     public static Specification<BookEntity> withRanobedbRatings(List<String> rangeIds, String mode) {
         return buildRatingRangeSpec(rangeIds, mode, "ranobedbRating");
     }

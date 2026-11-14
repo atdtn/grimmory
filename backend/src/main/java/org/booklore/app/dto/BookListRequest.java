@@ -38,6 +38,7 @@ public record BookListRequest(
         @Size(max = 20) List<String> fantasyWorldsRating,
         @Size(max = 20) List<String> litnetRating,
         @Size(max = 20) List<String> labirintRating,
+        @Size(max = 20) List<String> fb2TopRating,
         @Size(max = 20) List<String> ranobedbRating,
         @Size(max = 20) List<String> audibleRating,
         @Size(max = 20) List<String> pageCount,

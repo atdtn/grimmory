@@ -592,6 +592,7 @@ public class AppBookService {
         List<AppFilterOptions.CountedOption> fantasyWorldsRatings = queryRatingBuckets("m.fantasyWorldsRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
         List<AppFilterOptions.CountedOption> litnetRatings = queryRatingBuckets("m.litnetRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
         List<AppFilterOptions.CountedOption> labirintRatings = queryRatingBuckets("m.labirintRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
+        List<AppFilterOptions.CountedOption> fb2TopRatings = queryRatingBuckets("m.fb2TopRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
         List<AppFilterOptions.CountedOption> ranobedbRatings = queryRatingBuckets("m.ranobedbRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
         List<AppFilterOptions.CountedOption> audibleRatings = queryRatingBuckets("m.audibleRating", scopeClause, accessibleLibraryIds, libraryId, shelfId, magicBookIds);
 
@@ -677,6 +678,7 @@ public class AppBookService {
                 .fantasyWorldsRatings(fantasyWorldsRatings)
                 .litnetRatings(litnetRatings)
                 .labirintRatings(labirintRatings)
+                .fb2TopRatings(fb2TopRatings)
                 .ranobedbRatings(ranobedbRatings)
                 .audibleRatings(audibleRatings)
                 .pageCounts(pageCounts)
@@ -718,6 +720,7 @@ public class AppBookService {
                 .fantasyWorldsRatings(Collections.emptyList())
                 .litnetRatings(Collections.emptyList())
                 .labirintRatings(Collections.emptyList())
+                .fb2TopRatings(Collections.emptyList())
                 .ranobedbRatings(Collections.emptyList())
                 .audibleRatings(Collections.emptyList())
                 .pageCounts(Collections.emptyList())
@@ -1016,6 +1019,13 @@ public class AppBookService {
             }
         }
 
+        if (req.fb2TopRating() != null && !req.fb2TopRating().isEmpty()) {
+            List<String> cleaned = BookListRequest.cleanValues(req.fb2TopRating());
+            if (!cleaned.isEmpty()) {
+                specs.add(AppBookSpecification.withFb2TopRatings(cleaned, req.effectiveFilterMode()));
+            }
+        }
+
         if (req.ranobedbRating() != null && !req.ranobedbRating().isEmpty()) {
             List<String> cleaned = BookListRequest.cleanValues(req.ranobedbRating());
             if (!cleaned.isEmpty()) {
@@ -1121,6 +1131,8 @@ public class AppBookService {
             case "litnetreviewcount" -> "metadata.litnetReviewCount";
             case "labirintrating" -> "metadata.labirintRating";
             case "labirintreviewcount" -> "metadata.labirintReviewCount";
+            case "fb2toprating" -> "metadata.fb2TopRating";
+            case "fb2topreviewcount" -> "metadata.fb2TopReviewCount";
             case "narrator" -> "metadata.narrator";
             case "lastreadtime" -> "userBookProgress.lastReadTime";
             case "readstatus" -> "userBookProgress.readStatus";
