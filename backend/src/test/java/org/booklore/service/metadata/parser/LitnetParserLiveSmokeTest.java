@@ -48,8 +48,7 @@ class LitnetParserLiveSmokeTest {
                 FetchMetadataRequest.builder().title("Мастер и Маргарита").build(),
                 FetchMetadataRequest.builder().title("Мастер и Маргарита")
                         .author("Михаил Булгаков").build(),
-                FetchMetadataRequest.builder().title("Мастер клинков").build(),
-                FetchMetadataRequest.builder().author("Булгаков").build()
+                FetchMetadataRequest.builder().title("Мастер клинков").build()
         );
 
         BookMetadata firstResult = null;
@@ -66,6 +65,15 @@ class LitnetParserLiveSmokeTest {
                     query.getTitle() != null ? query.getTitle() : query.getAuthor(),
                     results.size(), first.getTitle(), first.getAuthors(), first.getPublishedDate());
         }
+
+        // Litnet search matches titles and descriptions, not author names: a
+        // query for "Булгаков" returns books about him. An author-only request
+        // must yield no results rather than unrelated cards.
+        assertThat(parser.fetchMetadata(
+                Book.builder().build(),
+                FetchMetadataRequest.builder().author("Булгаков").build()))
+                .as("Litnet author-only search")
+                .isEmpty();
 
         assertThat(firstResult).isNotNull();
         BookMetadata details = parser.fetchDetailedMetadata(firstResult.getLitnetId());

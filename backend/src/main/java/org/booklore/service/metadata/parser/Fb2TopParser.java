@@ -57,6 +57,14 @@ public class Fb2TopParser implements BookParser, DetailedMetadataProvider {
     private static final long MAX_RETRY_DELAY_MS = 30_000L;
     private static final Pattern ITEM_ID_PATTERN =
             Pattern.compile("[a-z0-9][a-z0-9_-]*-\\d+", Pattern.CASE_INSENSITIVE);
+    /**
+     * The site answers cookie-less requests with a 503 interstitial whose
+     * inline script sets {@code rg_h} and {@code rg_e}. Those cookies are not
+     * sent as {@code Set-Cookie} headers, so they have to be read from the body.
+     * Values are replayed as request headers, so control characters are rejected.
+     */
+    private static final Pattern CHALLENGE_COOKIE_PATTERN = Pattern.compile(
+            "document\\.cookie\\s*=\\s*['\"](rg_[a-z]+)=([^'\";\\r\\n]+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern YEAR_PATTERN = Pattern.compile("\\b(1[0-9]{3}|20[0-9]{2})\\b");
     private static final Pattern DIGITS_PATTERN = Pattern.compile("\\d+");
     private static final Pattern DECIMAL_PATTERN = Pattern.compile("\\d+(?:[.,]\\d+)?");
@@ -502,6 +510,12 @@ public class Fb2TopParser implements BookParser, DetailedMetadataProvider {
                 if (status >= 200 && status < 300) {
                     return response.body();
                 }
+                if (applyChallengeCookies(response.body())) {
+                    log.debug("FB2.top returned a session challenge, retrying with its cookies");
+                    if (attempt < MAX_RETRIES) {
+                        continue;
+                    }
+                }
                 if (status == 404) {
                     log.debug("FB2.top resource not found: {}", url);
                     return null;
@@ -595,6 +609,37 @@ public class Fb2TopParser implements BookParser, DetailedMetadataProvider {
 
     private boolean isRetryable(int status) {
         return status == 403 || status == 429 || status >= 500;
+    }
+
+    private boolean applyChallengeCookies(String body) {
+        if (body == null || body.isBlank()
+                || !body.toLowerCase(java.util.Locale.ROOT).contains("rg_")) {
+            return false;
+        }
+        Matcher matcher = CHALLENGE_COOKIE_PATTERN.matcher(body);
+        boolean changed = false;
+        while (matcher.find()) {
+            String name = matcher.group(1);
+            String value = matcher.group(2).trim();
+            if (isHeaderSafe(value) && !value.equals(cookies.get(name))) {
+                cookies.put(name, value);
+                changed = true;
+            }
+        }
+        return changed;
+    }
+
+    private static boolean isHeaderSafe(String value) {
+        if (value.isEmpty()) {
+            return false;
+        }
+        for (int i = 0; i < value.length(); i++) {
+            char character = value.charAt(i);
+            if (character <= 0x20 || character == 0x7f) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void storeCookies(HttpResponse<String> response) {

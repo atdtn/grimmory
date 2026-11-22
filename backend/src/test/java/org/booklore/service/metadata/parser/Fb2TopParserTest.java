@@ -143,6 +143,82 @@ class Fb2TopParserTest {
     }
 
     @Test
+    void fetchMetadata_solvesJavaScriptChallengeAndRetriesWithCookies() throws Exception {
+        mockSettings(true);
+        String challenge = """
+                <!doctype html><html lang="ru"><head>
+                  <title>Открываем главу…</title>
+                  <script>
+                    document.cookie='rg_h=challengeToken; path=/; max-age=604800; SameSite=Lax';
+                    document.cookie='rg_e=1795916062; path=/; max-age=604800; SameSite=Lax';
+                  </script>
+                </head><body><p>Открываем главу…</p></body></html>
+                """;
+        List<HttpRequest> requests = new CopyOnWriteArrayList<>();
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    HttpRequest request = invocation.getArgument(0);
+                    requests.add(request);
+                    if (request.uri().getPath().equals("/search")) {
+                        if (requests.size() == 1) {
+                            return response(503, challenge, Map.of("Retry-After", List.of("5")));
+                        }
+                        return response(200, searchMasterHtml, Map.of());
+                    }
+                    return response(200, detailMasterHtml, Map.of());
+                });
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Мастер и Маргарита").build(),
+                FetchMetadataRequest.builder().title("Мастер и Маргарита").build());
+
+        assertThat(results).isNotEmpty();
+        assertThat(requests.getFirst().headers().firstValue("Cookie"))
+                .as("the first request must be cookie-less to receive the challenge")
+                .isEmpty();
+        assertThat(requests.stream()
+                .filter(request -> request.uri().getPath().equals("/search"))
+                .count())
+                .isEqualTo(2);
+        HttpRequest retried = requests.get(1);
+        assertThat(retried.headers().firstValue("Cookie"))
+                .hasValueSatisfying(cookie -> assertThat(cookie)
+                        .contains("rg_h=challengeToken", "rg_e=1795916062"));
+    }
+
+    @Test
+    void fetchMetadata_rejectsChallengeCookieWithControlCharacters() throws Exception {
+        mockSettings(true);
+        String challenge = """
+                <html><body><script>
+                  document.cookie='rg_h=bad\u0001value; path=/; max-age=604800';
+                </script></body></html>
+                """;
+        List<HttpRequest> requests = new CopyOnWriteArrayList<>();
+        when(httpClient.<String>send(any(HttpRequest.class), any()))
+                .thenAnswer(invocation -> {
+                    HttpRequest request = invocation.getArgument(0);
+                    requests.add(request);
+                    if (request.uri().getPath().equals("/search")) {
+                        if (requests.size() == 1) {
+                            return response(503, challenge, Map.of("Retry-After", List.of("0")));
+                        }
+                        return response(200, searchMasterHtml, Map.of());
+                    }
+                    return response(200, detailMasterHtml, Map.of());
+                });
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Мастер и Маргарита").build(),
+                FetchMetadataRequest.builder().title("Мастер и Маргарита").build());
+
+        assertThat(results).isNotEmpty();
+        assertThat(requests.get(1).headers().firstValue("Cookie"))
+                .as("unsafe cookie values must never become request headers")
+                .isEmpty();
+    }
+
+    @Test
     void fetchMetadata_usesTextQueryParameter() throws Exception {
         mockSettings(true);
         List<HttpRequest> requests = new CopyOnWriteArrayList<>();

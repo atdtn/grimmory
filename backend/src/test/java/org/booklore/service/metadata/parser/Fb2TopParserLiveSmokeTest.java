@@ -26,9 +26,7 @@ import static org.mockito.Mockito.when;
 @EnabledIfEnvironmentVariable(named = "FB2_TOP_LIVE_TEST", matches = "true")
 class Fb2TopParserLiveSmokeTest {
 
-    @Test
-    @Timeout(180)
-    void searchesMasterAndMargaritaAndFetchesDetails() {
+    private Fb2TopParser parser() {
         AppSettingService appSettingService = mock(AppSettingService.class);
         AppSettings appSettings = new AppSettings();
         MetadataProviderSettings settings = new MetadataProviderSettings();
@@ -38,9 +36,15 @@ class Fb2TopParserLiveSmokeTest {
         appSettings.setMetadataProviderSettings(settings);
         when(appSettingService.getAppSettings()).thenReturn(appSettings);
 
-        Fb2TopParser parser = new Fb2TopParser(
+        return new Fb2TopParser(
                 appSettingService,
                 HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).build());
+    }
+
+    @Test
+    @Timeout(180)
+    void searchesMasterAndMargaritaAndFetchesDetails() {
+        Fb2TopParser parser = parser();
 
         List<BookMetadata> results = parser.fetchMetadata(
                 Book.builder().title("Мастер и Маргарита").build(),
@@ -67,5 +71,26 @@ class Fb2TopParserLiveSmokeTest {
         System.out.printf("FB2.top live details: %s / %s / pages %s / rating %s / cover %s%n",
                 details.getTitle(), details.getAuthors(), details.getPageCount(),
                 details.getFb2TopRating(), details.getThumbnailUrl());
+    }
+
+    @Test
+    @Timeout(180)
+    void findsBookByLongTitleBehindSessionChallenge() {
+        Fb2TopParser parser = parser();
+
+        List<BookMetadata> results = parser.fetchMetadata(
+                Book.builder().title("Не на своём месте, или Целитель в академии тёмных").build(),
+                FetchMetadataRequest.builder()
+                        .title("Не на своём месте, или Целитель в академии тёмных")
+                        .author("Лика Вериор")
+                        .build());
+
+        assertThat(results).as("FB2.top results for the reported book").isNotEmpty();
+        BookMetadata first = results.getFirst();
+        assertThat(first.getFb2TopId())
+                .isEqualTo("ne-na-svoem-meste-ili-celitely-v-akademii-temnyh-598520");
+        assertThat(first.getTitle()).contains("Не на своём месте");
+        assertThat(first.getAuthors()).anyMatch(author -> author.contains("Вериор"));
+        assertThat(first.getPageCount()).isPositive();
     }
 }
