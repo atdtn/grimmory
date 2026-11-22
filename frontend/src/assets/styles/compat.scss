@@ -178,10 +178,6 @@
   bottom: 0;
 }
 
-.chart-info-tooltip.p-tooltip {
-  --p-tooltip-max-width: 21.875rem;
-}
-
 .progress-incomplete .p-progressbar-value {
   background-color: var(--color-blue-500);
 }
@@ -208,10 +204,6 @@
 
 .cover-progress-bar {
   --p-progressbar-border-radius: 0 !important;
-}
-
-.custom-button-padding .p-button {
-  padding-block: 0.2188rem !important;
 }
 
 .book-details-dialog .p-dialog-header {

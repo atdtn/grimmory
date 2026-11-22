@@ -2,7 +2,7 @@ import {MetadataCatalogService} from '../../../../../shared/metadata/metadata-ca
 import {METADATA_PROVIDER_LIST, type MetadataProviderId} from '../../../../../shared/metadata/metadata-providers';
 import {Component, computed, input, output, provideZonelessChangeDetection, signal} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {experimental_streamedQuery, provideTanStackQuery, queryOptions, QueryClient} from '@tanstack/angular-query-experimental';
+import {experimental_streamedQuery, provideTanStackQuery, queryOptions, QueryClient} from '@tanstack/angular-query';
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 
 import {getTranslocoModule} from '../../../../../core/testing/transloco-testing';
@@ -10,7 +10,8 @@ import {AppSettings} from '../../../../../shared/model/app-settings.model';
 import {AppSettingsService} from '../../../../../shared/service/app-settings.service';
 import {CoverComponent} from '../../../../../shared/components/cover/cover.component';
 import {Book, BookMetadata} from '../../../../book/model/book.model';
-import {MetadataSourceQueryService, type MetadataSearchParams, type MetadataSearchResult} from '../../../sources/metadata-source-query.service';
+import {MetadataSourceQueryService} from '../../../sources/metadata-source-query.service';
+import type {MetadataSearchParams, MetadataSearchResult} from '../../../sources/metadata-source-query.models';
 import {MetadataPickerComponent} from '../metadata-picker/metadata-picker.component';
 import {MetadataSearcherComponent} from './metadata-searcher.component';
 
@@ -86,12 +87,13 @@ describe('MetadataSearcherComponent', () => {
     queryResult = Promise.resolve(results);
     prospective.mockClear();
     appSettings.set(null);
+    queryClient = new QueryClient();
 
     await TestBed.configureTestingModule({
       imports: [MetadataSearcherComponent, getTranslocoModule()],
       providers: [
         provideZonelessChangeDetection(),
-        provideTanStackQuery(queryClient = new QueryClient()),
+        provideTanStackQuery(() => queryClient),
         {provide: AppSettingsService, useValue: {appSettings}},
         {provide: MetadataSourceQueryService, useValue: {
           prospective,

@@ -2,12 +2,13 @@ import {computed, effect, inject, Service} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {lastValueFrom, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {injectQuery, queryOptions, QueryClient} from '@tanstack/angular-query-experimental';
+import {injectQuery, queryOptions, QueryClient} from '@tanstack/angular-query';
 
 import {API_CONFIG} from '../../../core/config/api-config';
 import {AuthService} from '../../../shared/service/auth.service';
 import {IconType} from '../../../shared/icons/icon-selection';
 import {invalidateBookCollections} from '../../book/data/book-query-cache';
+import {shelfQueryKeys} from '../../shelf/data/shelf-query-keys';
 
 export interface MagicShelf {
   id?: number | null;
@@ -82,6 +83,7 @@ export class MagicShelfService {
     return this.http.post<MagicShelf>(this.url, payload).pipe(
       tap(() => {
         void this.queryClient.invalidateQueries({queryKey: MAGIC_SHELVES_QUERY_KEY, exact: true});
+        void this.queryClient.invalidateQueries({queryKey: shelfQueryKeys.all()});
         void invalidateBookCollections(this.queryClient);
       })
     );
@@ -95,6 +97,7 @@ export class MagicShelfService {
     return this.http.delete<void>(`${this.url}/${id}`).pipe(
       tap(() => {
         void this.queryClient.invalidateQueries({queryKey: MAGIC_SHELVES_QUERY_KEY, exact: true});
+        void this.queryClient.invalidateQueries({queryKey: shelfQueryKeys.all()});
         void invalidateBookCollections(this.queryClient);
       })
     );

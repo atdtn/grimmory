@@ -8,7 +8,9 @@ import {
   UserService,
 } from '../../settings/user-management/user.service';
 import {
+  entityViewCardDetail,
   entityViewMode,
+  entityViewSeriesCollapsed,
   entityViewSortCriteria,
   entityViewSortPatch,
   findEntityViewPreferenceOverride,
@@ -18,7 +20,7 @@ import {
 import {browseSortCriteria} from '../../../shared/browse/sort';
 import {
   DEFAULT_BOOK_SORT_TERMS,
-  sortTermsToken,
+  type BookQueryFacetKey,
   type BookQuerySortKey,
   type BookSortTerm,
 } from '../data/book-query-params';
@@ -28,33 +30,33 @@ import {
   normalizeBookColumnPreferences,
   type BookBrowseColumnVisibilityChange,
 } from './book-browse-columns';
-import {injectHiddenProviderFieldKeys} from './book-browse-fields';
-import {bookSortTermsFromCriteria} from './book-browse-sort';
-import {type BookBrowseUrlState, type BookBrowseViewMode} from './book-browse-url-state';
+import {injectHiddenProviderFieldKeys, type BookDetailLineSortKey} from './book-browse-fields';
+import {bookCardDetailOptions, bookSortTermsFromCriteria} from './book-browse-sort';
+import {type BrowseUrlState, type BrowseViewMode} from '../../../shared/browse/url-state';
 
 export interface BookBrowsePreferencesOptions {
   readonly context: Signal<EntityViewPreferenceContext | null>;
-  readonly availableSortKeys: Signal<ReadonlySet<BookQuerySortKey>>;
-  readonly urlState: BookBrowseUrlState;
+  readonly urlState: BrowseUrlState<BookQueryFacetKey, BookQuerySortKey>;
 }
 
-export function createBookBrowsePreferences({context, availableSortKeys, urlState}: BookBrowsePreferencesOptions) {
+export function createBookBrowsePreferences({context, urlState}: BookBrowsePreferencesOptions) {
   const userService = inject(UserService);
   const messages = inject(MessageService);
   const transloco = inject(TranslocoService);
   const entityViewPreferences = computed(() => userService.currentUser()?.userSettings.entityViewPreferences);
 
-  const viewMode = computed<BookBrowseViewMode>(() =>
+  const viewMode = computed<BrowseViewMode>(() =>
     urlState.view() ?? (entityViewMode(entityViewPreferences(), context()) === 'TABLE' ? 'table' : 'grid'));
-  const formatPill = computed(() => entityViewPreferences()?.global?.overlayBookType ?? true);
-
+  const formatPill = computed(() => entityViewPreferences()?.global.overlayBookType ?? true);
+  const seriesCollapsed = linkedSignal(() => entityViewSeriesCollapsed(entityViewPreferences(), context()));
   const hiddenProviderFields = injectHiddenProviderFieldKeys();
-  const isAvailableSortTerm = (term: BookSortTerm): boolean => {
-    const available = availableSortKeys();
-    return !hiddenProviderFields().has(term.key) && (available.size === 0 || available.has(term.key));
-  };
+  const cardDetailOptions = computed(() => bookCardDetailOptions(hiddenProviderFields()));
+  const cardDetail = linkedSignal(() => {
+    const key = entityViewCardDetail(entityViewPreferences(), context());
+    return key !== null && hiddenProviderFields().has(key) ? null : key;
+  });
 
-  const defaultSortTerms = computed<readonly BookSortTerm[]>(() => {
+  function defaultSortTerms(available: ReadonlySet<BookQuerySortKey>): readonly BookSortTerm[] {
     const preferences = entityViewPreferences();
     const scope = context();
     const candidates = [
@@ -65,19 +67,14 @@ export function createBookBrowsePreferences({context, availableSortKeys, urlStat
       if (!candidate) {
         continue;
       }
-      const terms = bookSortTermsFromCriteria(entityViewSortCriteria(candidate)).filter(isAvailableSortTerm);
+      const terms = bookSortTermsFromCriteria(entityViewSortCriteria(candidate))
+        .filter(term => !hiddenProviderFields().has(term.key) && (available.size === 0 || available.has(term.key)));
       if (terms.length > 0) {
         return terms;
       }
     }
     return DEFAULT_BOOK_SORT_TERMS;
-  });
-  const sortTerms = computed<readonly BookSortTerm[]>(() => {
-    const terms = urlState.sortTerms().filter(isAvailableSortTerm);
-    return terms.length > 0 ? terms : defaultSortTerms();
-  });
-  const isDefaultSort = (terms: readonly BookSortTerm[]): boolean =>
-    sortTermsToken(terms) === sortTermsToken(defaultSortTerms());
+  }
 
   const columnPreferences = linkedSignal<TableColumnPreference[]>(() =>
     normalizeBookColumnPreferences(
@@ -118,17 +115,12 @@ export function createBookBrowsePreferences({context, availableSortKeys, urlStat
   return {
     viewMode,
     formatPill,
-    sortTerms,
+    cardDetail,
+    cardDetailOptions,
+    seriesCollapsed: seriesCollapsed.asReadonly(),
     defaultSortTerms,
-    isDefaultSort,
     columnOptions,
     visibleColumns,
-
-    setSortTerms(terms: readonly BookSortTerm[]): void {
-      const next = terms.length > 0 ? terms : DEFAULT_BOOK_SORT_TERMS;
-      const collapsesMultiSort = sortTerms().length > 1 && next.length === 1;
-      urlState.setSortToken(isDefaultSort(next) ? null : sortTermsToken(next), !collapsesMultiSort);
-    },
 
     setColumnVisibility(change: BookBrowseColumnVisibilityChange): void {
       const column = columnOptions().find(option => option.field === change.field);
@@ -148,9 +140,19 @@ export function createBookBrowsePreferences({context, availableSortKeys, urlStat
       persistColumnPreferences();
     },
 
+    setCardDetail(value: BookDetailLineSortKey | null): void {
+      cardDetail.set(value);
+      updateViewPreference({cardDetail: value});
+    },
+
+    setSeriesCollapsed(collapsed: boolean): void {
+      seriesCollapsed.set(collapsed);
+      updateViewPreference({seriesCollapsed: collapsed});
+    },
+
     saveSortDefault(terms: readonly BookSortTerm[]): void {
       updateViewPreference(entityViewSortPatch(
-        browseSortCriteria(terms.length > 0 ? terms : DEFAULT_BOOK_SORT_TERMS),
+        browseSortCriteria(terms),
       ));
     },
   };

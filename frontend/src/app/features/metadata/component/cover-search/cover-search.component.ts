@@ -1,14 +1,15 @@
 import {Component, computed, inject, signal} from '@angular/core';
 import {MessageService} from '@openng/optimus-ui/api';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {injectQuery, QueryClient} from '@tanstack/angular-query-experimental';
+import {injectQuery, QueryClient} from '@tanstack/angular-query';
 import {Button} from '@openng/optimus-ui/button';
 import {InputText} from '@openng/optimus-ui/inputtext';
 import {ProgressSpinner} from '@openng/optimus-ui/progressspinner';
 import {DynamicDialogConfig, DynamicDialogRef} from '@openng/optimus-ui/dynamicdialog';
 import {BookService} from '../../../book/service/book.service';
 import {BookMetadataManageService} from '../../../book/service/book-metadata-manage.service';
-import {CoverImage, CoverSearchParams, MetadataSourceQueryService} from '../../sources/metadata-source-query.service';
+import {MetadataSourceQueryService} from '../../sources/metadata-source-query.service';
+import type {CoverImage, CoverSearchParams} from '../../sources/metadata-source-query.models';
 import {Image} from '@openng/optimus-ui/image';
 import {Tooltip} from '@openng/optimus-ui/tooltip';
 import {TranslocoDirective, TranslocoService} from '@jsverse/transloco';

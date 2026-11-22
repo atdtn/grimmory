@@ -48,9 +48,9 @@ import {BrowseEmptyDef} from '../../../shared/browse/grid/grid.directives';
 import {sameRenderedRange, type BrowseRenderedRange, type BrowseStatus} from '../../../shared/browse/results';
 import {createBrowseSkeletonDelay} from '../../../shared/browse/skeleton-delay';
 import {type BrowseSelection} from '../../../shared/browse/selection';
-import {isBookQuerySortKey, type BookSortTerm} from '../data/book-query-params';
+import {isBookQuerySortKey, type BookQueryFacetKey, type BookSortTerm} from '../data/book-query-params';
 import {type BookSummary} from '../data/book-response.models';
-import {bookTitle, type BookColumnValue} from './book-browse-fields';
+import {bookTitle, COLUMNS_BY_KEY, type BookColumnValue} from './book-browse-fields';
 import {
   bookColumnKind,
   bookColumnSizing,
@@ -59,7 +59,6 @@ import {
   formatBookValue,
   type BookColumnOption,
 } from './book-browse-columns';
-import {bookFacetLinks, type BookFacetLink} from './book-browse-facet-definitions';
 import {type BookSortOption} from './book-browse-sort';
 import {BookBrowseColumnWidthPreferenceService} from './book-browse-column-width-preference.service';
 
@@ -97,6 +96,11 @@ const BODY_CELL_CLASS =
   'border-border/70 bg-page px-3 group-hover/row:bg-surface-hover ' +
   'group-data-[menu-open=true]/row:bg-surface-hover group-data-[selected=true]/row:bg-active-surface!';
 
+interface BookFacetLink {
+  readonly key: BookQueryFacetKey;
+  readonly value: string;
+}
+
 @Component({
   selector: 'app-book-browse-table',
   imports: [
@@ -128,6 +132,7 @@ export class BookBrowseTableComponent {
   private readonly scrollPosition = inject(RouteScrollPositionService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly columnWidthPreference = inject(BookBrowseColumnWidthPreferenceService);
+
   readonly books = input.required<readonly BookSummary[]>();
   readonly status = input.required<BrowseStatus>();
   readonly hasNextPage = input.required<boolean>();
@@ -136,7 +141,7 @@ export class BookBrowseTableComponent {
   readonly sortTerms = input.required<readonly BookSortTerm[]>();
   readonly sortOptions = input.required<readonly BookSortOption[]>();
   readonly mobile = input.required<boolean>();
-  readonly selection = input.required<BrowseSelection | null>();
+  readonly selection = input.required<BrowseSelection<BookSummary> | null>();
   readonly selectMode = input(false);
   readonly openMenuBookId = input.required<number | null>();
   readonly useSquareCovers = input.required<boolean>();
@@ -234,7 +239,13 @@ export class BookBrowseTableComponent {
     })),
   );
   protected readonly emptyValue = '—';
-  protected readonly bookTitle = bookTitle;
+  protected bookTitle(book: BookSummary): string {
+    return (this.seriesBookCount(book) !== null && book.metadata?.seriesName) || bookTitle(book);
+  }
+
+  protected seriesBookCount(book: BookSummary): number | null {
+    return book.seriesBookIds?.length ?? null;
+  }
 
   protected readonly rows = computed(() => this.table.getRowModel().rows);
   private readonly hasRows = computed(() => this.rows().length > 0);
@@ -418,13 +429,20 @@ export class BookBrowseTableComponent {
   }
 
   protected cellText(cell: BookBrowseCell): string | null {
+    if (this.seriesBookCount(cell.row.original) !== null && cell.column.id !== 'seriesName') {
+      return null;
+    }
     return formatBookValue(
       bookColumnKind(cell.column.id), cell.getValue<BookColumnValue>(), key => this.transloco.translate(key),
     );
   }
 
   protected cellLinks(book: BookSummary, field: string): readonly BookFacetLink[] {
-    return bookFacetLinks(book, field);
+    if (this.seriesBookCount(book) !== null && field !== 'seriesName') {
+      return [];
+    }
+    const facet = COLUMNS_BY_KEY.get(field)?.facet;
+    return facet?.itemValues?.(book).map(value => ({key: facet.key, value})) ?? [];
   }
 
   protected rememberSelectionPointer(event: MouseEvent): void {
@@ -450,11 +468,11 @@ export class BookBrowseTableComponent {
   }
 
   protected isSelected(book: BookSummary): boolean {
-    return this.selection()?.isSelected(book.id) ?? false;
+    return this.selection()?.isItemSelected(book) ?? false;
   }
 
   protected onRowContextMenu(book: BookSummary | undefined, event: MouseEvent): void {
-    if (!book || this.mobile()) {
+    if (!book || this.seriesBookCount(book) !== null || this.mobile()) {
       return;
     }
     event.preventDefault();
@@ -469,7 +487,9 @@ export class BookBrowseTableComponent {
 
   protected detailHref(book: BookSummary): string {
     return this.locationStrategy.prepareExternalUrl(
-      this.router.serializeUrl(this.router.createUrlTree(['/book', book.id])),
+      this.router.serializeUrl(this.router.createUrlTree(
+        this.seriesBookCount(book) !== null ? ['/series', book.metadata?.seriesName] : ['/book', book.id],
+      )),
     );
   }
 

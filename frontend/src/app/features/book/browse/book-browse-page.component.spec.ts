@@ -4,7 +4,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {Router, provideRouter} from '@angular/router';
 import {RouterTestingHarness} from '@angular/router/testing';
-import {QueryClient} from '@tanstack/angular-query-experimental';
+import {QueryClient} from '@tanstack/angular-query';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 
 import {API_CONFIG} from '../../../core/config/api-config';
@@ -24,7 +24,7 @@ import {BookFileService} from '../service/book-file.service';
 import {LibraryService} from '../service/library.service';
 import {LibraryShelfMenuService} from '../service/library-shelf-menu.service';
 import {MagicShelfService} from '../../magic-shelf/service/magic-shelf.service';
-import {ShelfDefinitionQueryService} from '../data/shelf-definition-query.service';
+import {ShelfQueryService} from '../../shelf/data/shelf-query.service';
 import {BookDialogHelperService} from '../service/book-dialog-helper.service';
 import {UserService} from '../../settings/user-management/user.service';
 import {EmailService} from '../../settings/email-v2/email.service';
@@ -41,22 +41,23 @@ class TestRouteComponent {}
 
 function bookPage(ids: number[], totalElements = ids.length, links: BrowseLink[] = []) {
   return {
-    content: ids.map(id => ({id, libraryId: 1, libraryName: 'Library'})),
+    content: ids.map(book),
     page: {number: 0, size: 60, totalElements, totalPages: Math.ceil(totalElements / 60)},
     links,
   };
 }
 
+function book(id: number): BookSummary {
+  return {id, libraryId: 1, libraryName: 'Library'};
+}
+
 interface PageHarness {
   detailLineFor(book: BookSummary): string | null;
-  selection: {
-    count(): number;
-    toggle(book: BookSummary, index: number, shiftKey: boolean): void;
+  page: {
+    setSortTerms(terms: readonly BookSortTerm[]): void;
+    searchDraft: {set(value: string): void};
+    clearQuery(): void;
   };
-  preferences: {setSortTerms(terms: readonly BookSortTerm[]): void};
-  searchDraft: {set(value: string): void};
-  onSortDirectionChange(term: BookSortTerm): void;
-  onClearQuery(): void;
 }
 
 const GLOBAL_PREFERENCE = {
@@ -126,6 +127,11 @@ describe('BookBrowsePageComponent', () => {
   }
 
   beforeEach(() => {
+    vi.stubGlobal('ResizeObserver', class {
+      observe = vi.fn();
+      unobserve = vi.fn();
+      disconnect = vi.fn();
+    });
     const harness = createQueryClientHarness();
     queryClient = harness.queryClient;
     queryClient.setDefaultOptions({queries: {retry: false}});
@@ -156,10 +162,10 @@ describe('BookBrowsePageComponent', () => {
           },
         },
         {
-          provide: ShelfDefinitionQueryService,
+          provide: ShelfQueryService,
           useValue: {
-            definitions: () => ({
-              queryKey: ['shelves', 'query', 'definitions'] as const,
+            shelves: () => ({
+              queryKey: ['shelves', 'query', 'regular'] as const,
               queryFn: () => Promise.resolve([]),
             }),
           },
@@ -184,6 +190,7 @@ describe('BookBrowsePageComponent', () => {
   afterEach(() => {
     http.verify();
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
     TestBed.resetTestingModule();
     history.replaceState({}, '', '/');
   });
@@ -305,6 +312,30 @@ describe('BookBrowsePageComponent', () => {
     await flushQueryAsync();
   });
 
+  it('keeps None on a library with a default card detail instead of falling back to the default', async () => {
+    currentUser.set(userFixture({}, 5, {cardDetail: 'addedOn'}));
+    const routerHarness = await routeTo('/library/3/books');
+    flushFacetRegistry();
+    http.expectOne(candidate => candidate.url === PAGE_URL).flush(bookPage([1], 1));
+    await flushQueryAsync();
+    const pageElement = routerHarness.routeDebugElement!;
+    const libraryPage = pageElement.componentInstance as PageHarness;
+    const dated = {...book(1), addedOn: '2026-02-14T10:00:00Z'};
+    expect(libraryPage.detailLineFor(dated)).toContain('2026');
+
+    pageElement.query(By.css('app-book-browse-toolbar')).componentInstance.cardDetail.set(null);
+    expect(libraryPage.detailLineFor(dated)).toBeNull();
+
+    const saved = updateUserSetting.mock.calls.at(-1)![2];
+    expect(saved.overrides).toEqual([expect.objectContaining({
+      entityType: 'LIBRARY',
+      entityId: 3,
+      preferences: expect.objectContaining({cardDetail: null}),
+    })]);
+    currentUser.set({...userFixture({}, 5), userSettings: {entityViewPreferences: saved}});
+    expect(libraryPage.detailLineFor(dated)).toBeNull();
+  });
+
   it('ignores reselecting the active sort and flips only the primary term on a direction toggle', async () => {
     fixture = TestBed.createComponent(BookBrowsePageComponent);
     await TestBed.inject(Router).navigate([], {queryParams: {sort: 'pageCount'}});
@@ -315,21 +346,20 @@ describe('BookBrowsePageComponent', () => {
     ).flush(bookPage([1], 1));
     await flushQueryAsync();
 
-    page().preferences.setSortTerms([{key: 'pageCount', direction: 'asc'}]);
+    page().page.setSortTerms([{key: 'pageCount', direction: 'asc'}]);
     await fixture.whenStable();
     await flushQueryAsync(1);
     http.expectNone(candidate => candidate.url === PAGE_URL);
 
     await TestBed.inject(Router).navigate([], {queryParams: {sort: '-title,pageCount'}});
-    await fixture.whenStable();
+    await flushQueryAsync(1);
     http.expectOne(request =>
       request.url === PAGE_URL && request.params.get('sort') === '-title,pageCount',
     ).flush(bookPage([1], 1));
     await flushQueryAsync();
 
-    page().onSortDirectionChange({key: 'title', direction: 'asc'});
-    await fixture.whenStable();
-    await flushQueryAsync(1);
+    (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('button[aria-label="Sort Ascending"]')!.click();
+    await flushQueryAsync();
     http.expectOne(request =>
       request.url === PAGE_URL && request.params.get('sort') === 'title,pageCount',
     ).flush(bookPage([1], 1));
@@ -344,8 +374,8 @@ describe('BookBrowsePageComponent', () => {
       expectInitialPageRequest().flush(bookPage([1], 1));
       const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
 
-      page().searchDraft.set('the war');
-      page().searchDraft.set('the warden ');
+      page().page.searchDraft.set('the war');
+      page().page.searchDraft.set('the warden ');
       TestBed.flushEffects();
       vi.advanceTimersByTime(SEARCH_DEBOUNCE_MS - 1);
       expect(navigate).not.toHaveBeenCalled();
@@ -358,9 +388,9 @@ describe('BookBrowsePageComponent', () => {
       }));
 
       navigate.mockClear();
-      page().searchDraft.set('the wardens');
+      page().page.searchDraft.set('the wardens');
       TestBed.flushEffects();
-      page().onClearQuery();
+      page().page.clearQuery();
       expect(navigate).toHaveBeenCalledExactlyOnceWith([], expect.objectContaining({
         queryParams: {query: null},
         queryParamsHandling: 'merge',

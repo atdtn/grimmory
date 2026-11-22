@@ -22,6 +22,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -766,7 +767,7 @@ class BookRuleEvaluatorEdgeCasesTest {
         }
 
         @Test
-        void excludesAll_noProgress_withOtherUserProgress_bookExcludedByUserFilter() {
+        void excludesAll_noProgress_withOtherUserProgress() {
             BookLoreUserEntity user2 = BookLoreUserEntity.builder()
                     .username("otheruser2")
                     .passwordHash("hash2")
@@ -786,8 +787,33 @@ class BookRuleEvaluatorEdgeCasesTest {
 
             List<Long> ids = findMatchingIds(singleRule(RuleField.READ_STATUS, RuleOperator.EXCLUDES_ALL,
                     List.of("READ", "ABANDONED")));
-            assertThat(ids).doesNotContain(book.getId());
-            assertThat(ids).contains(noProgressBook.getId());
+            assertThat(ids).containsExactlyInAnyOrder(book.getId(), noProgressBook.getId());
+        }
+
+        @Test
+        void noOperator_noProgress_withOtherUserProgress() {
+            BookLoreUserEntity user2 = BookLoreUserEntity.builder()
+                    .username("otheruser2")
+                    .passwordHash("hash2")
+                    .isDefaultPassword(true)
+                    .name("Other User 2")
+                    .build();
+            em.persist(user2);
+
+            BookEntity book = createBook("Multi User Book");
+            UserBookProgressEntity otherProgress = UserBookProgressEntity.builder()
+                    .user(user2).book(book).readStatus(ReadStatus.READ).build();
+            em.persist(otherProgress);
+
+            em.flush();
+            em.clear();
+
+            GroupRule group = new GroupRule();
+            group.setJoin(JoinType.AND);
+            group.setRules(null);
+
+            List<Long> ids = findMatchingIds(group);
+            assertThat(ids).containsExactly(book.getId());
         }
     }
 
@@ -892,7 +918,16 @@ class BookRuleEvaluatorEdgeCasesTest {
         @Test
         void thisPeriod_defaultsToYear() {
             BookEntity recent = createBook("Recent");
-            recent.setAddedOn(Instant.now().minusSeconds(86400));
+            Instant midYear = Instant.now()
+                    .atZone(ZoneId.systemDefault())
+                    .withMonth(6)
+                    .withDayOfMonth(15)
+                    .withHour(17)
+                    .withMinute(0)
+                    .withSecond(0)
+                    .withNano(0)
+                    .toInstant();
+            recent.setAddedOn(midYear);
             em.merge(recent);
             em.flush();
             em.clear();

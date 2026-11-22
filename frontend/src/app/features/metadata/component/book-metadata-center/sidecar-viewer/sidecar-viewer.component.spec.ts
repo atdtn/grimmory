@@ -1,14 +1,15 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MessageService} from '@openng/optimus-ui/api';
 import {TranslocoService} from '@jsverse/transloco';
-import {provideTanStackQuery, queryOptions, QueryClient} from '@tanstack/angular-query-experimental';
+import {provideTanStackQuery, queryOptions, QueryClient} from '@tanstack/angular-query';
 import {BehaviorSubject, of, throwError} from 'rxjs';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 
 import {Book} from '../../../../book/model/book.model';
 import {SidecarService} from '../../../service/sidecar.service';
 import {SidecarMetadata, SidecarSyncStatus} from '../../../sources/sidecar.models';
-import {metadataSourceKeys, MetadataSourceQueryService} from '../../../sources/metadata-source-query.service';
+import {metadataSourceQueryKeys} from '../../../sources/metadata-source-query-keys';
+import {MetadataSourceQueryService} from '../../../sources/metadata-source-query.service';
 import {SidecarViewerComponent} from './sidecar-viewer.component';
 
 describe('SidecarViewerComponent', () => {
@@ -27,7 +28,7 @@ describe('SidecarViewerComponent', () => {
     return content;
   });
   const sidecarStatus = vi.fn((bookId: number) => queryOptions({
-    queryKey: metadataSourceKeys.sidecarStatus(bookId),
+    queryKey: metadataSourceQueryKeys.sidecarStatus(bookId),
     queryFn: async () => {
       if (statusError) throw statusError;
       return {status};
@@ -35,7 +36,7 @@ describe('SidecarViewerComponent', () => {
     retry: false,
   }));
   const sidecar = vi.fn((bookId: number) => queryOptions({
-    queryKey: metadataSourceKeys.sidecar(bookId),
+    queryKey: metadataSourceQueryKeys.sidecar(bookId),
     queryFn: contentQuery,
     retry: false,
   }));
@@ -67,7 +68,7 @@ describe('SidecarViewerComponent', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        provideTanStackQuery(queryClient),
+        provideTanStackQuery(() => queryClient),
         {provide: MessageService, useValue: {add: messageAdd}},
         {provide: SidecarService, useValue: {exportToSidecar, importFromSidecar}},
         {provide: MetadataSourceQueryService, useValue: {sidecarStatus, sidecar}},
@@ -185,7 +186,7 @@ describe('SidecarViewerComponent', () => {
     component.exportToSidecar();
 
     expect(messageAdd).toHaveBeenCalledWith(expect.objectContaining({severity: 'success'}));
-    expect(invalidate).toHaveBeenCalledWith({queryKey: metadataSourceKeys.sidecar(12)});
+    expect(invalidate).toHaveBeenCalledWith({queryKey: metadataSourceQueryKeys.sidecarQueries(12)});
   });
 
   it('reports an export error', async () => {
@@ -204,7 +205,7 @@ describe('SidecarViewerComponent', () => {
     component.importFromSidecar();
 
     expect(messageAdd).toHaveBeenCalledWith(expect.objectContaining({severity: 'success'}));
-    expect(invalidate).toHaveBeenCalledWith({queryKey: metadataSourceKeys.sidecar(12)});
+    expect(invalidate).toHaveBeenCalledWith({queryKey: metadataSourceQueryKeys.sidecarQueries(12)});
   });
 
   it('reports an import error', async () => {
